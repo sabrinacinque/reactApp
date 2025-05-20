@@ -10,7 +10,7 @@ export default function MemoryGame() {
 
   // 1) Carico i dati
   useEffect(() => {
-    fetch("/dati/pokemons.json")
+    fetch('http://localhost:8080/api/pokemons')
       .then((r) => r.json())
       .then((data) => {
         setPokemons(data);

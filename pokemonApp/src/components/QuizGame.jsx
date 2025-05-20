@@ -9,7 +9,7 @@ export default function QuizGame() {
 
   // 1️⃣ Carica i dati e genera le domande
   useEffect(() => {
-    fetch('/dati/pokemons.json')
+    fetch('http://localhost:8080/api/pokemons')
       .then(r => r.json())
       .then(data => {
         setPokemons(data)

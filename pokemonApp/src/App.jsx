@@ -19,7 +19,7 @@ export default function App() {
       <main className="flex-grow-1 overflow-auto">
         <Routes>
           <Route path="/" element={<PokemonList searchTerm={searchTerm} />} />{/*qua passo la callback del search a header*/ }
-          <Route path="/pokemon/:name" element={<PokemonDetails />} />
+          <Route path="/pokemon/:id" element={<PokemonDetails />} />
           <Route path="/gioca" element={<Gioca />} />
           <Route path="/gioca/memory" element={<MemoryGame />} />
           <Route path="/gioca/quiz" element={<QuizGame />} />
