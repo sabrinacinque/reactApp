@@ -19,26 +19,26 @@ export default function PokemonDetails() {
 
   return (
     <div className="container my-4 text-light">
-      <Link to="/" className="btn btn-secondary mb-3">← Torna alla lista</Link>
+      <Link to="/" className="btn btn-danger my-5 fs-4 text-light">← Torna alla lista</Link>
 
-      <div className="row g-4">
+      <div className="row g-4 mt-5">
         <div className="col-md-4 text-center">
           <img
             src={pokemon.image}
             alt={pokemon.name}
-            className="img-fluid rounded"
+            className="img-fluid rounded h-100"
           />
         </div>
         <div className="col-md-8">
           <h1 className="text-capitalize">{pokemon.name}</h1>
-          <h5>Esperienza base: {pokemon.experience}</h5>
-          <p>{pokemon.description}</p>
+          <h3>Esperienza base: {pokemon.experience}</h3>
+          <h3>{pokemon.description}</h3>
 
-          <h5>Tipi:</h5>
+          <h3>Tipi:</h3>
           {pokemon.types.map(t => (
             <span
               key={t.id}
-              className="badge bg-info text-dark me-1 text-capitalize"
+              className="badge bg-info text-dark me-1 text-capitalize fs-4"
             >
               {t.name}
             </span>

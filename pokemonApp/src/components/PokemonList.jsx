@@ -4,7 +4,8 @@ import { Link }                   from 'react-router-dom';
 import Layout                     from './Layout';
 
 export default function PokemonList({ searchTerm }) {
-  const [pokemons, setPokemons]     = useState([]);
+  const [pokemons, setPokemons]     = useState([]); //usestat ci da un valore attuale dello stato(in questo caso un array vuoto) e una funzione per modificarlo
+  // const [searchTerm, setSearchTerm] = useState(''); //questo non serve più perchè ora lo passo come props dove? lo passo in app.jsx
   const [allTypes, setAllTypes]     = useState([]);
   const [typeFilter, setTypeFilter] = useState('');
 
@@ -19,8 +20,8 @@ export default function PokemonList({ searchTerm }) {
   // 2️⃣ Carica i Pokémon, filtrati per nome se searchTerm non è vuoto
   useEffect(() => {
     const url = searchTerm
-      ? `http://localhost:8080/api/pokemons?name=${searchTerm}`
-      : 'http://localhost:8080/api/pokemons';
+      ? `http://localhost:8080/api/pokemons?name=${searchTerm}`//questo in pratica è l'operatore ternario.gli dico che se searchTerm è vuoto allora prendi tutti i pokémon, altrimenti prendi solo quelli che hanno il nome uguale a searchTerm
+      : 'http://localhost:8080/api/pokemons';                  //altrimenti mi fai il fetch sull'url di tutti i pokémon
 
     fetch(url)
       .then(res => res.json())
