@@ -1,0 +1,57 @@
+[
+  {
+    "titolo": "Tokyo",
+    "descrizione": "La capitale del Giappone. Bellissima città! In primo piano la famosa Torre di Tokyo!",
+    "imgsrc": "/immagini/Tokyo.jpg"
+  },
+  {
+    "titolo": "Roma",
+    "descrizione": "La capitale d'Italia. Bellissima città! In primo piano il Colosseo!",
+    "imgsrc": "/immagini/Roma.jpg"
+  },
+  {
+    "titolo": "Napoli",
+    "descrizione": "La capitale della pizza. Bellissima città! In primo piano il Vesuvio!",
+    "imgsrc": "/immagini/Napoli.jpg"
+  },
+  {
+    "titolo": "Pechino",
+    "descrizione": "La capitale della Cina. Bellissima città! In primo piano la Grande Muraglia!",
+    "imgsrc": "/immagini/Pechino.jpg"
+  },
+  {
+    "titolo": "Londra",
+    "descrizione": "La capitale della Gran Bretagna. Bellissima città! In primo piano il Big Ben!",
+    "imgsrc": "/immagini/Londra.jpg"
+  },
+  {
+    "titolo": "New York",
+    "descrizione": "La capitale degli Stati Uniti. Bellissima città! In primo piano la Statua della Libertà!",
+    "imgsrc": "/immagini/NewYork.jpg"
+  },
+  {
+    "titolo": "Los Angeles",
+    "descrizione": "La capitale del cinema. Bellissima città! In primo piano gli Studios della Warner Bros!",
+    "imgsrc": "/immagini/LosAngeles.jpg"
+  },
+  {
+    "titolo": "San Francisco",
+    "descrizione": "La capitale della Silicon Valley. Bellissima città! In primo piano il Golden Gate!",
+    "imgsrc": "/immagini/SanFrancisco.jpg"
+  },
+  {
+    "titolo": "Miami",
+    "descrizione": "La capitale della Florida. Bellissima città! In primo piano le spiagge!",
+    "imgsrc": "/immagini/Miami.webp"
+  },
+    {
+    "titolo": "San Francisco",
+    "descrizione": "La capitale della Silicon Valley. Bellissima città! In primo piano il Golden Gate!",
+    "imgsrc": "/immagini/SanFrancisco.jpg"
+  },
+  {
+    "titolo": "Miami",
+    "descrizione": "La capitale della Florida. Bellissima città! In primo piano le spiagge!",
+    "imgsrc": "/immagini/Miami.webp"
+  }
+]

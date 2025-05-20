@@ -1,0 +1,950 @@
+[
+  {
+    "name": "bulbasaur",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
+    "experience": 64,
+    "description": "Alla nascita gli è stato piantato sulla schiena un seme raro. La pianta sboccia e cresce con lui.",
+    "types": [
+      "grass",
+      "poison"
+    ]
+  },
+  {
+    "name": "ivysaur",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
+    "experience": 142,
+    "description": "Dopo aver assorbito sufficienti sostanze nutrienti, il bulbo sulla schiena sboccia in un magnifico fiore.",
+    "types": [
+      "grass",
+      "poison"
+    ]
+  },
+  {
+    "name": "venusaur",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+    "experience": 263,
+    "description": "Si riempie di energia grazie ai grandi petali del fiore, che spalanca catturando i raggi solari.",
+    "types": [
+      "grass",
+      "poison"
+    ]
+  },
+  {
+    "name": "charmander",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg",
+    "experience": 62,
+    "description": "La fiamma che Charmander ha sulla coda indica la sua forza vitale. Se è in forma, la fiamma è vivace.",
+    "types": [
+      "fire"
+    ]
+  },
+  {
+    "name": "charmeleon",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+    "experience": 142,
+    "description": "Fa cadere a terra il nemico colpendolo con la coda, per poi finirlo con gli artigli affilati.",
+    "types": [
+      "fire"
+    ]
+  },
+  {
+    "name": "charizard",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg",
+    "experience": 267,
+    "description": "Quando emette le sue lingue di fuoco, la fiamma rossa sulla punta della coda brucia più intensamente.",
+    "types": [
+      "fire",
+      "flying"
+    ]
+  },
+  {
+    "name": "squirtle",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/7.svg",
+    "experience": 63,
+    "description": "Si ritira nel suo guscio e, alla prima occasione, contrattacca colpendo il nemico con spruzzi d’acqua.",
+    "types": [
+      "water"
+    ]
+  },
+  {
+    "name": "wartortle",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/8.svg",
+    "experience": 142,
+    "description": "Quando si sente minacciato ritira la testa nella corazza, mentre la coda sporge sempre un po’.",
+    "types": [
+      "water"
+    ]
+  },
+  {
+    "name": "blastoise",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/9.svg",
+    "experience": 265,
+    "description": "Mette KO gli avversari schiacciandoli sotto il corpo possente. Se è in difficoltà, può ritrarsi nella corazza.",
+    "types": [
+      "water"
+    ]
+  },
+  {
+    "name": "caterpie",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/10.svg",
+    "experience": 39,
+    "description": "Per proteggersi emette un puzzo terribile dall’antenna sul capo, tenendo lontani i nemici.",
+    "types": [
+      "bug"
+    ]
+  },
+  {
+    "name": "metapod",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/11.svg",
+    "experience": 72,
+    "description": "Ha una corazza dura come l’acciaio che protegge il suo fragile corpo. Attende immobile di evolversi.",
+    "types": [
+      "bug"
+    ]
+  },
+  {
+    "name": "butterfree",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/12.svg",
+    "experience": 198,
+    "description": "Adora il nettare dei fiori e riesce a localizzare i campi in cui si trova anche una minima quantità di polline.",
+    "types": [
+      "bug",
+      "flying"
+    ]
+  },
+  {
+    "name": "weedle",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/13.svg",
+    "experience": 39,
+    "description": "Vive soprattutto nei boschi e nei prati. Sul capo ha un affilato e velenoso pungiglione lungo 5 cm.",
+    "types": [
+      "bug",
+      "poison"
+    ]
+  },
+  {
+    "name": "kakuna",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/14.svg",
+    "experience": 72,
+    "description": "Quasi incapace di muoversi, questo Pokémon può solo indurire il proprio guscio per proteggersi.",
+    "types": [
+      "bug",
+      "poison"
+    ]
+  },
+  {
+    "name": "beedrill",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/15.svg",
+    "experience": 178,
+    "description": "Possiede tre aculei velenosi sulle zampe anteriori e sull’addome con cui punge i nemici ripetutamente.",
+    "types": [
+      "bug",
+      "poison"
+    ]
+  },
+  {
+    "name": "pidgey",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/16.svg",
+    "experience": 50,
+    "description": "Molto comune in boschi e foreste, sbatte le ali a livello del suolo per sollevare sabbia accecante.",
+    "types": [
+      "normal",
+      "flying"
+    ]
+  },
+  {
+    "name": "pidgeotto",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/17.svg",
+    "experience": 122,
+    "description": "Grazie ai potenti artigli può trasportare una preda delle dimensioni di un Exeggcute per oltre 100 km.",
+    "types": [
+      "normal",
+      "flying"
+    ]
+  },
+  {
+    "name": "pidgeot",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/18.svg",
+    "experience": 216,
+    "description": "Quando caccia, vola velocissimo sul pelo dell’acqua e cattura ignare prede come Magikarp.",
+    "types": [
+      "normal",
+      "flying"
+    ]
+  },
+  {
+    "name": "rattata",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/19.svg",
+    "experience": 51,
+    "description": "Vive ovunque si trovi del cibo, cercando incessantemente qualsiasi cosa sia commestibile.",
+    "types": [
+      "normal"
+    ]
+  },
+  {
+    "name": "raticate",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/20.svg",
+    "experience": 145,
+    "description": "Si affila le zanne in perenne crescita rosicchiando cose dure. Riesce a frantumare persino i muri.",
+    "types": [
+      "normal"
+    ]
+  },
+  {
+    "name": "spearow",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/21.svg",
+    "experience": 52,
+    "description": "Molto geloso del suo territorio, svolazza in giro a gran velocità battendo le ali continuamente.",
+    "types": [
+      "normal",
+      "flying"
+    ]
+  },
+  {
+    "name": "fearow",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/22.svg",
+    "experience": 155,
+    "description": "Con le sue enormi e magnifiche ali, è in grado di volare senza mai atterrare per riposarsi.",
+    "types": [
+      "normal",
+      "flying"
+    ]
+  },
+  {
+    "name": "ekans",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/23.svg",
+    "experience": 58,
+    "description": "Con il tempo si fa sempre più lungo. La notte avvolge il suo corpo attorno a qualche ramo per dormire.",
+    "types": [
+      "poison"
+    ]
+  },
+  {
+    "name": "arbok",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/24.svg",
+    "experience": 157,
+    "description": "Il disegno sulla pancia rappresenta una faccia spaventosa, capace di far fuggire i nemici più pavidi.",
+    "types": [
+      "poison"
+    ]
+  },
+  {
+    "name": "pikachu",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg",
+    "experience": 112,
+    "description": "Solleva la coda per esaminare l’ambiente circostante. A volte la coda è colpita da un fulmine quando è in questa posizione.",
+    "types": [
+      "electric"
+    ]
+  },
+  {
+    "name": "raichu",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/26.svg",
+    "experience": 243,
+    "description": "Se l’elettricità aumenta, i muscoli sono sollecitati e diventa più aggressivo del solito.",
+    "types": [
+      "electric"
+    ]
+  },
+  {
+    "name": "sandshrew",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/27.svg",
+    "experience": 60,
+    "description": "Vive sottoterra, scavando buche. Se minacciato, si protegge raggomitolandosi.",
+    "types": [
+      "ground"
+    ]
+  },
+  {
+    "name": "sandslash",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/28.svg",
+    "experience": 158,
+    "description": "Se scava molto velocemente gli si consumano le punte e gli artigli, ma gli ricrescono in un giorno.",
+    "types": [
+      "ground"
+    ]
+  },
+  {
+    "name": "nidoran-f",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/29.svg",
+    "experience": 55,
+    "description": "Sebbene piccolo, i suoi baffi velenosi sono molto pericolosi. La femmina ha un corno più minuto.",
+    "types": [
+      "poison"
+    ]
+  },
+  {
+    "name": "nidorina",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/30.svg",
+    "experience": 128,
+    "description": "La femmina ha un temperamento mite. Lancia ultrasuoni capaci di incantare i nemici.",
+    "types": [
+      "poison"
+    ]
+  },
+  {
+    "name": "nidoqueen",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/31.svg",
+    "experience": 253,
+    "description": "Con il suo corpo robusto e squamoso sbarra l’accesso alla tana e protegge i piccoli dai predatori.",
+    "types": [
+      "poison",
+      "ground"
+    ]
+  },
+  {
+    "name": "nidoran-m",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/32.svg",
+    "experience": 55,
+    "description": "Esamina l’ambiente circostante tendendo le orecchie fuori dall’erba. Si protegge con il corno velenoso.",
+    "types": [
+      "poison"
+    ]
+  },
+  {
+    "name": "nidorino",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/33.svg",
+    "experience": 128,
+    "description": "Rizza le grandi orecchie per esaminare la zona. Se avverte qualcosa, attacca immediatamente.",
+    "types": [
+      "poison"
+    ]
+  },
+  {
+    "name": "nidoking",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/34.svg",
+    "experience": 253,
+    "description": "Lo si riconosce dalla pelle durissima e dal corno particolarmente allungato, che contiene sostanze velenose.",
+    "types": [
+      "poison",
+      "ground"
+    ]
+  },
+  {
+    "name": "clefairy",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/35.svg",
+    "experience": 113,
+    "description": "Si dice che vedere un gruppo di Clefairy ballare con la luna piena sia di ottimo auspicio.",
+    "types": [
+      "fairy"
+    ]
+  },
+  {
+    "name": "clefable",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/36.svg",
+    "experience": 242,
+    "description": "Ha un udito tanto acuto da sentire la caduta di uno spillo a 1 km di distanza. Vive su monti quieti.",
+    "types": [
+      "fairy"
+    ]
+  },
+  {
+    "name": "vulpix",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/37.svg",
+    "experience": 60,
+    "description": "Alla nascita ha solo una coda, che con il passare del tempo sviluppa diverse diramazioni.",
+    "types": [
+      "fire"
+    ]
+  },
+  {
+    "name": "ninetales",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/38.svg",
+    "experience": 177,
+    "description": "Dotato di nove code e di una pelliccia dorata, si dice che viva 1000 anni.",
+    "types": [
+      "fire"
+    ]
+  },
+  {
+    "name": "jigglypuff",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/39.svg",
+    "experience": 95,
+    "description": "Cattura l’attenzione dei nemici grazie agli enormi occhi rotondi, per poi farli addormentare con una dolce ninnananna.",
+    "types": [
+      "normal",
+      "fairy"
+    ]
+  },
+  {
+    "name": "wigglytuff",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/40.svg",
+    "experience": 218,
+    "description": "Hanno un pelo così morbido che se due di loro si abbracciano non vogliono più separarsi.",
+    "types": [
+      "normal",
+      "fairy"
+    ]
+  },
+  {
+    "name": "zubat",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/41.svg",
+    "experience": 49,
+    "description": "Non ha occhi, ma avverte gli ostacoli con le onde ultrasoniche che emette dalla bocca.",
+    "types": [
+      "poison",
+      "flying"
+    ]
+  },
+  {
+    "name": "golbat",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/42.svg",
+    "experience": 159,
+    "description": "Quando attacca, non smette di succhiare l’energia della vittima, fino a diventare troppo pesante per volare.",
+    "types": [
+      "poison",
+      "flying"
+    ]
+  },
+  {
+    "name": "oddish",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/43.svg",
+    "experience": 64,
+    "description": "Di giorno vive nel freddo sottosuolo, per evitare la luce del sole. Cresce assorbendo la luce lunare.",
+    "types": [
+      "grass",
+      "poison"
+    ]
+  },
+  {
+    "name": "gloom",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/44.svg",
+    "experience": 138,
+    "description": "Puzza da levare il fiato! Tuttavia circa una persona su mille adora annusarne il fetido lezzo.",
+    "types": [
+      "grass",
+      "poison"
+    ]
+  },
+  {
+    "name": "vileplume",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/45.svg",
+    "experience": 245,
+    "description": "Più grandi sono i petali, maggiore è la quantità di polline tossico che contengono. La testa è molto pesante.",
+    "types": [
+      "grass",
+      "poison"
+    ]
+  },
+  {
+    "name": "paras",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/46.svg",
+    "experience": 57,
+    "description": "Sul dorso di questo Pokémon nascono funghi chiamati tochukaso, che crescono insieme a lui.",
+    "types": [
+      "bug",
+      "grass"
+    ]
+  },
+  {
+    "name": "parasect",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/47.svg",
+    "experience": 142,
+    "description": "Parasect è controllato da un fungo ancora più grosso del suo corpo. Diffonde spore velenose.",
+    "types": [
+      "bug",
+      "grass"
+    ]
+  },
+  {
+    "name": "venonat",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/48.svg",
+    "experience": 61,
+    "description": "I suoi grandi occhi sono in realtà un insieme di tanti piccoli occhi. Di notte, è attirato dalla luce.",
+    "types": [
+      "bug",
+      "poison"
+    ]
+  },
+  {
+    "name": "venomoth",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/49.svg",
+    "experience": 158,
+    "description": "Sparge scaglie che paralizzano chiunque le tocchi, rendendolo incapace di stare in piedi.",
+    "types": [
+      "bug",
+      "poison"
+    ]
+  },
+  {
+    "name": "diglett",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/50.svg",
+    "experience": 53,
+    "description": "Vive un metro sotto terra, dove si nutre di radici. Talvolta compare in superficie.",
+    "types": [
+      "ground"
+    ]
+  },
+  {
+    "name": "dugtrio",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/51.svg",
+    "experience": 149,
+    "description": "Nella lotta, scava tunnel nel terreno per sorprendere il nemico attaccandolo da una direzione imprevedibile.",
+    "types": [
+      "ground"
+    ]
+  },
+  {
+    "name": "meowth",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/52.svg",
+    "experience": 58,
+    "description": "È un Pokémon attivo di notte. Se nota qualcosa di luccicante, i suoi occhi cominciano a brillare.",
+    "types": [
+      "normal"
+    ]
+  },
+  {
+    "name": "persian",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/53.svg",
+    "experience": 154,
+    "description": "Sebbene molto amato per il suo pelo, è difficile addomesticarlo per la volubile crudeltà.",
+    "types": [
+      "normal"
+    ]
+  },
+  {
+    "name": "psyduck",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/54.svg",
+    "experience": 64,
+    "description": "È costantemente tormentato dal mal di testa che, quando si fa particolarmente intenso, gli conferisce strani poteri.",
+    "types": [
+      "water"
+    ]
+  },
+  {
+    "name": "golduck",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/55.svg",
+    "experience": 175,
+    "description": "Appare presso i corsi d’acqua col buio. Acquisisce poteri telecinetici se la sua fronte diventa incandescente.",
+    "types": [
+      "water"
+    ]
+  },
+  {
+    "name": "mankey",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/56.svg",
+    "experience": 61,
+    "description": "Se è tanto arrabbiato da non riuscire più a distinguere gli amici dai nemici, è pericoloso avvicinarsi.",
+    "types": [
+      "fighting"
+    ]
+  },
+  {
+    "name": "primeape",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/57.svg",
+    "experience": 159,
+    "description": "Questo Pokémon è costantemente furioso e si calma solo nella solitudine più assoluta.",
+    "types": [
+      "fighting"
+    ]
+  },
+  {
+    "name": "growlithe",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/58.svg",
+    "experience": 70,
+    "description": "Molto amichevole e fedele verso le persone. Allontana i nemici abbaiando e mordendoli.",
+    "types": [
+      "fire"
+    ]
+  },
+  {
+    "name": "arcanine",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/59.svg",
+    "experience": 194,
+    "description": "Da sempre ammirato per la sua bellezza, corre veloce come se avesse le ali.",
+    "types": [
+      "fire"
+    ]
+  },
+  {
+    "name": "poliwag",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/60.svg",
+    "experience": 60,
+    "description": "Dalla pelle nera, lucida, umida e sottile si intravedono gli organi interni, che formano una spirale.",
+    "types": [
+      "water"
+    ]
+  },
+  {
+    "name": "poliwhirl",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/61.svg",
+    "experience": 135,
+    "description": "Capace di vivere dentro o fuori dall’acqua. Sulla terraferma suda per mantenere il suo corpo unto.",
+    "types": [
+      "water"
+    ]
+  },
+  {
+    "name": "poliwrath",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/62.svg",
+    "experience": 255,
+    "description": "Ha dei muscoli tanto sviluppati da riuscire ad attraversare a nuoto interi oceani senza fermarsi.",
+    "types": [
+      "water",
+      "fighting"
+    ]
+  },
+  {
+    "name": "abra",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/63.svg",
+    "experience": 62,
+    "description": "Dorme 18 ore al giorno. Anche da addormentato utilizza una serie di poteri extrasensoriali.",
+    "types": [
+      "psychic"
+    ]
+  },
+  {
+    "name": "kadabra",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/64.svg",
+    "experience": 140,
+    "description": "Quando usa i poteri psichici, emette forti onde alfa che possono rovinare strumenti di precisione.",
+    "types": [
+      "psychic"
+    ]
+  },
+  {
+    "name": "alakazam",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/65.svg",
+    "experience": 250,
+    "description": "Le sue cellule cerebrali si moltiplicano di continuo. Perciò ricorda qualsiasi cosa gli accada.",
+    "types": [
+      "psychic"
+    ]
+  },
+  {
+    "name": "machop",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/66.svg",
+    "experience": 61,
+    "description": "Solleva Graveler ripetutamente per mantenersi forte. Conosce ogni tipo di arte marziale.",
+    "types": [
+      "fighting"
+    ]
+  },
+  {
+    "name": "machoke",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/67.svg",
+    "experience": 142,
+    "description": "Il suo corpo muscoloso è così forte che usa una cintura antiforza per regolare i suoi movimenti.",
+    "types": [
+      "fighting"
+    ]
+  },
+  {
+    "name": "machamp",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/68.svg",
+    "experience": 253,
+    "description": "Le braccia eccezionalmente sviluppate sono in grado di assestare 1000 pugni in soli 2 secondi.",
+    "types": [
+      "fighting"
+    ]
+  },
+  {
+    "name": "bellsprout",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/69.svg",
+    "experience": 60,
+    "description": "Sebbene abbia un corpo magrissimo, sa essere molto rapido quando si scaglia sulla preda.",
+    "types": [
+      "grass",
+      "poison"
+    ]
+  },
+  {
+    "name": "weepinbell",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/70.svg",
+    "experience": 137,
+    "description": "Si serve delle foglie laterali come lame contro i nemici. Il fluido che secerne dalla bocca scioglie qualsiasi cosa.",
+    "types": [
+      "grass",
+      "poison"
+    ]
+  },
+  {
+    "name": "victreebel",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/71.svg",
+    "experience": 221,
+    "description": "Pare che viva in grandi colonie nel cuore della giungla, ma nessuno è mai tornato da lì per raccontarlo.",
+    "types": [
+      "grass",
+      "poison"
+    ]
+  },
+  {
+    "name": "tentacool",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/72.svg",
+    "experience": 67,
+    "description": "Il suo corpo è quasi interamente composto d’acqua. Emette dei raggi misteriosi dagli occhi cristallini.",
+    "types": [
+      "water",
+      "poison"
+    ]
+  },
+  {
+    "name": "tentacruel",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/73.svg",
+    "experience": 180,
+    "description": "I corti tentacoli si estendono durante la caccia per catturare e immobilizzare la preda.",
+    "types": [
+      "water",
+      "poison"
+    ]
+  },
+  {
+    "name": "geodude",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/74.svg",
+    "experience": 60,
+    "description": "Si trova nei campi e in montagna. Se confuso con una roccia, può succedere di inciamparvi.",
+    "types": [
+      "rock",
+      "ground"
+    ]
+  },
+  {
+    "name": "graveler",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/75.svg",
+    "experience": 137,
+    "description": "Di natura libera e incurante, non si preoccupa se perde dei pezzi mentre si rotola giù dai monti.",
+    "types": [
+      "rock",
+      "ground"
+    ]
+  },
+  {
+    "name": "golem",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/76.svg",
+    "experience": 223,
+    "description": "A furia di rotolare giù dalla cima dei monti, ha formato dei solchi. Meglio evitarli.",
+    "types": [
+      "rock",
+      "ground"
+    ]
+  },
+  {
+    "name": "ponyta",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/77.svg",
+    "experience": 82,
+    "description": "Alla nascita non riesce quasi a reggersi in piedi. Galoppando si rinforza e diventa più veloce.",
+    "types": [
+      "fire"
+    ]
+  },
+  {
+    "name": "rapidash",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/78.svg",
+    "experience": 175,
+    "description": "Pokémon molto competitivo, rincorre tutto ciò che si muove veloce, sperando di superarlo.",
+    "types": [
+      "fire"
+    ]
+  },
+  {
+    "name": "slowpoke",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/79.svg",
+    "experience": 63,
+    "description": "È sempre assorto, ma nessuno sa a cosa stia pensando. Si serve della coda per pescare.",
+    "types": [
+      "water",
+      "psychic"
+    ]
+  },
+  {
+    "name": "slowbro",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/80.svg",
+    "experience": 172,
+    "description": "Lo Shellder che gli sta attaccato non si stacca mai a causa del profumo appetitoso della coda.",
+    "types": [
+      "water",
+      "psychic"
+    ]
+  },
+  {
+    "name": "magnemite",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/81.svg",
+    "experience": 65,
+    "description": "Le unità alle due estremità del corpo producono energia antigravitazionale con cui si mantiene a mezz’aria.",
+    "types": [
+      "electric",
+      "steel"
+    ]
+  },
+  {
+    "name": "magneton",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/82.svg",
+    "experience": 163,
+    "description": "Formato da vari Magnemite, è in grado di lanciare onde magnetiche ad alto voltaggio.",
+    "types": [
+      "electric",
+      "steel"
+    ]
+  },
+  {
+    "name": "farfetchd",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/83.svg",
+    "experience": 132,
+    "description": "Il verde gambo di porro che brandisce è la sua arma, che usa come spada.",
+    "types": [
+      "normal",
+      "flying"
+    ]
+  },
+  {
+    "name": "doduo",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/84.svg",
+    "experience": 62,
+    "description": "Pokémon a due teste, scoperto a seguito di un’improvvisa mutazione. Può correre a 100 km/h.",
+    "types": [
+      "normal",
+      "flying"
+    ]
+  },
+  {
+    "name": "dodrio",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/85.svg",
+    "experience": 165,
+    "description": "Occorre fare attenzione a tutte le sue tre teste, altrimenti si rischia d’essere colpiti duramente.",
+    "types": [
+      "normal",
+      "flying"
+    ]
+  },
+  {
+    "name": "seel",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/86.svg",
+    "experience": 65,
+    "description": "Pokémon che vive sugli iceberg. Nuota spaccando il ghiaccio con la punta che ha sulla testa.",
+    "types": [
+      "water"
+    ]
+  },
+  {
+    "name": "dewgong",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/87.svg",
+    "experience": 166,
+    "description": "Ha il corpo ricoperto da una candida pelliccia bianca. Più fa freddo, più questo Pokémon è attivo.",
+    "types": [
+      "water",
+      "ice"
+    ]
+  },
+  {
+    "name": "grimer",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/88.svg",
+    "experience": 65,
+    "description": "Grimer è nato da fango esposto ai raggi X provenienti dalla luna. Ama nutrirsi di sostanze sudicie.",
+    "types": [
+      "poison"
+    ]
+  },
+  {
+    "name": "muk",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/89.svg",
+    "experience": 175,
+    "description": "Amano riunirsi vicino a puzzolenti liquami di scolo, rendendo il fetore ancora più intenso.",
+    "types": [
+      "poison"
+    ]
+  },
+  {
+    "name": "shellder",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/90.svg",
+    "experience": 61,
+    "description": "La sua conchiglia dura respinge ogni tipo di attacco. È vulnerabile solo quando apre il guscio.",
+    "types": [
+      "water"
+    ]
+  },
+  {
+    "name": "cloyster",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/91.svg",
+    "experience": 184,
+    "description": "Ai Cloyster che vivono in mari con forti maree crescono grandi aculei affilati sui gusci.",
+    "types": [
+      "water",
+      "ice"
+    ]
+  },
+  {
+    "name": "gastly",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/92.svg",
+    "experience": 62,
+    "description": "Il suo corpo sottile è fatto di gas. Avvolge nemici di ogni dimensione, soffocandoli.",
+    "types": [
+      "ghost",
+      "poison"
+    ]
+  },
+  {
+    "name": "haunter",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/93.svg",
+    "experience": 142,
+    "description": "Se da soli, al buio, si ha l’impressione di essere osservati da qualcuno, si tratta di Haunter.",
+    "types": [
+      "ghost",
+      "poison"
+    ]
+  },
+  {
+    "name": "gengar",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/94.svg",
+    "experience": 250,
+    "description": "Si nasconde nell’ombra. Pare che nei luoghi in cui Gengar si cela, la temperatura si abbassi di 5 °C.",
+    "types": [
+      "ghost",
+      "poison"
+    ]
+  },
+  {
+    "name": "onix",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/95.svg",
+    "experience": 77,
+    "description": "Scava veloce nel terreno in cerca di cibo lasciando lunghi cunicoli usati poi come casa dai Diglett.",
+    "types": [
+      "rock",
+      "ground"
+    ]
+  },
+  {
+    "name": "drowzee",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/96.svg",
+    "experience": 66,
+    "description": "Addormenta i suoi nemici e poi si nutre dei loro sogni. A volte fa indigestione di incubi.",
+    "types": [
+      "psychic"
+    ]
+  },
+  {
+    "name": "hypno",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/97.svg",
+    "experience": 169,
+    "description": "Ha con sé una sorta di pendolo. Una volta, per errore, si è portato via un bambino che aveva ipnotizzato.",
+    "types": [
+      "psychic"
+    ]
+  },
+  {
+    "name": "krabby",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/98.svg",
+    "experience": 65,
+    "description": "Se si sente in pericolo, si circonda di bolle che produce con la bocca per sembrare più grande.",
+    "types": [
+      "water"
+    ]
+  },
+  {
+    "name": "kingler",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/99.svg",
+    "experience": 166,
+    "description": "La chela più grande sprigiona una potenza di 10.000 CV. Le dimensioni gli rendono difficili gli spostamenti.",
+    "types": [
+      "water"
+    ]
+  },
+  {
+    "name": "voltorb",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/100.svg",
+    "experience": 66,
+    "description": "Scoperto all’epoca dell’invenzione delle Poké Ball. Si pensa che i due fatti siano correlati.",
+    "types": [
+      "electric"
+    ]
+  }
+]
