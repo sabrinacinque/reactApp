@@ -52,3 +52,12 @@
 .navbar-dark .nav-link.active {
   color: #ff6666;              /* rosso chiaro al passaggio o link attivo */
 }
+
+.hover-grow {
+  transition: transform 0.2s ease-in-out;
+}
+
+.hover-grow:hover {
+  transform: scale(1.10);
+  z-index: 1;      /* porta la card in primo piano */
+}

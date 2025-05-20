@@ -6,6 +6,8 @@ import Footer            from './mainComponents/Footer'
 import PokemonList       from './components/PokemonList'
 import PokemonDetails    from './components/PokemonDetails'
 import Gioca            from './components/Gioca'
+import MemoryGame        from './components/MemoryGame'
+import QuizGame          from './components/QuizGame'
 import './App.css'
 
 export default function App() {
@@ -19,6 +21,8 @@ export default function App() {
           <Route path="/" element={<PokemonList searchTerm={searchTerm} />} />{/*qua passo la callback del search a header*/ }
           <Route path="/pokemon/:name" element={<PokemonDetails />} />
           <Route path="/gioca" element={<Gioca />} />
+          <Route path="/gioca/memory" element={<MemoryGame />} />
+          <Route path="/gioca/quiz" element={<QuizGame />} />
         </Routes>
       </main>
       <Footer />
