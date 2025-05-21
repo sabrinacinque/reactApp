@@ -21,17 +21,6 @@ export default function HomePage() {
               Get Started
             </Link>
           </div>
-
-          {/* Illustrazione */}
-          <div className="col-md-6 text-center bg-light">
-            <img
-              src={heroImage}
-              alt="Dashboard illustration"
-              className="img-fluid p-4"
-              style={{ maxHeight: 900 }}
-            />
-          </div>
-
         </div>
       </div>
     </div>
