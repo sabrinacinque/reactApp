@@ -1,49 +1,57 @@
-// src/components/TaskCard.jsx
 import React from "react";
-import { FiTrash2, FiEdit2 } from "react-icons/fi";
-import Swal from "sweetalert2";
-import "sweetalert2/dist/sweetalert2.min.css";
+import { FiTrash2, FiEdit2, FiCheck } from "react-icons/fi";
 import "./TaskCard.css";
 
-export default function TaskCard({ task, onDelete, onEdit }) {
-  const handleDelete = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: `Delete "${task.title}"?`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, delete it",
-    }).then(result => {
-      if (result.isConfirmed) {
-        onDelete(task.id);
-        Swal.fire("Deleted!", "Your task has been deleted.", "success");
-      }
-    });
-  };
+const STATE_COLORS = {
+  urgent:          "rgba(255,  0,   0,   0.2)",
+  "this week":     "rgba(255,255,  0,   0.2)",
+  "when I have time": "rgba(  0,255,255,   0.2)",
+  done:            "rgba(  0,255,  0,   0.2)",
+};
 
+export default function TaskCard({ task, onAction }) {
   return (
-    <div className="task-card p-3 mb-3 rounded bg-secondary text-light position-relative">
-      <h6 className="task-title mb-1">{task.title}</h6>
-      <p className="task-desc small text-muted">{task.description}</p>
-      <div className="d-flex justify-content-between small text-light-50">
-        <span>
-          Created: {new Date(task.insertDate).toLocaleString()}
-        </span>
-        {task.previousEndDate && (
-          <span>
-            Due: {new Date(task.previousEndDate).toLocaleString()}
-          </span>
-        )}
+    <div
+      className="task-card p-3 mb-3 rounded"
+      style={{ backgroundColor: STATE_COLORS[task.state] || "rgba(255,255,255,0.1)" }}
+    >
+      <div className="d-flex justify-content-between align-items-start">
+        <h6 className="task-title mb-1 text-capitalize">{task.title}</h6>
+        <div className="action-icons">
+          {task.state !== "done" && (
+            <FiCheck
+              className="me-2 action-icon"
+              title="Mark done"
+              onClick={() => onAction(task, "done")}
+            />
+          )}
+          <FiEdit2
+            className="me-2 action-icon"
+            title="Edit"
+            onClick={() => onAction(task, "edit")}
+          />
+          <FiTrash2
+            className="action-icon"
+            title="Delete"
+            onClick={() => onAction(task, "delete")}
+          />
+        </div>
       </div>
-      <div className="task-actions position-absolute top-0 end-0 p-2 d-flex">
-        <FiEdit2 
-          className="me-2 clickable" 
-          onClick={() => onEdit(task)} 
-        />
-        <FiTrash2 
-          className="clickable" 
-          onClick={handleDelete} 
-        />
+
+      {task.description && (
+        <p className="task-desc small ">{task.description}</p>
+      )}
+
+      <div className="small text-secondary">
+        Created:{" "}
+        {new Date(task.insertDate).toLocaleString([], {
+          day:   "2-digit",
+          month: "2-digit",
+          year:  "numeric",
+          hour:  "2-digit",
+          minute:"2-digit",
+
+        })}
       </div>
     </div>
   );
