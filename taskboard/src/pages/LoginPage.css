@@ -1,0 +1,109 @@
+/* src/pages/LoginPage.css */
+
+/* Layout wrapper: include sidebar + hero background */
+.page-layout {
+  min-height: calc(100vh - 60px); /* altez­za viewport meno header */ 
+}
+
+/* Sezione hero con background scuro */
+.hero-background {
+  background-image: url("/images/hero-background.png");
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.6);
+}
+
+/* Card del form di login */
+.login-card {
+  background-color: rgba(15, 28, 37, 0.9);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  width: 480px;         /* puoi regolare qui la larghezza */
+  max-width: 90vw;      /* rimane responsive su schermi piccoli */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Titolo del form */
+.login-title {
+  color: #fff;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Gruppo di ogni input */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #0f1c25;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Testo di errore */
+.error-text {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Pulsante di submit */
+.login-card .btn {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+}
+
+/* Link di registrazione */
+.signup-text {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.signup-text a {
+  color: #2f81f7;
+  text-decoration: none;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
+
+/* Gruppo password con toggle */
+.password-group {
+  position: relative;
+}
+
+.password-group input {
+  padding-right: 2.5rem; /* spazio per l'icona */
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.2rem;
+}
+
+.password-toggle:hover {
+  color: #fff;
+}

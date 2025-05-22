@@ -1,0 +1,33 @@
+/* src/MainComponent/Sidebar.css */
+.sidebar {
+  width: 240px;
+  min-height: calc(100vh - 60px); /* header 60px già definito */
+  position: sticky;
+  top: 60px;
+  background-color: #0F1C25;
+}
+
+.sidebar-brand {
+  font-size: 1.25rem;
+  font-weight: bold;
+  border-bottom: 1px solid #333;
+}
+
+.nav-link {
+  color: #fff !important;
+  font-weight: bold;
+  padding: 0.5rem 0;
+  transition: color .2s, background .2s;
+}
+
+
+
+.nav-link:hover {
+  background-color: rgba(255,255,255,0.1);
+  color: #fff;
+}
+.nav-link.active {
+  background-color: rgba(255,255,255,0.1);
+  color: #fff;
+  border-radius: 4px;
+}

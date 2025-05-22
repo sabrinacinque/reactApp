@@ -1,0 +1,14 @@
+.page-layout {
+  min-height: calc(100vh - 60px);
+}
+
+.hero-background {
+  position: relative;
+  background-image: url('/images/hero-background.png');
+  background-size: cover;
+  background-position: center;
+
+}
+
+
+

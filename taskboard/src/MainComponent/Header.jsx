@@ -1,64 +1,50 @@
-// src/MainComponent/Header.jsx
-import { Link } from "react-router-dom";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { FiMenu } from 'react-icons/fi';
+import './Header.css';
 
 export default function Header() {
-  const isLoggedIn = !!localStorage.getItem("token");
+  const isLoggedIn = !!localStorage.getItem('token');
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light mx-5">
-      <div className="container-fluid mx-5">
-        <Link className="navbar-brand" to="/">
-          TaskBoard
-        </Link>
+    <nav className="app-header navbar navbar-expand-lg">
+      <div className="container-fluid">
+         <NavLink to="/" className="navbar-brand d-flex align-items-center fs-2">
+         <FiMenu className="me-2"  /> TaskBoard
+        </NavLink>
+
         <button
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon" />
         </button>
+
         <div className="collapse navbar-collapse" id="navbarNav">
+          
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item p-3 fw-bold">
-              <Link className="nav-link" to="/">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item p-3 fw-bold">
-              <Link className="nav-link" to="/">
-                About
-              </Link>
-            </li>
-            <li className="nav-item p-3 fw-bold">
-              <Link className="nav-link" to="/">
-                Services
-              </Link>
-            </li>
-            <li className="nav-item nav-item p-3 fw-bold">
-              <Link className="nav-link" to="/">
-                Contact
-              </Link>
-            </li>
             {isLoggedIn ? (
               <li className="nav-item">
-                <Link className="nav-link" to="/dashboard">
-                  Dashboard
-                </Link>
+                <NavLink to="/dashboard" className="btn btn-outline-light btn-sm">Dashboard</NavLink>
               </li>
             ) : (
-              <li className="nav-item p-3">
-                <Link
-                  to="/login"
-                  className="btn btn-primary btn-lg homepageButtons"
-                >
-                  Login
-                </Link>
-              </li>
+              <>
+                <li className="nav-item me-2">
+                  <NavLink to="/login" className="nav-link">Help</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/register" className="nav-link">About us</NavLink>
+                </li>
+              </>
             )}
           </ul>
         </div>
       </div>
     </nav>
-  );
+);
 }

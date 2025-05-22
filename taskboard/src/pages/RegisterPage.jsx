@@ -1,87 +1,131 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// src/pages/RegisterPage.jsx
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import Sidebar from "../MainComponent/Sidebar";
+import "./RegisterPage.css";
 
 export default function RegisterPage() {
-  const [type, setType]       = useState('STANDARD');
-  const [username, setUsername] = useState('');
-  const [email, setEmail]       = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError]       = useState('');
+  const [type, setType]             = useState("STANDARD");
+  const [username, setUsername]     = useState("");
+  const [email, setEmail]           = useState("");
+  const [password, setPassword]     = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError]           = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
+
+    // Validazione password
+    if (password !== confirmPassword) {
+      setError("Le password non corrispondono");
+      return;
+    }
 
     try {
-      const res = await fetch('http://localhost:8080/api/v1/users/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type, username, email, password, active: true })
-      });
+      const res = await fetch(
+        "http://localhost:8080/api/v1/users/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ type, username, email, password, active: true }),
+        }
+      );
       const body = await res.json();
 
       if (res.ok && body.success) {
-        navigate('/login');
+        // alert di successo con SweetAlert2
+        await Swal.fire({
+          title: "Registrazione riuscita!",
+          text: "Puoi ora effettuare il login.",
+          icon: "success",
+          confirmButtonText: "Ok",
+          background: "#0f1c25",
+          color: "#fff"
+        });
+        navigate("/login");
       } else {
-        setError(body.message || 'Registrazione fallita');
+        setError(body.message || "Registrazione fallita");
       }
     } catch {
-      setError('Errore di rete');
+      setError("Errore di rete");
     }
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: '2rem auto' }}>
-      <h2>Registrati</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="page-layout d-flex">
+      <Sidebar />
 
-        <div>
-          <label>Tipo utente</label><br/>
-          <select
-            value={type}
-            onChange={e => setType(e.target.value)}
-            required
-          >
-            <option value="STANDARD">Standard</option>
-            <option value="ADMIN">Admin</option>
-          </select>
+      <div className="hero-background flex-grow-1 d-flex justify-content-center align-items-center">
+        <div className="register-card">
+          <h2 className="card-title">Sign up</h2>
+          <form onSubmit={handleSubmit}>
+
+            <div className="form-group">
+              <select
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+                required
+              >
+                <option value="STANDARD">Standard</option>
+                <option value="ADMIN">Admin</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <input
+                type="email"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            {error && <div className="error-text">{error}</div>}
+
+            <button type="submit" className="btn btn-primary w-100">
+              Sign up
+            </button>
+          </form>
+
+          <p className="alt-text">
+            Already have an account? <Link to="/login">Log in</Link>
+          </p>
         </div>
-
-        <div style={{ marginTop: '1rem' }}>
-          <label>Username</label><br/>
-          <input
-            type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            required
-          />
-        </div>
-
-        <div style={{ marginTop: '1rem' }}>
-          <label>Email</label><br/>
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div style={{ marginTop: '1rem' }}>
-          <label>Password</label><br/>
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-
-        <button type="submit" style={{ marginTop: '1rem' }}>Registrati</button>
-      </form>
+      </div>
     </div>
   );
 }

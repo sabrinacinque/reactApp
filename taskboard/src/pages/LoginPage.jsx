@@ -1,10 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import Sidebar from "../MainComponent/Sidebar";
+import "./LoginPage.css";
 
 export default function LoginPage() {
-  const [identifier, setIdentifier] = useState(""); // email o username
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword]     = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError]           = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -21,7 +25,6 @@ export default function LoginPage() {
 
       if (res.ok && body.success) {
         localStorage.setItem("token", body.sessiondata.token);
-        // eventuale user info
         navigate("/dashboard");
       } else {
         setError(body.message || "Login fallito");
@@ -33,39 +36,47 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "2rem auto" }}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email o Username</label>
-          <br />
-          <input
-            type="text"
-            value={identifier}
-            onChange={(e) => setIdentifier(e.target.value)}
-            required
-          />
-        </div>
-        <div style={{ marginTop: "1rem" }}>
-          <label>Password</label>
-          <br />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit" style={{ marginTop: "1rem" }}>
-          Accedi
-        </button>
-      </form>
+    <div className="page-layout d-flex">
+      <Sidebar />
 
-      <p style={{ marginTop: "1rem" }}>
-        Non sei registrato?{" "}
-        <Link to="/register">Clicca qui per registrarti</Link>
-      </p>
+      <div className="hero-background flex-grow-1 d-flex justify-content-center align-items-center">
+        <div className="login-card">
+          <h2 className="login-title">Log in</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <input
+                type="text"
+                placeholder="Email or Username"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group password-group">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <span
+                className="password-toggle"
+                onClick={() => setShowPassword((v) => !v)}
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </span>
+            </div>
+            {error && <div className="error-text">{error}</div>}
+            <button type="submit" className="btn btn-primary w-100">
+              Log in
+            </button>
+          </form>
+          <p className="signup-text">
+            Don't have an account? <Link to="/register">Sign up</Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
