@@ -5,15 +5,33 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    await onSave({ userId: /* prendi da context/session */, title, description, state });
+
+    // Legge l'userId salvato al login
+    const userId = Number(localStorage.getItem('userId'));
+    if (!userId) {
+      console.error('Impossibile recuperare userId da localStorage');
+      return;
+    }
+
+    // Costruisce il payload per la creazione del task
+    const input = {
+      userId,
+      title,
+      description,
+      state
+    };
+
+    // Chiama il callback onSave per eseguire la POST
+    await onSave(input);
+
+    // Pulisce i campi e chiude il modal
     setTitle('');
     setDescription('');
     onClose();
   };
 
-  // Quando “show” è false, non renderizzi nulla
   if (!show) return null;
 
   return (
@@ -21,7 +39,7 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
       {/* Backdrop */}
       <div className="modal-backdrop fade show"></div>
 
-      {/* Modal stesso */}
+      {/* Modal */}
       <div className="modal fade show" tabIndex="-1" style={{ display: 'block' }}>
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
@@ -39,7 +57,8 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
                     type="text"
                     className="form-control"
                     value={title}
-                    onChange={e => setTitle(e.target.value)}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Inserisci un titolo"
                     required
                   />
                 </div>
@@ -49,7 +68,8 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
                     className="form-control"
                     rows="3"
                     value={description}
-                    onChange={e => setDescription(e.target.value)}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Descrizione (opzionale)"
                   />
                 </div>
               </div>

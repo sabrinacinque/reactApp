@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Sidebar from "../MainComponent/Sidebar";
 import "./LoginPage.css";
@@ -26,11 +28,19 @@ export default function LoginPage() {
       const body = await res.json();
 
       if (res.ok && body.success) {
-        // Salvo il token in localStorage
+        // Salvo il token e l'userId
         localStorage.setItem("token", body.sessiondata.token);
+        localStorage.setItem("userId", String(body.sessiondata.userid));
 
-        // (opzionale) alert di benvenuto
-        // import Swal da 'sweetalert2' se vuoi usarlo qui
+        // Alert di benvenuto
+        await Swal.fire({
+          title: `Hello ${identifier}!`,
+          text: "Login effettuato con successo.",
+          icon: "success",
+          confirmButtonText: "Vai alla dashboard",
+          background: "#0f1c25",
+          color: "#fff"
+        });
 
         // Redirect in dashboard
         navigate("/dashboard");
