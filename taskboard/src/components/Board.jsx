@@ -1,50 +1,64 @@
-import React from "react";
+// src/components/Board.jsx
+import React, { useState, useEffect } from "react";
 import Column from "./Column";
+import AddTaskModal from "./AddTaskModal";
+import EditTaskModal from "./EditTaskModal";
+import { useTasks } from "../hooks/useTasks";
 import "./Board.css";
 
-// dati di esempio; in futuro li caricherai da API
-const sampleColumns = [
-  {
-    id: 1, title: "Today tasks", tasks: [
-      {
-        id: 11,
-        title: "User Testimonial Slider",
-        desc: "We have a few testimonials...",
-        assignees: [
-          { id: 1, name: "Alice", avatar: "/avatars/alice.jpg" },
-          { id: 2, name: "Bob",   avatar: "/avatars/bob.jpg" }
-        ],
-        comments: 2
-      },
-      // ... altre card ...
-    ]
-  },
-  {
-    id: 2, title: "Incoming", tasks: [
-      {
-        id: 21,
-        title: "3 Customer Stories LP Thumbnails",
-        desc: "Hey! We're linking 3 existing...",
-        assignees: [ { id: 3, name: "Eve", avatar: "/avatars/eve.jpg" } ],
-        comments: 5
-      },
-      // ...
-    ]
-  },
-  {
-    id: 3, title: "This week", tasks: [ /* ... */ ]
-  },
-  {
-    id: 4, title: "Done", tasks: [ /* ... */ ]
-  }
-];
+const STATES = ["urgent", "this week", "when I have time", "done"];
 
 export default function Board() {
+  const {
+    byState,
+    fetchAll,
+    addTask,
+    deleteTask,
+    updateTask
+  } = useTasks();
+  const [addState, setAddState] = useState(null);
+  const [editTask, setEditTask] = useState(null);
+
+  useEffect(() => {
+    fetchAll();
+  }, [fetchAll]);
+
   return (
-    <div className="board d-flex p-4 h-100">
-      {sampleColumns.map((col) => (
-        <Column key={col.id} title={col.title} tasks={col.tasks} />
-      ))}
-    </div>
+    <>
+      <div className="board d-flex p-4 h-100">
+        {STATES.map((state) => (
+          <Column
+            key={state}
+            title={state}
+            tasks={byState(state)}
+            onAdd={() => setAddState(state)}
+            onDelete={deleteTask}
+            onEdit={(task) => setEditTask(task)}
+          />
+        ))}
+      </div>
+
+      <AddTaskModal
+        show={addState !== null}
+        state={addState}
+        onClose={() => setAddState(null)}
+        onSave={async (input) => {
+          await addTask(input);
+          setAddState(null);
+        }}
+      />
+
+      {editTask && (
+        <EditTaskModal
+          show={!!editTask}
+          task={editTask}
+          onClose={() => setEditTask(null)}
+          onSave={async (id, input) => {
+            await updateTask(id, input);
+            setEditTask(null);
+          }}
+        />
+      )}
+    </>
   );
 }

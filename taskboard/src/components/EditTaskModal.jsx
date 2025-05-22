@@ -1,44 +1,41 @@
-// src/components/AddTaskModal.jsx
-import React, { useState } from 'react';
+// src/components/EditTaskModal.jsx
+import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-export default function AddTaskModal({ show, onClose, state, onSave }) {
-  const [title, setTitle] = useState('');
+export default function EditTaskModal({ show, task, onClose, onSave }) {
+  const [title, setTitle]           = useState('');
   const [description, setDescription] = useState('');
-  const [dueDate, setDueDate] = useState('');
+  const [dueDate, setDueDate]       = useState('');
+
+  useEffect(() => {
+    if (!task) return;
+    setTitle(task.title);
+    setDescription(task.description);
+    setDueDate(
+      task.previousEndDate
+        ? new Date(task.previousEndDate).toISOString().slice(0,16)
+        : ''
+    );
+  }, [task]);
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const userId = Number(localStorage.getItem('userId'));
-    if (!userId) {
-      alert("You must be logged in to create a task!");
-      return;
-    }
-
     try {
-      const payload = {
-        userId,
+      const input = {
+        userId: task.user.id || task.user,  // adattati alla shape
         title,
         description,
-        state,
+        state: task.state,
         insertDate: null,
         previousEndDate: dueDate || null,
       };
-      await onSave(payload);
-      await Swal.fire({
-        title: 'Task added!',
-        text: `"${title}" has been created.`,
-        icon: 'success',
-        confirmButtonText: 'OK',
-      });
-      setTitle('');
-      setDescription('');
-      setDueDate('');
+      await onSave(task.id, input);
+      await Swal.fire('Updated!', `"${title}" has been updated.`, 'success');
       onClose();
     } catch (err) {
       console.error(err);
-      Swal.fire('Error', 'Could not add task.', 'error');
+      Swal.fire('Error', 'Could not update task.', 'error');
     }
   };
 
@@ -46,18 +43,19 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
   return (
     <>
       <div className="modal-backdrop fade show"></div>
-      <div className="modal fade show" tabIndex="-1" style={{ display: 'block' }}>
+      <div className="modal fade show" tabIndex="-1" style={{ display:'block' }}>
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
 
             <div className="modal-header">
-              <h5 className="modal-title">New Task (“{state}”)</h5>
+              <h5 className="modal-title">Edit Task</h5>
               <button type="button" className="btn-close" onClick={onClose} />
             </div>
 
             <form onSubmit={handleSubmit}>
               <div className="modal-body">
-                {/* ... same inputs as before ... */}
+                {/* same fields as AddTaskModal */}
+                {/* Title */}
                 <div className="mb-3">
                   <label className="form-label">Title</label>
                   <input
@@ -68,6 +66,7 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
                     required
                   />
                 </div>
+                {/* Description */}
                 <div className="mb-3">
                   <label className="form-label">Description</label>
                   <textarea
@@ -77,6 +76,7 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
                     onChange={e => setDescription(e.target.value)}
                   />
                 </div>
+                {/* Due date & time */}
                 <div className="mb-3">
                   <label className="form-label">Due Date &amp; Time</label>
                   <input
@@ -97,7 +97,7 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary">
-                  Save
+                  Save Changes
                 </button>
               </div>
             </form>

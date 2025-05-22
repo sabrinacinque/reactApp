@@ -14,3 +14,7 @@
   height: 24px;
   object-fit: cover;
 }
+
+.clickable {
+  cursor: pointer;
+}
