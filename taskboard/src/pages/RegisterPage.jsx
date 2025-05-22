@@ -6,12 +6,12 @@ import Sidebar from "../MainComponent/Sidebar";
 import "./RegisterPage.css";
 
 export default function RegisterPage() {
-  const [type, setType]             = useState("STANDARD");
-  const [username, setUsername]     = useState("");
-  const [email, setEmail]           = useState("");
-  const [password, setPassword]     = useState("");
+  const [type, setType] = useState("STANDARD");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError]           = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -25,25 +25,22 @@ export default function RegisterPage() {
     }
 
     try {
-      const res = await fetch(
-        "http://localhost:8080/api/v1/users/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ type, username, email, password, active: true }),
-        }
-      );
+      const res = await fetch("http://localhost:8080/api/v1/users/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type, username, email, password, active: true }),
+      });
       const body = await res.json();
 
       if (res.ok && body.success) {
         // alert di successo con SweetAlert2
         await Swal.fire({
-          title: "Registrazione riuscita!",
-          text: "Puoi ora effettuare il login.",
+          title: "Registration successful!",
+          text: "You can now log in.",
           icon: "success",
-          confirmButtonText: "Ok",
+          confirmButtonText: "OK",
           background: "#0f1c25",
-          color: "#fff"
+          color: "#fff",
         });
         navigate("/login");
       } else {
@@ -62,7 +59,6 @@ export default function RegisterPage() {
         <div className="register-card col-10 col-md-8 col-lg-4 p-5">
           <h2 className="card-title">Sign up</h2>
           <form onSubmit={handleSubmit}>
-
             <div className="form-group">
               <select
                 value={type}

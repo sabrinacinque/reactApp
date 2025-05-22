@@ -35,9 +35,9 @@ export default function LoginPage() {
         // Alert di benvenuto
         await Swal.fire({
           title: `Hello ${identifier}!`,
-          text: "Login effettuato con successo.",
+          text: "Login success.",
           icon: "success",
-          confirmButtonText: "Vai alla dashboard",
+          confirmButtonText: "Go to dashboard",
           background: "#0f1c25",
           color: "#fff"
         });
@@ -45,7 +45,7 @@ export default function LoginPage() {
         // Redirect in dashboard
         navigate("/dashboard");
       } else {
-        setError(body.message || "Login fallito");
+        setError(body.message || "Login failed");
       }
     } catch (err) {
       console.error(err);

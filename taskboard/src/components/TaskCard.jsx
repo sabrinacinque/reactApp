@@ -42,7 +42,7 @@ export default function TaskCard({ task, onAction }) {
         <p className="task-desc small ">{task.description}</p>
       )}
 
-      <div className="small text-secondary">
+      <div className="small text-white-50">
         Created:{" "}
         {new Date(task.insertDate).toLocaleString([], {
           day:   "2-digit",

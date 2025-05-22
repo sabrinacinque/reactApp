@@ -45,10 +45,10 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
   if (!show) return null;
   return (
     <>
-      <div className="modal-backdrop fade show"></div>
-      <div className="modal fade show" tabIndex="-1" style={{ display: 'block' }}>
+      <div className="modal-backdrop fade show "></div>
+      <div className="modal fade show " tabIndex="-1" style={{ display: 'block' }}>
         <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
+          <div className="modal-content bg-dark text-light">
 
             <div className="modal-header">
               <h5 className="modal-title">New Task (“{state}”)</h5>
@@ -91,12 +91,12 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
               <div className="modal-footer">
                 <button 
                   type="button" 
-                  className="btn btn-secondary" 
+                  className="btn btn-danger" 
                   onClick={onClose}
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-success">
                   Save
                 </button>
               </div>
