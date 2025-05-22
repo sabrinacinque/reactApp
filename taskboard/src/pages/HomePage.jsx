@@ -13,10 +13,14 @@ export default function HomePage() {
           <div className="row">
             <div className="col-md-6">
               <h1 className="display-4 fw-bold mb-3 text-white">
-                Build your product with confidence
+                Menage your tasks efficiently
               </h1>
               <p className="lead text-white-50 mb-4">
-                A brief description of your product or service goes here.
+                TaskBoard is a powerful task management tool that helps you
+                organize your projects and collaborate with your team. With
+                features like task assignment, progress tracking, and team
+                collaboration, you can streamline your workflow and boost
+                productivity.
               </p>
               <Link to="/register" className="btn btn-primary btn-lg me-2">
                 Get Started

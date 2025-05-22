@@ -35,10 +35,10 @@ export default function Header() {
             ) : (
               <>
                 <li className="nav-item me-2">
-                  <NavLink to="/login" className="nav-link">Help</NavLink>
+                  <NavLink to="/" className="nav-link">Help</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/register" className="nav-link">About us</NavLink>
+                  <NavLink to="/" className="nav-link">About us</NavLink>
                 </li>
               </>
             )}

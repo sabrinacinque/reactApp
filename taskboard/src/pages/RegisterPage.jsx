@@ -59,7 +59,7 @@ export default function RegisterPage() {
       <Sidebar />
 
       <div className="hero-background flex-grow-1 d-flex justify-content-center align-items-center">
-        <div className="register-card">
+        <div className="register-card col-10 col-md-8 col-lg-4 p-5">
           <h2 className="card-title">Sign up</h2>
           <form onSubmit={handleSubmit}>
 
@@ -116,12 +116,12 @@ export default function RegisterPage() {
 
             {error && <div className="error-text">{error}</div>}
 
-            <button type="submit" className="btn btn-primary w-100">
+            <button type="submit" className="btn btn-primary w-100 fs-4 my-3">
               Sign up
             </button>
           </form>
 
-          <p className="alt-text">
+          <p className="alt-text text-center text-white-50 fs-5">
             Already have an account? <Link to="/login">Log in</Link>
           </p>
         </div>

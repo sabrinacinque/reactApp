@@ -2,9 +2,6 @@
 .register-card {
   background-color: rgba(15, 28, 37, 0.9);
   border-radius: 0.75rem;
-  padding: 2rem;
-  width: 480px;
-  max-width: 90vw;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
@@ -30,7 +27,7 @@
   border-radius: 0.5rem;
   background-color: #0f1c25;
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.3rem;
 }
 
 .form-group input::placeholder {
@@ -45,22 +42,8 @@
   text-align: center;
 }
 
-/* Pulsante submit */
-.register-card .btn {
-  display: block;
-  width: 100%;
-  margin-top: 1rem;
-  padding: 0.75rem;
-  font-size: 1rem;
-}
 
-/* Link di switch */
-.alt-text {
-  margin-top: 1rem;
-  text-align: center;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-}
+
 
 .alt-text a {
   color: #2f81f7;

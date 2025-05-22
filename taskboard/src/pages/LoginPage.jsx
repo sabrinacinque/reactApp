@@ -5,10 +5,10 @@ import Sidebar from "../MainComponent/Sidebar";
 import "./LoginPage.css";
 
 export default function LoginPage() {
-  const [identifier, setIdentifier] = useState("");
-  const [password, setPassword]     = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError]           = useState("");
+  const [identifier, setIdentifier]       = useState("");
+  const [password, setPassword]           = useState("");
+  const [showPassword, setShowPassword]   = useState(false);
+  const [error, setError]                 = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -39,8 +39,8 @@ export default function LoginPage() {
     <div className="page-layout d-flex">
       <Sidebar />
 
-      <div className="hero-background flex-grow-1 d-flex justify-content-center align-items-center">
-        <div className="login-card">
+      <div className="hero-background flex-grow-1 d-flex justify-content-center align-items-center ">
+        <div className="login-card col-10 col-md-8 col-lg-4 p-5">
           <h2 className="login-title">Log in</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
@@ -52,6 +52,7 @@ export default function LoginPage() {
                 required
               />
             </div>
+
             <div className="form-group password-group">
               <input
                 type={showPassword ? "text" : "password"}
@@ -67,11 +68,14 @@ export default function LoginPage() {
                 {showPassword ? <FiEyeOff /> : <FiEye />}
               </span>
             </div>
+
             {error && <div className="error-text">{error}</div>}
-            <button type="submit" className="btn btn-primary w-100">
+
+            <button type="submit" className="btn btn-primary w-100 fs-5 py-2">
               Log in
             </button>
           </form>
+
           <p className="signup-text">
             Don't have an account? <Link to="/register">Sign up</Link>
           </p>

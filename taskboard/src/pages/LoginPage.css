@@ -1,4 +1,4 @@
-/* src/pages/LoginPage.css */
+
 
 /* Layout wrapper: include sidebar + hero background */
 .page-layout {
@@ -10,7 +10,7 @@
   background-image: url("/images/hero-background.png");
   background-size: cover;
   background-position: center;
-  filter: brightness(0.6);
+ 
 }
 
 /* Card del form di login */
@@ -18,8 +18,7 @@
   background-color: rgba(15, 28, 37, 0.9);
   border-radius: 0.75rem;
   padding: 2rem;
-  width: 480px;         /* puoi regolare qui la larghezza */
-  max-width: 90vw;      /* rimane responsive su schermi piccoli */
+
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
@@ -59,20 +58,12 @@
   text-align: center;
 }
 
-/* Pulsante di submit */
-.login-card .btn {
-  display: block;
-  width: 100%;
-  margin-top: 1rem;
-  padding: 0.75rem;
-  font-size: 1rem;
-}
+
 
 /* Link di registrazione */
 .signup-text {
   margin-top: 1rem;
   text-align: center;
-  font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -100,7 +91,7 @@
   right: 1rem;
   transform: translateY(-50%);
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
   font-size: 1.2rem;
 }
 
