@@ -1,0 +1,22 @@
+/* src/pages/Dashboard.css */
+
+/* Se non l’hai già definito, riprendi page-layout da HomePage/LoginPage */
+.page-layout {
+  min-height: calc(100vh - 60px); /* considera l’header sticky */
+}
+
+/* Contenuto principale */
+.dashboard-main {
+  background-color: #f8f9fa; /* o qualsiasi tonalità di sfondo tu preferisca */
+  min-height: calc(100vh - 60px);
+}
+
+/* Titolo grande */
+.dashboard-main h1 {
+  margin-bottom: 1rem;
+}
+
+/* Paragrafo */
+.dashboard-main p {
+  color: #555;
+}

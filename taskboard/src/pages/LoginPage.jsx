@@ -1,14 +1,16 @@
+// src/pages/LoginPage.jsx
+
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Sidebar from "../MainComponent/Sidebar";
 import "./LoginPage.css";
 
-export default function LoginPage() {
-  const [identifier, setIdentifier]       = useState("");
-  const [password, setPassword]           = useState("");
-  const [showPassword, setShowPassword]   = useState(false);
-  const [error, setError]                 = useState("");
+export default function LoginPage({ onLogin }) {
+  const [identifier, setIdentifier]     = useState("");
+  const [password, setPassword]         = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError]               = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -16,7 +18,7 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:8080/api/v1/login", {
+      const res = await fetch("http://localhost:8080/api/v1/sessions/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ identifier, password }),
@@ -24,7 +26,9 @@ export default function LoginPage() {
       const body = await res.json();
 
       if (res.ok && body.success) {
-        localStorage.setItem("token", body.sessiondata.token);
+        // Avvisa App che siamo loggati e salva il token
+        onLogin(body.sessiondata.token);
+        // Poi fai il redirect
         navigate("/dashboard");
       } else {
         setError(body.message || "Login fallito");
@@ -39,7 +43,7 @@ export default function LoginPage() {
     <div className="page-layout d-flex">
       <Sidebar />
 
-      <div className="hero-background flex-grow-1 d-flex justify-content-center align-items-center ">
+      <div className="hero-background flex-grow-1 d-flex justify-content-center align-items-center">
         <div className="login-card col-10 col-md-8 col-lg-4 p-5">
           <h2 className="login-title">Log in</h2>
           <form onSubmit={handleSubmit}>

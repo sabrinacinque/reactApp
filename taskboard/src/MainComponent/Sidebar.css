@@ -31,3 +31,20 @@
   color: #fff;
   border-radius: 4px;
 }
+
+.logout-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #ccc;
+  padding: 0.5rem 0;
+  text-align: left;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: rgba(255,255,255,0.1);
+  color: #fff;
+  cursor: pointer;
+}
