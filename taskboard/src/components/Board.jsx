@@ -41,7 +41,7 @@ const sampleColumns = [
 
 export default function Board() {
   return (
-    <div className="board d-flex overflow-auto p-4 h-100">
+    <div className="board d-flex p-4 h-100">
       {sampleColumns.map((col) => (
         <Column key={col.id} title={col.title} tasks={col.tasks} />
       ))}

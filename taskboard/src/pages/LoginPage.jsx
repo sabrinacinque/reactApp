@@ -6,11 +6,11 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import Sidebar from "../MainComponent/Sidebar";
 import "./LoginPage.css";
 
-export default function LoginPage({ onLogin }) {
-  const [identifier, setIdentifier]     = useState("");
-  const [password, setPassword]         = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError]               = useState("");
+export default function LoginPage() {
+  const [identifier, setIdentifier]       = useState("");
+  const [password, setPassword]           = useState("");
+  const [showPassword, setShowPassword]   = useState(false);
+  const [error, setError]                 = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -26,9 +26,13 @@ export default function LoginPage({ onLogin }) {
       const body = await res.json();
 
       if (res.ok && body.success) {
-        // Avvisa App che siamo loggati e salva il token
-        onLogin(body.sessiondata.token);
-        // Poi fai il redirect
+        // Salvo il token in localStorage
+        localStorage.setItem("token", body.sessiondata.token);
+
+        // (opzionale) alert di benvenuto
+        // import Swal da 'sweetalert2' se vuoi usarlo qui
+
+        // Redirect in dashboard
         navigate("/dashboard");
       } else {
         setError(body.message || "Login fallito");
