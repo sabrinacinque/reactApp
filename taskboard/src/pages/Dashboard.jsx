@@ -1,6 +1,7 @@
-// src/pages/Dashboard.jsx
 import React from "react";
 import Sidebar from "../MainComponent/Sidebar";
+import Board from "../components/Board";
+import SidebarDX from "../components/SidebarDX";
 import "./Dashboard.css";
 
 export default function Dashboard() {
@@ -8,10 +9,13 @@ export default function Dashboard() {
     <div className="page-layout d-flex">
       <Sidebar />
 
-      <main className="dashboard-main flex-grow-1 p-4">
-        <h1>Benvenuto nella tua dashboard!</h1>
-        <p>Qui poi potrai mostrare i task, i messaggi, ecc.</p>
-      </main>
+      {/* area principale + sidebar destra */}
+      <div className="flex-grow-1 d-flex">
+        <div className="flex-grow-1 overflow-auto">
+          <Board />
+        </div>
+        <SidebarDX />
+      </div>
     </div>
   );
 }

@@ -1,0 +1,16 @@
+.task-card {
+  background-color: #17202a;
+  border: 1px solid #24303b;
+}
+.task-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.task-desc {
+  font-size: 0.85rem;
+}
+.avatar {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+}

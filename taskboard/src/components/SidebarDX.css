@@ -1,0 +1,5 @@
+.sidebar-dx {
+  background-color: #050A11;
+  min-height: calc(100vh - 60px); /* tieni conto dell’header sticky da 60px */
+  border-left: 1px solid #24303b;
+}

@@ -7,7 +7,7 @@
 
 /* Contenuto principale */
 .dashboard-main {
-  background-color: #f8f9fa; /* o qualsiasi tonalità di sfondo tu preferisca */
+  
   min-height: calc(100vh - 60px);
 }
 
