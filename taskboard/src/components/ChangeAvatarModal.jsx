@@ -1,52 +1,95 @@
 // src/components/ChangeAvatarModal.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { FiUser, FiSmile, FiZap, FiHeart } from "react-icons/fi";
+import { FiUser, FiUsers, FiSmile, FiStar } from "react-icons/fi";
 
-const ICONS = [
-  { id: "user",   icon: <FiUser size={24}/> },
-  { id: "smile",  icon: <FiSmile size={24}/> },
-  { id: "zap",    icon: <FiZap size={24}/> },
-  { id: "heart",  icon: <FiHeart size={24}/> },
+const AVATAR_OPTIONS = [
+  { key: "user",   Icon: FiUser },
+  { key: "users",  Icon: FiUsers },
+  { key: "smile",  Icon: FiSmile },
+  { key: "star",   Icon: FiStar },
 ];
 
-export default function ChangeAvatarModal({ show, onClose }) {
+export default function ChangeAvatarModal({ show, onClose, onUpdated }) {
+  const [choice, setChoice] = useState("");
+  const userId = localStorage.getItem("userId");
+  const token  = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (!show) return;
+    fetch(`http://localhost:8080/api/v1/users/${userId}/avatar`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (data?.avatarUrl) {
+          setChoice(data.avatarUrl);
+        }
+      });
+  }, [show, userId]);
+
   if (!show) return null;
 
-  const handlePick = async avatarId => {
-    const userId = localStorage.getItem("userId");
-    // invia PUT a /api/v1/users/{userId}/avatar
-    await fetch(`http://localhost:8080/api/v1/users/${userId}/avatar`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ avatar: avatarId }),
-    });
-    localStorage.setItem("avatarId", avatarId);
-    await Swal.fire("Success", "Avatar updated!", "success");
-    onClose();
+  const handleSave = async () => {
+    const res = await fetch(
+      `http://localhost:8080/api/v1/users/${userId}/avatar`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type":  "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ avatarUrl: choice })
+      }
+    );
+    if (res.ok) {
+      Swal.fire("Success", "Avatar updated", "success");
+      localStorage.setItem("avatar", choice);
+      onClose();
+      onUpdated(choice);
+      
+    } else {
+      Swal.fire("Error", "Could not update avatar", "error");
+    }
   };
 
   return (
     <>
-      <div className="modal-backdrop fade show"></div>
+      <div className="modal-backdrop fade show bg-dark"></div>
       <div className="modal fade show" style={{ display: "block" }} tabIndex="-1">
         <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Choose Avatar</h5>
-              <button type="button" className="btn-close" onClick={onClose}/>
+          <div className="modal-content bg-dark text-white p-4 border">
+            <h5 className="mb-3">Choose your avatar</h5>
+            <div className="d-flex flex-wrap gap-4">
+              {AVATAR_OPTIONS.map(option => {
+                const { key, Icon } = option;
+                return (
+                  <div
+                    key={key}
+                    onClick={() => setChoice(key)}
+                    style={{
+                      width: 60,
+                      height: 60,
+                      borderRadius: "50%",
+                      backgroundColor: choice === key ? "#2f81f7" : "#444",
+                      color: "#fff",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "2rem",
+                      cursor: "pointer"
+                    }}
+                  >
+                    <Icon />
+                  </div>
+                );
+              })}
             </div>
-            <div className="modal-body d-flex justify-content-around">
-              {ICONS.map(a => (
-                <div
-                  key={a.id}
-                  className="p-3 avatar-choice"
-                  onClick={() => handlePick(a.id)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {a.icon}
-                </div>
-              ))}
+            <div className="mt-4 text-end">
+              <button className="btn btn-secondary me-2" onClick={onClose}>
+                Cancel
+              </button>
+              <button className="btn btn-primary" onClick={handleSave}>
+                Save
+              </button>
             </div>
           </div>
         </div>
