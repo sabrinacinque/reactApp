@@ -20,3 +20,9 @@
 .dashboard-main p {
   color: #555;
 }
+
+.dashboard-background {
+  background-image: url("/images/hero-background.png");
+  background-size: cover;
+  background-position: center;
+}

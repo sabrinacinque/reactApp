@@ -3,3 +3,21 @@
   min-height: calc(100vh - 60px); /* tieni conto dell’header sticky da 60px */
   border-left: 1px solid #24303b;
 }
+
+
+
+.sidebar-dx h6 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #bbb;
+  margin-bottom: 0.5rem;
+}
+
+.stats-panel h6 {
+  margin-bottom: 0.75rem;
+}
+
+.stats-panel ul li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}

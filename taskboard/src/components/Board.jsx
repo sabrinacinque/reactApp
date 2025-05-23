@@ -62,7 +62,7 @@ export default function Board() {
 
   return (
     <>
-      <div className="board d-flex p-4 h-100">
+      <div className="board d-flex p-4 vh-100">
         {STATES.map((state) => (
           <Column
             key={state}
