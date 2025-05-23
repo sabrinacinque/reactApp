@@ -31,6 +31,7 @@ export default function LoginPage() {
         // Salvo il token e l'userId
         localStorage.setItem("token", body.sessiondata.token);
         localStorage.setItem("userId", String(body.sessiondata.userid));
+        localStorage.setItem("username", identifier);
 
         // Alert di benvenuto
         await Swal.fire({
