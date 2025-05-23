@@ -17,7 +17,7 @@ export default function TaskCard({ task, onAction }) {
     >
       <div className="d-flex justify-content-between align-items-start">
         <h6 className="task-title mb-1 text-capitalize">{task.title}</h6>
-        <div className="action-icons">
+        <div className="action-icons " style={{ cursor: "pointer" }}>
           {task.state !== "done" && (
             <FiCheck
               className="me-2 action-icon"
@@ -33,7 +33,7 @@ export default function TaskCard({ task, onAction }) {
           <FiTrash2
             className="action-icon"
             title="Delete"
-            onClick={() => onAction(task, "delete")}
+            onClick={() => onAction(task, "delete")}            
           />
         </div>
       </div>

@@ -45,7 +45,7 @@ export default function Board({
 
   return (
     <>
-      <div className="d-flex ms-4 me-2 mt-4 my-0">
+      <div className="d-flex ms-4 me-2">
         {STATES.map(state => (
           <Column
             key={state}
