@@ -11,7 +11,7 @@ export default function Dashboard() {
 
       {/* area principale + sidebar destra */}
       <div className="row d-flex justify-conter-space-between flex-grow-1 vh-100">
-        <div className="col-10 overflow-auto px-0 vh-100 dashboard-background">
+        <div className="col-10 px-0 vh-100 dashboard-background">
           <Board />
         </div>
         <div className="col-2 overflow-auto px-0 ">
