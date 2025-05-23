@@ -15,20 +15,20 @@ export default function App() {
       <Header />
 
       <Routes>
-        {/* pubbliche */}
+        {/*rotte pubbliche */}
         <Route path="/"        element={<HomePage />} />
         <Route path="/login"   element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
-        {/* tutte le rotte protette vanno dentro PrivateRoute */}
+        {/* le rotte protette vanno dentro PrivateRoute */}
         <Route element={<PrivateRoute />}>
 
-          {/* dashboard + altre pagine “autenticate” */}
+          
           <Route path="/dashboard" element={<Dashboard />} />
 
         </Route>
 
-        {/* catch‐all */}
+        
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

@@ -8,7 +8,7 @@ export default function Column({
   onAction     // <-- unica prop per tutte le azioni
 }) {
   return (
-    <div className="col-3 flex-shrink-0 bg-dark bg-opacity-50 rounded mx-2 vh-100 d-flex flex-column">
+    <div className="col flex-shrink-0 bg-dark bg-opacity-50 rounded mx-2 vh-100 d-flex flex-column">
       <div className="column-header p-3">
         <h5 className="text-light text-capitalize text-center">{title}</h5>
         {title  && (

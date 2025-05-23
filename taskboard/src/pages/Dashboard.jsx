@@ -10,11 +10,13 @@ export default function Dashboard() {
       <Sidebar />
 
       {/* area principale + sidebar destra */}
-      <div className="flex-grow-1 d-flex">
-        <div className="flex-grow-1 overflow-auto">
+      <div className="row d-flex justify-conter-space-between flex-grow-1">
+        <div className="col-10 overflow-auto px-0">
           <Board />
         </div>
-        <SidebarDX />
+        <div className="col-2 px-0">
+          <SidebarDX />
+        </div> 
       </div>
     </div>
   );
