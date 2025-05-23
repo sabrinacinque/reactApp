@@ -1,70 +1,52 @@
-// src/components/StatsPanel.jsx
 import React from "react";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer
-} from "recharts";
-import { useTasks } from "../hooks/useTasks";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-
-// Color palette: [openTasks, closedTasks]
+// palette: [open, closed]
 const COLORS = ["#FF6B6B", "#4ECDC4"];
 
-function StatsPanel() {
-  const { tasks } = useTasks();
+export default function StatsPanel({ tasks }) {
+  const openCount   = tasks.filter(t => t.state !== "done").length;
+  const closedCount = tasks.filter(t => t.state === "done").length;
 
-  // Count open vs. closed tasks
-  const openTasksCount   = tasks.filter(t => t.state !== "done").length;
-  const closedTasksCount = tasks.filter(t => t.state === "done").length;
-
-  // Compute average completion time (in hours)
-  const completedWithDates = tasks.filter(
-    t => t.state === "done" && t.insertDate && t.previousEndDate
-  );
-  const avgHours = completedWithDates.length > 0
-    ? completedWithDates
+  const completed = tasks.filter(t => t.state === "done" && t.previousEndDate);
+  const avgH = completed.length > 0
+    ? completed
         .map(t => {
           const start = new Date(t.insertDate).getTime();
           const end   = new Date(t.previousEndDate).getTime();
-          return (end - start) / 36e5; // ms → hours
+          return (end - start) / 36e5;
         })
-        .reduce((sum, h) => sum + h, 0) / completedWithDates.length
+        .reduce((a,b) => a + b, 0) / completed.length
     : 0;
 
-  // Prepare data for pie
-  const pieData = [
-    { name: "Open",   value: openTasksCount },
-    { name: "Closed", value: closedTasksCount }
+  const data = [
+    { name: "Open",  value: openCount,  fill: COLORS[0] },
+    { name: "Closed",value: closedCount,fill: COLORS[1] },
   ];
 
   return (
     <div className="stats-panel p-3 mt-4 text-white bg-dark rounded">
-      <h6 className="mb-3">Quick Stats</h6>
-
-      <ul className="list-unstyled mb-3">
-        <li>🟢 Open: <strong>{openTasksCount}</strong></li>
-        <li>✅ Closed: <strong>{closedTasksCount}</strong></li>
-        <li>⏱️ Avg. completion: <strong>{avgHours.toFixed(1)}h</strong></li>
+      <ul className="list-unstyled mb-4">
+        <li>🟢 Open: <strong>{openCount}</strong></li>
+        <li>✅ Closed: <strong>{closedCount}</strong></li>
+        <li>⏱️ Avg. completion: <strong>{avgH.toFixed(1)}h</strong></li>
       </ul>
-
-      <div style={{ width: "100%", height: 150 }}>
+      <div style={{ width: "100%", height: 200 }}>
         <ResponsiveContainer>
           <PieChart>
             <Pie
-              data={pieData}
+              data={data}
               dataKey="value"
               nameKey="name"
               cx="50%"
               cy="50%"
-              innerRadius={40}
+              innerRadius={30}
               outerRadius={60}
               paddingAngle={4}
               label
             >
-              {pieData.map((entry, idx) => (
-                <Cell key={`cell-${idx}`} fill={COLORS[idx]} />
+              {data.map((entry, i) => (
+                <Cell key={i} fill={entry.fill} />
               ))}
             </Pie>
           </PieChart>
@@ -73,5 +55,3 @@ function StatsPanel() {
     </div>
   );
 }
-
-export default StatsPanel;

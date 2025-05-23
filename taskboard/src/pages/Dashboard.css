@@ -1,25 +1,5 @@
 /* src/pages/Dashboard.css */
 
-/* Se non l’hai già definito, riprendi page-layout da HomePage/LoginPage */
-.page-layout {
-  min-height: calc(100vh - 60px); /* considera l’header sticky */
-}
-
-/* Contenuto principale */
-.dashboard-main {
-  
-  min-height: calc(100vh - 60px);
-}
-
-/* Titolo grande */
-.dashboard-main h1 {
-  margin-bottom: 1rem;
-}
-
-/* Paragrafo */
-.dashboard-main p {
-  color: #555;
-}
 
 .dashboard-background {
   background-image: url("/images/hero-background.png");
