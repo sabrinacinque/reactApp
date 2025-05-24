@@ -2,7 +2,9 @@
 import React, { useState } from "react";
 import Sidebar from "../MainComponent/Sidebar";
 import { useFriends } from "../hooks/useFriends";
-import Swal from "sweetalert2";
+import { useTasks }   from "../hooks/useTasks";
+import AddTaskModal   from "../components/AddTaskModal";
+import Swal           from "sweetalert2";
 import "./FriendConnections.css";
 
 export default function FriendConnections() {
@@ -17,20 +19,14 @@ export default function FriendConnections() {
     respond
   } = useFriends();
 
+  const { addTask, fetchAll: refreshTasks } = useTasks();
+
   const [emailToSearch, setEmail] = useState("");
+  const [sendTo, setSendTo]       = useState(null);
 
   const handleSearch = () => {
     if (!emailToSearch) return;
     searchByEmail(emailToSearch);
-  };
-
-  // determina lo stato del rapporto
-  const relationStatus = () => {
-    if (!foundUser) return null;
-    if (connections.some(c => c.id === foundUser.id)) return "connected";
-    if (outgoing.some(p => p.target.id === foundUser.id)) return "pending_out";
-    if (incoming.some(p => p.requester.id === foundUser.id)) return "pending_in";
-    return "none";
   };
 
   const handleSendRequest = async () => {
@@ -44,10 +40,43 @@ export default function FriendConnections() {
     });
   };
 
-  return (
-    <div className="page-layout d-flex">
-      <Sidebar />
+  const relationStatus = () => {
+    if (!foundUser) return null;
+    if (connections.some(c => c.id === foundUser.id)) return "connected";
+    if (outgoing.some(p => p.target.id === foundUser.id)) return "pending_out";
+    if (incoming.some(p => p.requester.id === foundUser.id)) return "pending_in";
+    return "none";
+  };
 
+  const openSendTaskModal = user => setSendTo(user);
+
+  const handleSendTask = async input => {
+    input.userId = sendTo.id;
+    input.state  = "incoming";
+    try {
+      await addTask(input);
+      await Swal.fire({
+        title: "Task sent!",
+        text: `Hai inviato il task a ${sendTo.username}.`,
+        icon: "success",
+        timer: 1200,
+        showConfirmButton: false
+      });
+    } catch (err) {
+      console.error("addTask failed:", err);
+      await Swal.fire({
+        title: "Error",
+        text: "Impossibile inviare il task.",
+        icon: "error"
+      });
+    }
+    setSendTo(null);
+    refreshTasks();
+  };
+
+  return (
+    <div className="page-layout d-flex vh-100">
+      <Sidebar />
 
       <div className="flex-grow-1 p-4 background text-white pt-5">
         <h2>Find & Connect</h2>
@@ -59,12 +88,10 @@ export default function FriendConnections() {
             value={emailToSearch}
             onChange={e => setEmail(e.target.value)}
           />
-          <button className="btn btn-success ms-2 " onClick={handleSearch}>
+          <button className="btn btn-success ms-2" onClick={handleSearch}>
             Search
           </button>
         </div>
-
-        <hr />
 
         {searchError && <div className="text-danger mb-3">{searchError}</div>}
 
@@ -83,17 +110,14 @@ export default function FriendConnections() {
                 Send Connection Request
               </button>
             )}
-
             {relationStatus() === "pending_out" && (
               <button className="btn btn-warning" disabled>
                 Request pending
               </button>
             )}
-
             {relationStatus() === "pending_in" && (
               <span className="text-info">They asked to connect</span>
             )}
-
             {relationStatus() === "connected" && (
               <span className="text-success">You are connected</span>
             )}
@@ -138,15 +162,35 @@ export default function FriendConnections() {
         {connections.length === 0 ? (
           <p>You have no connections yet.</p>
         ) : (
-          <ul className="list-group ">
+          <ul className="list-group">
             {connections.map(user => (
-              <li key={user.id} className="list-group-item bg-dark bg-opacity-25 text-white border-0">
-                {user.username} ({user.email})
+              <li
+                key={user.id}
+                className="list-group-item bg-dark bg-opacity-25 text-white border-0 d-flex justify-content-between align-items-center"
+              >
+                <span>
+                  {user.username} ({user.email})
+                </span>
+                <button
+                  className="btn btn-sm btn-outline-primary"
+                  onClick={() => openSendTaskModal(user)}
+                >
+                  Send Task
+                </button>
               </li>
             ))}
           </ul>
         )}
       </div>
+
+      {sendTo && (
+        <AddTaskModal
+          show
+          state="incoming"
+          onClose={() => setSendTo(null)}
+          onSave={handleSendTask}
+        />
+      )}
     </div>
   );
 }

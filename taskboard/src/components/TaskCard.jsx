@@ -5,7 +5,7 @@ import "./TaskCard.css";
 const STATE_COLORS = {
   urgent:          "rgba(255,  0,   0,   0.2)",
   "this week":     "rgba(255,255,  0,   0.2)",
-  "when I have time": "rgba(  0,255,255,   0.2)",
+  "incoming": "rgba(  0,255,255,   0.2)",
   done:            "rgba(  0,255,  0,   0.2)",
 };
 

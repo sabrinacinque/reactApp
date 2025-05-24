@@ -31,7 +31,7 @@
 .task-this-week {
   background-color: rgba(255, 255, 0,   0.2);
 }
-.task-when-i-have-time {
+.task-incoming {
   background-color: rgba(0,   255, 255, 0.2);
 }
 .task-done {

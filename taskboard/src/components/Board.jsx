@@ -5,7 +5,7 @@ import EditTaskModal from "./EditTaskModal";
 import Swal from "sweetalert2";
 
 
-const STATES = ["urgent", "this week", "when I have time", "done"];
+const STATES = ["urgent", "this week", "incoming", "done"];
 
 export default function Board({
   tasks,
