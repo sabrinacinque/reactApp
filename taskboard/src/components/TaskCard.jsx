@@ -18,9 +18,15 @@ export default function TaskCard({ task, onAction }) {
         backgroundColor: STATE_COLORS[task.state] || "rgba(255,255,255,0.1)"
       }}
     >
-      <div className="d-flex justify-content-between align-items-start">
-        <h6 className="task-title mb-1 text-capitalize">{task.title}</h6>
-        <div className="action-icons" style={{ cursor: "pointer" }}>
+      <div className="row d-flex flex-row mb-2">
+        {task.state === "incoming" && task.creator && (
+        <div className="col-8 small text-danger fw-bold mb-2 fs-5">
+          From: <strong>{task.creator.username}</strong>
+        </div>
+      )}
+      {task.state !== "incoming" && (
+      <div className="col-8 small text-white-50 mb-2 fs-5"></div>)}
+      <div className="col-4 action-icons text-end" style={{ cursor: "pointer" }}>
           {task.state !== "done" && (
             <FiCheck
               className="me-2 action-icon"
@@ -40,16 +46,16 @@ export default function TaskCard({ task, onAction }) {
           />
         </div>
       </div>
+      <div className="d-flex justify-content-between align-items-start">
+        <h6 className="task-title mb-1 text-capitalize">{task.title}</h6>
+        
+      </div>
 
       {task.description && (
         <p className="task-desc small">{task.description}</p>
       )}
 
-      {task.state === "incoming" && task.creator && (
-        <div className="small text-white-50">
-          From: <strong>{task.creator.username}</strong>
-        </div>
-      )}
+      
 
       <div className="small text-white-50 mt-1">
         Created:{" "}
