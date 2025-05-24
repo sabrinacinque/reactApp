@@ -1,3 +1,4 @@
+// src/components/Column.jsx
 import React from "react";
 import TaskCard from "./TaskCard";
 
@@ -5,14 +6,22 @@ export default function Column({
   title,
   tasks,
   onAdd,
-  onAction     // <-- unica prop per tutte le azioni
+  onAction     // unica prop per tutte le azioni
 }) {
   return (
     <div className="col flex-shrink-0 bg-dark bg-opacity-50 rounded mx-2 vh-100 d-flex flex-column">
       <div className="column-header p-3">
         <h5 className="text-light text-capitalize text-center">{title}</h5>
-        {title  && (
-          <button className="btn btn-outline-light w-100 my-3 py-3" onClick={onAdd}>
+
+        {/*
+          mostriamo il + Add in tutte le colonne tranne "incoming" e "done"
+        */}
+        {title !== "incoming" && title !== "done"
+         && (
+          <button
+            className="btn btn-outline-light w-100 my-3 py-3"
+            onClick={onAdd}
+          >
             + Add
           </button>
         )}
@@ -25,7 +34,7 @@ export default function Column({
               <TaskCard
                 key={task.id}
                 task={task}
-                onAction={onAction}  
+                onAction={onAction}
               />
             ))}
       </div>

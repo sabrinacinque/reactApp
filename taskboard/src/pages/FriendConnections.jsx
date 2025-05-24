@@ -1,4 +1,3 @@
-// src/pages/Teams.jsx
 import React, { useState } from "react";
 import Sidebar from "../MainComponent/Sidebar";
 import { useFriends } from "../hooks/useFriends";
@@ -19,10 +18,10 @@ export default function FriendConnections() {
     respond
   } = useFriends();
 
-  const { addTask, fetchAll: refreshTasks } = useTasks();
+  const { addTask, refreshTasks } = useTasks();
 
   const [emailToSearch, setEmail] = useState("");
-  const [sendTo, setSendTo]       = useState(null);
+  const [sendTo,       setSendTo] = useState(null);
 
   const handleSearch = () => {
     if (!emailToSearch) return;
@@ -50,11 +49,10 @@ export default function FriendConnections() {
 
   const openSendTaskModal = user => setSendTo(user);
 
-  const handleSendTask = async input => {
-    input.userId = sendTo.id;
-    input.state  = "incoming";
+  // Riceve dal modal un oggetto { title, description, state, insertDate, previousEndDate, recipientId }
+  const handleSendTask = async payload => {
     try {
-      await addTask(input);
+      await addTask(payload);
       await Swal.fire({
         title: "Task sent!",
         text: `Hai inviato il task a ${sendTo.username}.`,
@@ -69,9 +67,10 @@ export default function FriendConnections() {
         text: "Impossibile inviare il task.",
         icon: "error"
       });
+    } finally {
+      setSendTo(null);
+      refreshTasks();
     }
-    setSendTo(null);
-    refreshTasks();
   };
 
   return (
@@ -103,10 +102,7 @@ export default function FriendConnections() {
             </p>
 
             {relationStatus() === "none" && (
-              <button
-                className="btn btn-success"
-                onClick={handleSendRequest}
-              >
+              <button className="btn btn-success" onClick={handleSendRequest}>
                 Send Connection Request
               </button>
             )}
@@ -187,6 +183,7 @@ export default function FriendConnections() {
         <AddTaskModal
           show
           state="incoming"
+          recipientId={sendTo.id}       
           onClose={() => setSendTo(null)}
           onSave={handleSendTask}
         />

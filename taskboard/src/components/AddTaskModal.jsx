@@ -1,24 +1,35 @@
 // src/components/AddTaskModal.jsx
-import React, { useState } from 'react';
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import React, { useState } from "react";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 
-export default function AddTaskModal({ show, onClose, state, onSave }) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [dueDate, setDueDate] = useState('');
+export default function AddTaskModal({
+  show,
+  onClose,
+  state,
+  onSave,
+  recipientId: propRecipientId, // <- se passato, questo è chi riceve
+}) {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [dueDate, setDueDate] = useState("");
 
-  const handleSubmit = async e => {
+  if (!show) return null;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const userId = Number(localStorage.getItem('userId'));
-    if (!userId) {
-      alert("You must be logged in to create a task!");
+    const creatorId = Number(localStorage.getItem("userId"));
+    const recipientId = propRecipientId != null ? propRecipientId : creatorId;
+
+    if (!creatorId) {
+      Swal.fire("Error", "You must be logged in to create a task.", "error");
       return;
     }
 
     try {
+      // qui costruiamo il DTO InputTask che Spring si aspetta:
       const payload = {
-        userId,
+        recipientId, // <-- nuovo campo
         title,
         description,
         state,
@@ -26,30 +37,41 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
         previousEndDate: dueDate || null,
       };
       await onSave(payload);
+
+      const modalTitle = state === "incoming" ? "Task sent!" : "Task added!";
+      const modalText =
+        state === "incoming"
+          ? `"${title}" has been sent to the recipient.`
+          : `"${title}" has been created.`;
+
       await Swal.fire({
-        title: 'Task added!',
-        text: `"${title}" has been created.`,
-        icon: 'success',
-        confirmButtonText: 'OK',
+        title: modalTitle,
+        text: modalText,
+        icon: "success",
+        confirmButtonText: "OK",
       });
-      setTitle('');
-      setDescription('');
-      setDueDate('');
+
+      // reset form
+      setTitle("");
+      setDescription("");
+      setDueDate("");
       onClose();
     } catch (err) {
       console.error(err);
-      Swal.fire('Error', 'Could not add task.', 'error');
+      Swal.fire("Error", "Could not add task.", "error");
     }
   };
 
-  if (!show) return null;
   return (
     <>
-      <div className="modal-backdrop fade show "></div>
-      <div className="modal fade show " tabIndex="-1" style={{ display: 'block' }}>
+      <div className="modal-backdrop fade show"></div>
+      <div
+        className="modal fade show"
+        tabIndex="-1"
+        style={{ display: "block" }}
+      >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content bg-dark text-light">
-
             <div className="modal-header">
               <h5 className="modal-title">New Task (“{state}”)</h5>
               <button type="button" className="btn-close" onClick={onClose} />
@@ -57,14 +79,13 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
 
             <form onSubmit={handleSubmit}>
               <div className="modal-body">
-                {/* ... same inputs as before ... */}
                 <div className="mb-3">
                   <label className="form-label">Title</label>
                   <input
                     type="text"
                     className="form-control"
                     value={title}
-                    onChange={e => setTitle(e.target.value)}
+                    onChange={(e) => setTitle(e.target.value)}
                     required
                   />
                 </div>
@@ -74,24 +95,24 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
                     className="form-control"
                     rows="3"
                     value={description}
-                    onChange={e => setDescription(e.target.value)}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">Due Date &amp; Time</label>
+                  <label className="form-label">Due Date & Time</label>
                   <input
                     type="datetime-local"
                     className="form-control"
                     value={dueDate}
-                    onChange={e => setDueDate(e.target.value)}
-                    required
+                    onChange={(e) => setDueDate(e.target.value)}
                   />
                 </div>
               </div>
+
               <div className="modal-footer">
-                <button 
-                  type="button" 
-                  className="btn btn-danger" 
+                <button
+                  type="button"
+                  className="btn btn-danger"
                   onClick={onClose}
                 >
                   Cancel
@@ -101,7 +122,6 @@ export default function AddTaskModal({ show, onClose, state, onSave }) {
                 </button>
               </div>
             </form>
-
           </div>
         </div>
       </div>

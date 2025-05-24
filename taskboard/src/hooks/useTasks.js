@@ -7,6 +7,7 @@ export function useTasks() {
   const [tasks, setTasks] = useState([]);
   // prendo userId da localStorage
   const userId = localStorage.getItem("userId");
+  const token  = localStorage.getItem("token");
 
   const fetchAll = useCallback(async () => {
     try {
@@ -16,10 +17,10 @@ export function useTasks() {
         : BASE_URL;
 
       const res = await fetch(url, {
-        headers: {
-          // se in futuro vuoi autenticare via token:
-          // Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
+
+       headers: {
+         "Authorization": `Bearer ${token}`
+       }
       });
       if (!res.ok) throw new Error("Fetch failed");
       const data = await res.json();
@@ -36,7 +37,8 @@ export function useTasks() {
   const addTask = async (input) => {
     const res = await fetch(`${BASE_URL}/create`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+      
       body: JSON.stringify(input),
     });
     if (!res.ok) throw new Error("Add task failed");
@@ -51,7 +53,7 @@ export function useTasks() {
   const updateTask = async (id, input) => {
     const res = await fetch(`${BASE_URL}/update/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
       body: JSON.stringify(input),
     });
     if (!res.ok) throw new Error("Update failed");
@@ -65,6 +67,7 @@ export function useTasks() {
   const deleteTask = async (id) => {
     const res = await fetch(`${BASE_URL}/delete/${id}`, {
       method: "DELETE",
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
     });
     if (!res.ok) throw new Error("Delete failed");
     setTasks((ts) => ts.filter((t) => t.id !== id));
