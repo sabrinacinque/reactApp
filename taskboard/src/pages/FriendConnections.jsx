@@ -18,7 +18,7 @@ export default function FriendConnections() {
     respond
   } = useFriends();
 
-  const { addTask, refreshTasks } = useTasks();
+  const { addTask, fetchAll: refreshTasks } = useTasks();
 
   const [emailToSearch, setEmail] = useState("");
   const [sendTo,       setSendTo] = useState(null);
@@ -32,7 +32,7 @@ export default function FriendConnections() {
     await sendRequest(foundUser.id);
     await Swal.fire({
       title: "Request sent!",
-      text: `Hai inviato una richiesta a ${foundUser.username}.`,
+      text: `You sent a task to ${foundUser.username}.`,
       icon: "success",
       timer: 1500,
       showConfirmButton: false
@@ -55,7 +55,7 @@ export default function FriendConnections() {
       await addTask(payload);
       await Swal.fire({
         title: "Task sent!",
-        text: `Hai inviato il task a ${sendTo.username}.`,
+        text: `You sent a task to ${sendTo.username}.`,
         icon: "success",
         timer: 1200,
         showConfirmButton: false
@@ -64,7 +64,7 @@ export default function FriendConnections() {
       console.error("addTask failed:", err);
       await Swal.fire({
         title: "Error",
-        text: "Impossibile inviare il task.",
+        text: "Impossible to send the task.",
         icon: "error"
       });
     } finally {

@@ -28,7 +28,7 @@ export function useTasks() {
     } catch (err) {
       console.error("Error loading tasks:", err);
     }
-  }, [userId]);
+  }, [userId,token]);
 
   useEffect(() => {
     fetchAll();
