@@ -89,7 +89,7 @@ export default function Sidebar() {
               <FiSettings className="me-2" /> Settings
             </NavLink>
             <NavLink to="/teams" className="nav-link d-flex align-items-center mb-2">
-              <FiUsers className="me-2" /> Teams
+              <FiUsers className="me-2" /> Friends
             </NavLink>
           </>
         )}

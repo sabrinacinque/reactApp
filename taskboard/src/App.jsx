@@ -8,7 +8,7 @@ import LoginPage     from './pages/LoginPage';
 import RegisterPage  from './pages/RegisterPage';
 import Dashboard     from './pages/Dashboard';
 import SettingsPage  from './pages/SettingsPage';
-import TeamsPage from "./pages/Teams.jsx";
+import TeamsPage from "./pages/FriendConnections.jsx";
 
 export default function App() {
   return (

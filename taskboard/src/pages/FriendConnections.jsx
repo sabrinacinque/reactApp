@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import Sidebar from "../MainComponent/Sidebar";
 import { useFriends } from "../hooks/useFriends";
 import Swal from "sweetalert2";
+import "./FriendConnections.css";
 
-export default function TeamsPage() {
+export default function FriendConnections() {
   const {
     incoming,
     outgoing,
@@ -47,25 +48,29 @@ export default function TeamsPage() {
     <div className="page-layout d-flex">
       <Sidebar />
 
-      <div className="flex-grow-1 p-4">
+
+      <div className="flex-grow-1 p-4 background text-white pt-5">
         <h2>Find & Connect</h2>
-        <div className="input-group mb-4">
+        <div className="input-group mb-4 w-25 my-5">
           <input
             type="email"
-            className="form-control"
+            className="form-control rounded-2"
             placeholder="User email"
             value={emailToSearch}
             onChange={e => setEmail(e.target.value)}
           />
-          <button className="btn btn-primary" onClick={handleSearch}>
+          <button className="btn btn-success ms-2 " onClick={handleSearch}>
             Search
           </button>
         </div>
 
+        <hr />
+
         {searchError && <div className="text-danger mb-3">{searchError}</div>}
 
         {foundUser && (
-          <div className="card mb-4 p-3">
+          <div className="card mb-4 p-3 w-25 bg-dark text-white">
+            <h5 className="card-title">User Found</h5>
             <p>
               <strong>{foundUser.username}</strong> ({foundUser.email})
             </p>
@@ -95,28 +100,28 @@ export default function TeamsPage() {
           </div>
         )}
 
-        <h2>Incoming Requests</h2>
+        <h2 className="my-5">Incoming Requests</h2>
         {incoming.length === 0 ? (
-          <p>No pending requests.</p>
+          <p className="pb-4">No pending requests.</p>
         ) : (
           <ul className="list-group mb-4">
             {incoming.map(req => (
               <li
                 key={req.id}
-                className="list-group-item d-flex justify-content-between align-items-center"
+                className="list-group-item d-flex justify-content-between align-items-center bg-dark bg-opacity-25 text-white fs-5 py-3 border-0 border-bottom"
               >
                 <span>
                   <strong>{req.requester.username}</strong> wants to connect
                 </span>
                 <div>
                   <button
-                    className="btn btn-sm btn-success me-2"
+                    className="btn btn-sm btn-outline-success fs-4 fw-bold me-2"
                     onClick={() => respond(req.id, true)}
                   >
                     Accept
                   </button>
                   <button
-                    className="btn btn-sm btn-danger"
+                    className="btn btn-sm btn-outline-danger fs-4 fw-bold"
                     onClick={() => respond(req.id, false)}
                   >
                     Reject
@@ -129,13 +134,13 @@ export default function TeamsPage() {
 
         <hr />
 
-        <h2>Your Connections</h2>
+        <h2 className="my-5">Your Connections</h2>
         {connections.length === 0 ? (
           <p>You have no connections yet.</p>
         ) : (
-          <ul className="list-group">
+          <ul className="list-group ">
             {connections.map(user => (
-              <li key={user.id} className="list-group-item">
+              <li key={user.id} className="list-group-item bg-dark bg-opacity-25 text-white border-0">
                 {user.username} ({user.email})
               </li>
             ))}
