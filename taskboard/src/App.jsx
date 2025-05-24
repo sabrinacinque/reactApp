@@ -8,6 +8,7 @@ import LoginPage     from './pages/LoginPage';
 import RegisterPage  from './pages/RegisterPage';
 import Dashboard     from './pages/Dashboard';
 import SettingsPage  from './pages/SettingsPage';
+import TeamsPage from "./pages/Teams.jsx";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/settings"  element={<SettingsPage />} />
+          <Route path="/teams" element={<TeamsPage />} />
           {/* in futuro Projects, Teams… */}
         </Route>
 

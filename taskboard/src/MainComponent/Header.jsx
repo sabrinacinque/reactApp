@@ -7,9 +7,9 @@ export default function Header() {
   const isLoggedIn = !!localStorage.getItem('token');
 
   return (
-    <nav className="app-header navbar navbar-expand-lg">
+    <nav className="app-header navbar navbar-expand-lg ">
       <div className="container-fluid">
-         <NavLink to="/" className="navbar-brand d-flex align-items-center fs-2">
+         <NavLink to="/" className="navbar-brand d-flex align-items-center fs-2 ">
          <FiMenu className="me-2"  /> TaskBoard
         </NavLink>
 
