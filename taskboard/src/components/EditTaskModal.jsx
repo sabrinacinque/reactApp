@@ -23,7 +23,7 @@ export default function EditTaskModal({ show, task, onClose, onSave }) {
     e.preventDefault();
     try {
       const input = {
-        userId: task.user.id || task.user,  // adattati alla shape
+         recipientId: task.recipientId,   // adattati alla shape
         title,
         description,
         state: task.state,

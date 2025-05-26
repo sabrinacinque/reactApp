@@ -43,26 +43,34 @@ export function useTasks() {
     });
     if (!res.ok) throw new Error("Add task failed");
     const newTask = await res.json();
+    console.log("🎯 nuovo task:", newTask);
     // lo inserisco in testa solo se appartiene a questo user
-    if (String(newTask.user.id) === String(userId)) {
+     // Se il tuo DTO espone recipientId:
+   if (String(newTask.recipientId) === String(userId)) {
       setTasks((ts) => [newTask, ...ts]);
     }
     return newTask;
   };
 
-  const updateTask = async (id, input) => {
-    const res = await fetch(`${BASE_URL}/update/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-      body: JSON.stringify(input),
-    });
-    if (!res.ok) throw new Error("Update failed");
-    const updated = await res.json();
-    setTasks((ts) =>
-      ts.map((t) => (t.id === updated.id ? updated : t))
-    );
-    return updated;
-  };
+ const updateTask = async (id, input) => {
+  const res = await fetch(`${BASE_URL}/update/${id}`, {
+    method: "PUT",
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify(input),
+  });
+  if (!res.ok) throw new Error("Update failed");
+  const updated = await res.json();
+
+  // qui confronto il task.id con updated.id, non con updated.recipientId
+  setTasks(ts =>
+    ts.map(t => t.id === updated.id ? updated : t)
+  );
+
+  return updated;
+};
 
   const deleteTask = async (id) => {
     const res = await fetch(`${BASE_URL}/delete/${id}`, {
