@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 
 const BASE = "http://localhost:8080/api/v1/projects";
 
+// LISTA PROGETTI
 export function useProjects() {
   const [projects, setProjects] = useState([]);
   const token  = localStorage.getItem("token");
@@ -19,10 +20,8 @@ export function useProjects() {
     setProjects(await res.json());
   }, [token, userId]);
 
-  // fire once on mount
   useEffect(() => { fetchAll(); }, [fetchAll]);
 
-  // the fn you need
   const createProject = async ({ name, startDate, endDate }) => {
     const res = await fetch(`${BASE}/create`, {
       method: "POST",
@@ -34,12 +33,11 @@ export function useProjects() {
     });
     if (!res.ok) throw new Error("Create project failed");
     const proj = await res.json();
-    // stick it on top of your list
     setProjects(ps => [proj, ...ps]);
     return proj;
   };
 
-  const deleteProject = async (id) => {
+  const deleteProject = async id => {
     const res = await fetch(`${BASE}/delete/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` }
@@ -48,7 +46,6 @@ export function useProjects() {
     setProjects(ps => ps.filter(p => p.id !== id));
   };
 
-  // let people add members right after
   const addMember = async (projectId, { userId, role }) => {
     const res = await fetch(`${BASE}/${projectId}/members`, {
       method: "POST",
@@ -62,14 +59,56 @@ export function useProjects() {
     return res.json();
   };
 
-  // …and anything else you need…
-
   return {
     projects,
     fetchAll,
     createProject,
     deleteProject,
+    addMember
+  };
+}
+
+// SINGOLO PROGETTO
+export function useProject(projectId) {
+  const [project, setProject] = useState(null);
+  const token = localStorage.getItem("token");
+
+  const fetchOne = useCallback(async () => {
+    if (!projectId) return;
+    const res = await fetch(`${BASE}/${projectId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error("Fetch project failed");
+    setProject(await res.json());
+  }, [projectId, token]);
+
+  useEffect(() => { fetchOne(); }, [fetchOne]);
+
+  const addMember = async (userId, role = "MEMBER") => {
+    const res = await fetch(`${BASE}/${projectId}/members`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ userId, role })
+    });
+    if (!res.ok) throw new Error("Add member failed");
+    return res.json();
+  };
+
+  const removeMember = async userId => {
+    const res = await fetch(`${BASE}/${projectId}/members/${userId}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error("Remove member failed");
+  };
+
+  return {
+    project,
+    refresh: fetchOne,
     addMember,
-    // …and your other fns if you want
+    removeMember
   };
 }
