@@ -9,6 +9,8 @@ import RegisterPage  from './pages/RegisterPage';
 import Dashboard     from './pages/Dashboard';
 import SettingsPage  from './pages/SettingsPage';
 import TeamsPage from "./pages/FriendConnections.jsx";
+import ProjectsPage from "./pages/ProjectsPage.jsx";
+import ProjectDetailPage from "./pages/ProjectDetailPage.jsx";
 
 export default function App() {
   return (
@@ -26,7 +28,9 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/settings"  element={<SettingsPage />} />
           <Route path="/teams" element={<TeamsPage />} />
-          {/* in futuro Projects, Teams… */}
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/:id" element={<ProjectDetailPage />} 
+          />
         </Route>
 
         {/* fallback */}
