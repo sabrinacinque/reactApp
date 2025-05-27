@@ -6,11 +6,12 @@ import "sweetalert2/dist/sweetalert2.min.css";
 export default function AddProjectTaskModal({
   show,
   onClose,
-  onSave,
-  members = []
+  members,
+  onSave
 }) {
   const [description, setDescription] = useState("");
-  const [assigneeId, setAssigneeId]   = useState(
+  // inizializziamo il select sul primo membro, se presente
+  const [recipientId, setRecipientId] = useState(
     members.length > 0 ? members[0].user.id : ""
   );
 
@@ -19,26 +20,14 @@ export default function AddProjectTaskModal({
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      if (!description.trim()) {
-        await Swal.fire("Errore", "Descrizione obbligatoria", "error");
-        return;
-      }
-      // costruisco il payload ridotto
-      await onSave({
-        recipientId: assigneeId,
-        description,
-        title: description,      // se il backend vuole un titolo, glielo passiamo uguale
-        state: "incoming",       // o lo stato che preferisci
-        insertDate: null,
-        previousEndDate: null,
-        projectId: null          // lo mettiamo nel parent
-      });
-      await Swal.fire("Fatto!", "Task aggiunto con successo.", "success");
+      // qui mando SOLO description e recipientId al wrapper
+      await onSave({ description, recipientId });
+      await Swal.fire("Added!", "Task creato con successo.", "success");
       setDescription("");
       onClose();
     } catch (err) {
-      console.error(err);
-      await Swal.fire("Errore", "Non è stato possibile aggiungere il task.", "error");
+      console.error("Errore in AddProjectTaskModal:", err);
+      await Swal.fire("Error", "Impossibile aggiungere il task.", "error");
     }
   };
 
@@ -49,27 +38,12 @@ export default function AddProjectTaskModal({
         <div className="modal-dialog">
           <form className="modal-content bg-dark text-light" onSubmit={handleSubmit}>
             <div className="modal-header">
-              <h5 className="modal-title">Add Task</h5>
+              <h5 className="modal-title">Add Project Task</h5>
               <button type="button" className="btn-close" onClick={onClose} />
             </div>
             <div className="modal-body">
               <div className="mb-3">
-                <label className="form-label">Assegna a</label>
-                <select
-                  className="form-select"
-                  value={assigneeId}
-                  onChange={e => setAssigneeId(Number(e.target.value))}
-                  required
-                >
-                  {members.map(m => (
-                    <option key={m.id} value={m.user.id}>
-                      {m.user.username} ({m.user.email})
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Descrizione</label>
+                <label className="form-label">Description</label>
                 <textarea
                   className="form-control"
                   rows="3"
@@ -77,6 +51,21 @@ export default function AddProjectTaskModal({
                   onChange={e => setDescription(e.target.value)}
                   required
                 />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Assign to</label>
+                <select
+                  className="form-select"
+                  value={recipientId}
+                  onChange={e => setRecipientId(Number(e.target.value))}
+                  required
+                >
+                  {members.map(m => (
+                    <option key={m.id} value={m.user.id}>
+                      {m.user.username}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="modal-footer">
@@ -87,8 +76,8 @@ export default function AddProjectTaskModal({
               >
                 Cancel
               </button>
-              <button type="submit" className="btn btn-primary">
-                Save Task
+              <button type="submit" className="btn btn-success">
+                Save
               </button>
             </div>
           </form>
