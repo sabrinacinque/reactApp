@@ -64,7 +64,6 @@ export default function AddProjectTaskModal({
                 <label className="form-label">Description</label>
                 <textarea
                   className="form-control"
-                  rows="10"
                   value={description}
                   onChange={e => setDescription(e.target.value)}
                   required

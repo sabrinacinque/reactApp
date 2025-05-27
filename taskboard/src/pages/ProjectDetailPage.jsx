@@ -129,10 +129,10 @@ export default function ProjectDetailPage() {
                 key={task.id}
                 className="list-group-item d-flex align-items-center bg-dark bg-opacity-25 text-white"
               >
-                <span className="flex-grow-1">
+                <span className="flex-grow-1 fs-4">
                   {task.description} 
-                  <small className="text-muted d-block">
-                    State: {task.state} | Assigned to: {task.recipientUsername || task.user?.username || 'Unassigned'}
+                  <small className="d-block text-white">
+                    State: {task.state} | Assigned to: <span class="text-success">{task.recipientUsername || task.user?.username || 'Unassigned'}</span>
                   </small>
                 </span>
                 {isAdmin && (
