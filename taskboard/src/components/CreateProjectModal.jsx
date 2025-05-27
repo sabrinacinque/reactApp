@@ -1,4 +1,3 @@
-// src/components/CreateProjectModal.jsx
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
@@ -10,9 +9,9 @@ import "sweetalert2/dist/sweetalert2.min.css";
 export default function CreateProjectModal({
   show, onClose, onSave, addMember, connections = []
 }) {
-  const [name, setName]           = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate]     = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [memberPickerOpen, setMemberPickerOpen] = useState(false);
   const [selectedIds, setSelectedIds] = useState([]);
 
@@ -26,11 +25,12 @@ export default function CreateProjectModal({
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      // 1) creo il progetto
+      // 1) creo il progetto - ora con description
       const proj = await onSave({
         name,
-        startDate: toIso(startDate),
-        endDate:   toIso(endDate)
+        description,
+        startDate: null, // automatico dal backend
+        endDate: toIso(endDate)
       });
 
       // 2) aggiungo i membri selezionati
@@ -44,7 +44,7 @@ export default function CreateProjectModal({
       onClose();
 
       // pulisco
-      setName(""); setStartDate(""); setEndDate("");
+      setName(""); setDescription(""); setEndDate("");
       setSelectedIds([]);
     } catch (err) {
       console.error(err);
@@ -82,13 +82,15 @@ export default function CreateProjectModal({
                        required/>
               </div>
 
-              {/* start */}
               <div className="mb-3">
-                <label className="form-label">Start Date &amp; Time</label>
-                <input type="datetime-local"
+                <label className="form-label">Description</label>
+                <textarea
+                       rows="4"
                        className="form-control"
-                       value={startDate}
-                       onChange={e => setStartDate(e.target.value)}/>
+                       value={description}
+                       onChange={e => setDescription(e.target.value)}
+                       placeholder="Descrivi il progetto..."
+                />
               </div>
 
               {/* end */}
@@ -141,42 +143,44 @@ export default function CreateProjectModal({
 
       {/* 2° modal: member picker */}
       {memberPickerOpen && (
-        <div className="modal-backdrop fade show"/>
-        ,<div className="modal fade show" style={{ display: "block" }}>
-          <div className="modal-dialog">
-            <div className="modal-content bg-dark text-light">
-              <div className="modal-header">
-                <h5 className="modal-title">Select Members</h5>
-                <button className="btn-close" onClick={() => setMemberPickerOpen(false)}/>
-              </div>
-              <div className="modal-body">
-                {connections.length === 0
-                  ? <p>No connections to add.</p>
-                  : (
-                    <ul className="list-group">
-                      {connections.map(u => (
-                        <li key={u.id}
-                            className="list-group-item d-flex justify-content-between align-items-center bg-secondary bg-opacity-25 text-white">
-                          <span>
-                            {u.username} ({u.email})
-                          </span>
-                          <input type="checkbox"
-                                 checked={selectedIds.includes(u.id)}
-                                 onChange={() => toggleMember(u.id)} />
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-              </div>
-              <div className="modal-footer">
-                <button className="btn btn-secondary"
-                        onClick={() => setMemberPickerOpen(false)}>
-                  Close
-                </button>
+        <>
+          <div className="modal-backdrop fade show"/>
+          <div className="modal fade show" style={{ display: "block" }}>
+            <div className="modal-dialog">
+              <div className="modal-content bg-dark text-light">
+                <div className="modal-header">
+                  <h5 className="modal-title">Select Members</h5>
+                  <button className="btn-close" onClick={() => setMemberPickerOpen(false)}/>
+                </div>
+                <div className="modal-body">
+                  {connections.length === 0
+                    ? <p>No connections to add.</p>
+                    : (
+                      <ul className="list-group">
+                        {connections.map(u => (
+                          <li key={u.id}
+                              className="list-group-item d-flex justify-content-between align-items-center bg-secondary bg-opacity-25 text-white">
+                            <span>
+                              {u.username} ({u.email})
+                            </span>
+                            <input type="checkbox"
+                                   checked={selectedIds.includes(u.id)}
+                                   onChange={() => toggleMember(u.id)} />
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                </div>
+                <div className="modal-footer">
+                  <button className="btn btn-secondary"
+                          onClick={() => setMemberPickerOpen(false)}>
+                    Close
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </>
   );

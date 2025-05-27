@@ -1,4 +1,3 @@
-// src/pages/ProjectDetailPage.jsx
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useProject } from "../hooks/useProjects";
@@ -11,16 +10,21 @@ import Sidebar from "../MainComponent/Sidebar";
 export default function ProjectDetailPage() {
   const { id } = useParams();
   const { project, refresh, addMember, removeMember } = useProject(id);
-  const { tasks, fetchAll: refreshTasks, addTask, updateTask } = useTasks();
+  const { tasks, fetchAll: refreshTasks, addTask, updateTask } = useTasks(id);
   const { connections } = useFriends();
 
   const [addingMember, setAddingMember] = useState(false);
   const [addingTask, setAddingTask] = useState(false);
+  const [editingTask, setEditingTask] = useState(null);
 
   const currentUserId = Number(localStorage.getItem("userId"));
 
-  // Ricarica i task ogni volta che cambio progetto o lo aggiungo
+  console.log("🏗️ ProjectDetailPage - Project ID:", id);
+  console.log("📋 Tasks received in component:", tasks);
+  console.log("🔢 Number of tasks:", tasks?.length || 0);
+
   useEffect(() => {
+    console.log("🔄 Refreshing tasks for project:", id);
     refreshTasks();
   }, [refreshTasks]);
 
@@ -30,17 +34,36 @@ export default function ProjectDetailPage() {
     (m) => m.user.id === currentUserId && m.role === "ADMIN"
   );
 
-  // Solo i task di questo progetto con stato "taskproject"
-  const projectTasks = tasks.filter(
-    (t) => t.project?.id === project.id && t.state === "taskproject"
-  );
+  const projectTasks = tasks;
+
+  console.log("✅ Final project tasks to display:", projectTasks);
+
+  const handleTaskSave = async (input) => {
+    if (input.id) {
+      // Modalità editing
+      await updateTask(input.id, {
+        description: input.description,
+        recipientId: input.recipientId,
+        projectId: Number(id)
+      });
+    } else {
+      // Modalità creazione
+      await addTask({ ...input, projectId: id });
+    }
+    refreshTasks();
+    setAddingTask(false);
+    setEditingTask(null);
+  };
 
   return (
     <div className="page-layout d-flex vh-100">
       <Sidebar />
 
       <div className="flex-grow-1 p-4 background text-white pt-5">
+        <h1>Project's Name</h1>
         <h2>{project.name}</h2>
+        <h1>Description</h1>
+        <h3>{project.description}</h3>
         <p>
           Starts: {new Date(project.startDate).toLocaleString()}
           <br />
@@ -96,37 +119,35 @@ export default function ProjectDetailPage() {
           })}
         </ul>
 
-        <h4>Project Tasks</h4>
-        <ul className="list-group">
-          {projectTasks.map((task) => (
-            <li
-              key={task.id}
-              className="list-group-item d-flex align-items-center bg-dark bg-opacity-25 text-white"
-            >
-              <span className="flex-grow-1">{task.description}</span>
-              {isAdmin ? (
-                <select
-                  className="form-select form-select-sm w-auto"
-                  value={task.user.id}
-                  onChange={async (e) => {
-                    await updateTask(task.id, {
-                      recipientId: Number(e.target.value),
-                    });
-                    refreshTasks();
-                  }}
-                >
-                  {project.members.map((m) => (
-                    <option key={m.user.id} value={m.user.id}>
-                      {m.user.username}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <span className="badge bg-secondary">{task.user.username}</span>
-              )}
-            </li>
-          ))}
-        </ul>
+        <h4>Project Tasks ({projectTasks?.length || 0})</h4>
+        {projectTasks?.length === 0 ? (
+          <p className="text-muted">No tasks found for this project.</p>
+        ) : (
+          <ul className="list-group">
+            {projectTasks.map((task) => (
+              <li
+                key={task.id}
+                className="list-group-item d-flex align-items-center bg-dark bg-opacity-25 text-white"
+              >
+                <span className="flex-grow-1">
+                  {task.description} 
+                  <small className="text-muted d-block">
+                    State: {task.state} | Assigned to: {task.recipientUsername || task.user?.username || 'Unassigned'}
+                  </small>
+                </span>
+                {isAdmin && (
+                  <button
+                    className="btn btn-sm btn-outline-light ms-2"
+                    onClick={() => setEditingTask(task)}
+                    title="Edit task"
+                  >
+                    ✏️
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       {isAdmin && addingMember && (
@@ -142,17 +163,16 @@ export default function ProjectDetailPage() {
         />
       )}
 
-      {isAdmin && addingTask && (
+      {isAdmin && (addingTask || editingTask) && (
         <AddProjectTaskModal
-          show={addingTask}
-          onClose={() => setAddingTask(false)}
-          members={project.members}
-          onSave={async (input) => {
-            // qui aggiungo projectId e lascio che useTasks imposti anche lo state "taskproject"
-            await addTask({ ...input, projectId: id });
-            refreshTasks();
+          show={addingTask || !!editingTask}
+          onClose={() => {
             setAddingTask(false);
+            setEditingTask(null);
           }}
+          members={project.members}
+          editingTask={editingTask}
+          onSave={handleTaskSave}
         />
       )}
     </div>

@@ -1,4 +1,3 @@
-// src/hooks/useProjects.js
 import { useState, useEffect, useCallback } from "react";
 
 const BASE = "http://localhost:8080/api/v1/projects";
@@ -22,14 +21,14 @@ export function useProjects() {
 
   useEffect(() => { fetchAll(); }, [fetchAll]);
 
-  const createProject = async ({ name, startDate, endDate }) => {
+  const createProject = async ({ name, description, startDate, endDate }) => {
     const res = await fetch(`${BASE}/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify({ name, startDate, endDate })
+      body: JSON.stringify({ name, description, startDate, endDate })
     });
     if (!res.ok) throw new Error("Create project failed");
     const proj = await res.json();

@@ -1,5 +1,4 @@
-// src/components/AddProjectTaskModal.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
@@ -7,27 +6,44 @@ export default function AddProjectTaskModal({
   show,
   onClose,
   members,
-  onSave
+  onSave,
+  editingTask = null // nuovo prop per il task da editare
 }) {
   const [description, setDescription] = useState("");
-  // inizializziamo il select sul primo membro, se presente
   const [recipientId, setRecipientId] = useState(
     members.length > 0 ? members[0].user.id : ""
   );
+
+  // Precompila i campi se stiamo editando un task esistente
+  useEffect(() => {
+    if (editingTask) {
+      setDescription(editingTask.description || "");
+      setRecipientId(editingTask.recipientId || editingTask.user?.id || (members.length > 0 ? members[0].user.id : ""));
+    } else {
+      setDescription("");
+      setRecipientId(members.length > 0 ? members[0].user.id : "");
+    }
+  }, [editingTask, members]);
 
   if (!show) return null;
 
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      // qui mando SOLO description e recipientId al wrapper
-      await onSave({ description, recipientId });
-      await Swal.fire("Added!", "Task creato con successo.", "success");
+      if (editingTask) {
+        // Modalità editing - passa l'ID del task
+        await onSave({ id: editingTask.id, description, recipientId });
+        await Swal.fire("Updated!", "Task aggiornato con successo.", "success");
+      } else {
+        // Modalità creazione
+        await onSave({ description, recipientId });
+        await Swal.fire("Added!", "Task creato con successo.", "success");
+      }
       setDescription("");
       onClose();
     } catch (err) {
       console.error("Errore in AddProjectTaskModal:", err);
-      await Swal.fire("Error", "Impossibile aggiungere il task.", "error");
+      await Swal.fire("Error", `Impossibile ${editingTask ? 'aggiornare' : 'aggiungere'} il task.`, "error");
     }
   };
 
@@ -38,7 +54,9 @@ export default function AddProjectTaskModal({
         <div className="modal-dialog">
           <form className="modal-content bg-dark text-light" onSubmit={handleSubmit}>
             <div className="modal-header">
-              <h5 className="modal-title">Add Project Task</h5>
+              <h5 className="modal-title">
+                {editingTask ? 'Edit Project Task' : 'Add Project Task'}
+              </h5>
               <button type="button" className="btn-close" onClick={onClose} />
             </div>
             <div className="modal-body">
@@ -46,7 +64,7 @@ export default function AddProjectTaskModal({
                 <label className="form-label">Description</label>
                 <textarea
                   className="form-control"
-                  rows="3"
+                  rows="10"
                   value={description}
                   onChange={e => setDescription(e.target.value)}
                   required
@@ -77,7 +95,7 @@ export default function AddProjectTaskModal({
                 Cancel
               </button>
               <button type="submit" className="btn btn-success">
-                Save
+                {editingTask ? 'Update' : 'Save'}
               </button>
             </div>
           </form>
