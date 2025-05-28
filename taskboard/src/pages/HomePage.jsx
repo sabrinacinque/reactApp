@@ -4,6 +4,7 @@ import Sidebar from "../MainComponent/Sidebar";
 import "./HomePage.css";
 
 export default function HomePage() {
+  const noLoggedIn = !localStorage.getItem("token");
   return (
     <div className="page-layout d-flex">
       <Sidebar />
@@ -22,12 +23,17 @@ export default function HomePage() {
                 collaboration, you can streamline your workflow and boost
                 productivity.
               </p>
-              <Link to="/register" className="btn btn-primary btn-lg me-2">
-                Get Started
-              </Link>
-              <Link to="/login" className="btn btn-outline-light btn-lg">
-                Log in
-              </Link>
+              {noLoggedIn && (
+                <>
+                  <Link to="/register" className="btn btn-primary btn-lg me-2">
+                    Get Started
+                  </Link>
+                  <Link to="/login" className="btn btn-outline-light btn-lg">
+                    Log in
+                  </Link>
+                </>
+              )}
+              
             </div>
           </div>
         </div>

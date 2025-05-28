@@ -5,6 +5,8 @@ const BASE = "http://localhost:8080/api/v1/projects";
 // LISTA PROGETTI
 export function useProjects() {
   const [projects, setProjects] = useState([]);
+  const [adminProjects, setAdminProjects] = useState([]);
+  const [memberProjects, setMemberProjects] = useState([]);
   const token  = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
@@ -16,7 +18,27 @@ export function useProjects() {
       headers: { Authorization: `Bearer ${token}` }
     });
     if (!res.ok) throw new Error("Fetch projects failed");
-    setProjects(await res.json());
+    const allProjects = await res.json();
+    
+    // Separa i progetti in base al ruolo dell'utente corrente
+    const adminList = [];
+    const memberList = [];
+    
+    allProjects.forEach(project => {
+      const currentUserMembership = project.members?.find(
+        member => member.user.id === parseInt(userId)
+      );
+      
+      if (currentUserMembership?.role === "ADMIN") {
+        adminList.push(project);
+      } else if (currentUserMembership?.role === "MEMBER") {
+        memberList.push(project);
+      }
+    });
+    
+    setProjects(allProjects);
+    setAdminProjects(adminList);
+    setMemberProjects(memberList);
   }, [token, userId]);
 
   useEffect(() => { fetchAll(); }, [fetchAll]);
@@ -33,6 +55,8 @@ export function useProjects() {
     if (!res.ok) throw new Error("Create project failed");
     const proj = await res.json();
     setProjects(ps => [proj, ...ps]);
+    // Il nuovo progetto sarà automaticamente un progetto admin per il creatore
+    setAdminProjects(ps => [proj, ...ps]);
     return proj;
   };
 
@@ -43,6 +67,8 @@ export function useProjects() {
     });
     if (!res.ok) throw new Error("Delete project failed");
     setProjects(ps => ps.filter(p => p.id !== id));
+    setAdminProjects(ps => ps.filter(p => p.id !== id));
+    setMemberProjects(ps => ps.filter(p => p.id !== id));
   };
 
   const addMember = async (projectId, { userId, role }) => {
@@ -60,6 +86,8 @@ export function useProjects() {
 
   return {
     projects,
+    adminProjects,
+    memberProjects,
     fetchAll,
     createProject,
     deleteProject,

@@ -19,9 +19,9 @@ export default function TaskCard({ task, onAction }) {
       }}
     >
       <div className="row d-flex flex-row mb-2">
-        {task.state === "incoming" && task.creator && (
+        {task.state === "incoming"  && (
         <div className="col-8 small text-danger fw-bold mb-2 fs-5">
-          From: <strong>{task.creator.username}</strong>
+          From: <strong>{task.creatorUsername}</strong>
         </div>
       )}
       {task.state !== "incoming" && (
