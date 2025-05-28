@@ -3,6 +3,7 @@ import React from "react";
 import { FiTrash2, FiEdit2, FiCheck } from "react-icons/fi";
 import "./TaskCard.css";
 
+
 const STATE_COLORS = {
   urgent:      "rgba(255,  0,   0,   0.2)",
   "this week": "rgba(255,255,  0,   0.2)",
@@ -47,8 +48,7 @@ export default function TaskCard({ task, onAction }) {
         </div>
       </div>
       <div className="d-flex justify-content-between align-items-start">
-        <h6 className="task-title mb-1 text-capitalize">{task.title}</h6>
-        
+        <h6 className="task-title mb-1 text-capitalize">{task.title}</h6>      
       </div>
 
       {task.description && (

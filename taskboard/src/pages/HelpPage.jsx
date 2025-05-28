@@ -4,7 +4,7 @@ import Sidebar from '../MainComponent/Sidebar';
 
 export default function HelpPage() {
   return (
-    <div className="d-flex vh-100 background">
+    <div className="d-flex background">
         <Sidebar />
       
       <div className="container py-5">
