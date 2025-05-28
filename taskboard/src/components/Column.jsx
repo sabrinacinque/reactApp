@@ -1,4 +1,3 @@
-// src/components/Column.jsx
 import React from "react";
 import TaskCard from "./TaskCard";
 
@@ -8,6 +7,13 @@ export default function Column({
   onAdd,
   onAction     // unica prop per tutte le azioni
 }) {
+  // Trova l'ultimo task incoming per mostrare la pillola NEW
+  const newestIncomingTask = title === "incoming" && tasks.length > 0 
+    ? tasks.reduce((newest, current) => 
+        new Date(current.insertDate) > new Date(newest.insertDate) ? current : newest
+      )
+    : null;
+
   return (
     <div className="col flex-shrink-0 bg-dark bg-opacity-50 rounded mx-2 vh-100 d-flex flex-column">
       <div className="column-header p-3">
@@ -19,7 +25,7 @@ export default function Column({
         {title !== "incoming" && title !== "done"
          && (
           <button
-            className="btn btn-outline-light w-100 my-3 py-3"
+            className="btn btn-outline-light w-100 mt-3 py-3"
             onClick={onAdd}
           >
             + Add
@@ -35,6 +41,7 @@ export default function Column({
                 key={task.id}
                 task={task}
                 onAction={onAction}
+                isNewest={newestIncomingTask && task.id === newestIncomingTask.id}
               />
             ))}
       </div>

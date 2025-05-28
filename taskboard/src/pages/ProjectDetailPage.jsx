@@ -26,7 +26,7 @@ export default function ProjectDetailPage() {
   useEffect(() => {
     console.log("🔄 Refreshing tasks for project:", id);
     refreshTasks();
-  }, [refreshTasks]);
+  }, [refreshTasks,id]);
 
   if (!project) return <p>Loading…</p>;
 

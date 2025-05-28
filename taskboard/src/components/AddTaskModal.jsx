@@ -62,7 +62,7 @@ export default function AddTaskModal({
 
     } catch (err) {
       console.error("Errore in AddTaskModal:", err);
-      await Swal.fire("Error", "Impossibile aggiungere il task.", "error");
+      await Swal.fire("Error", "Impossibile add task.", "error");
     }
   };
 

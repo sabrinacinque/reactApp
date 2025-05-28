@@ -53,20 +53,10 @@ export default function FriendConnections() {
   const handleSendTask = async payload => {
     try {
       await addTask(payload);
-      await Swal.fire({
-        title: "Task sent!",
-        text: `You sent a task to ${sendTo.username}.`,
-        icon: "success",
-        timer: 1200,
-        showConfirmButton: false
-      });
+
     } catch (err) {
       console.error("addTask failed:", err);
-      await Swal.fire({
-        title: "Error",
-        text: "Impossible to send the task.",
-        icon: "error"
-      });
+
     } finally {
       setSendTo(null);
       refreshTasks();
