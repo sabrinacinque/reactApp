@@ -5,8 +5,8 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 const COLORS = ["#FF6B6B", "#4ECDC4"];
 
 export default function StatsPanel({ tasks }) {
-  const openCount   = tasks.filter(t => t.state !== "done").length;
-  const closedCount = tasks.filter(t => t.state === "done").length;
+  const openCount   = tasks.filter(t => t.state !== "done" && t.state !=="taskproject").length;
+  const closedCount = tasks.filter(t => t.state === "done" && t.state !=="taskproject").length;
 
  
 

@@ -60,15 +60,14 @@ export default function ProjectDetailPage() {
       <Sidebar />
 
       <div className="flex-grow-1 p-4 background text-white pt-5">
-        <h1>Project's Name</h1>
-        <h2>{project.name}</h2>
-        <h1>Description</h1>
-        <h3>{project.description}</h3>
+        <h1>Title : {project.name}</h1>
         <p>
-          Starts: {new Date(project.startDate).toLocaleString()}
+          Date creating project : {new Date(project.startDate).toLocaleString()}
           <br />
-          Ends: {new Date(project.endDate).toLocaleString()}
+          Date ending project : {new Date(project.endDate).toLocaleString()}
         </p>
+        
+        <h3>Description : {project.description}</h3>
 
         <h4>Members</h4>
         {isAdmin && (

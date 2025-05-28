@@ -7,38 +7,46 @@ export function useProjects() {
   const [projects, setProjects] = useState([]);
   const [adminProjects, setAdminProjects] = useState([]);
   const [memberProjects, setMemberProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
   const token  = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
   const fetchAll = useCallback(async () => {
-    const url = userId
-      ? `${BASE}?userId=${encodeURIComponent(userId)}`
-      : BASE;
-    const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    if (!res.ok) throw new Error("Fetch projects failed");
-    const allProjects = await res.json();
-    
-    // Separa i progetti in base al ruolo dell'utente corrente
-    const adminList = [];
-    const memberList = [];
-    
-    allProjects.forEach(project => {
-      const currentUserMembership = project.members?.find(
-        member => member.user.id === parseInt(userId)
-      );
+    setLoading(true);
+    try {
+      const url = userId
+        ? `${BASE}?userId=${encodeURIComponent(userId)}`
+        : BASE;
+      const res = await fetch(url, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (!res.ok) throw new Error("Fetch projects failed");
+      const allProjects = await res.json();
       
-      if (currentUserMembership?.role === "ADMIN") {
-        adminList.push(project);
-      } else if (currentUserMembership?.role === "MEMBER") {
-        memberList.push(project);
-      }
-    });
-    
-    setProjects(allProjects);
-    setAdminProjects(adminList);
-    setMemberProjects(memberList);
+      // Separa i progetti in base al ruolo dell'utente corrente
+      const adminList = [];
+      const memberList = [];
+      
+      allProjects.forEach(project => {
+        const currentUserMembership = project.members?.find(
+          member => member.user.id === parseInt(userId)
+        );
+        
+        if (currentUserMembership?.role === "ADMIN") {
+          adminList.push(project);
+        } else if (currentUserMembership?.role === "MEMBER") {
+          memberList.push(project);
+        }
+      });
+      
+      setProjects(allProjects);
+      setAdminProjects(adminList);
+      setMemberProjects(memberList);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+    } finally {
+      setLoading(false);
+    }
   }, [token, userId]);
 
   useEffect(() => { fetchAll(); }, [fetchAll]);
@@ -88,6 +96,7 @@ export function useProjects() {
     projects,
     adminProjects,
     memberProjects,
+    loading,
     fetchAll,
     createProject,
     deleteProject,
