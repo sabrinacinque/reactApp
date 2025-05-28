@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi';
+import { useAuth } from '../hooks/useAuth';
 import './Header.css';
 
 export default function Header() {
-  const isLoggedIn = !!localStorage.getItem('token');
+  const { isLoggedIn } = useAuth();
 
   return (
     <nav className="app-header navbar navbar-expand-lg ">
@@ -28,17 +29,19 @@ export default function Header() {
         <div className="collapse navbar-collapse" id="navbarNav">
           
           <ul className="navbar-nav ms-auto">
-            {isLoggedIn ? (
-              <li className="nav-item">
-                <NavLink to="/dashboard" className="btn btn-outline-light btn-sm">Dashboard</NavLink>
+            {/* voglio dire che se sono loggato , posso vedere anche la dashboard, altrimenti solo help e about us */}
+            {isLoggedIn && (
+              <li className="nav-item ">
+                <NavLink to="/dashboard" className="btn btn-outline-light btn-sm ">Dashboard</NavLink>
               </li>
-            ) : (
+            )} : {(
+              
               <>
-                <li className="nav-item me-2">
-                  <NavLink to="/" className="nav-link">Help</NavLink>
+                <li className="nav-item mx-4">
+                  <NavLink to="/help" className="btn btn-outline-light btn-sm">Help</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/" className="nav-link">About us</NavLink>
+                  <NavLink to="/about" className="btn btn-outline-light btn-sm">About us</NavLink>
                 </li>
               </>
             )}

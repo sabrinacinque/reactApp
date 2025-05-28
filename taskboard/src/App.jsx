@@ -11,6 +11,8 @@ import SettingsPage  from './pages/SettingsPage';
 import TeamsPage from "./pages/FriendConnections.jsx";
 import ProjectsPage from "./pages/ProjectsPage.jsx";
 import ProjectDetailPage from "./pages/ProjectDetailPage.jsx";
+import HelpPage from './pages/HelpPage.jsx';
+import AboutPage from './pages/AboutPage.jsx';
 
 export default function App() {
   return (
@@ -22,6 +24,9 @@ export default function App() {
         <Route path="/"         element={<HomePage />} />
         <Route path="/login"    element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/help" element={<HelpPage />} />
+        <Route path="/about" element={<AboutPage />} />
+
 
         {/* protette */}
         <Route element={<PrivateRoute />}>
