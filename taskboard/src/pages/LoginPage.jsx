@@ -1,18 +1,18 @@
-// src/pages/LoginPage.jsx
-
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Sidebar from "../MainComponent/Sidebar";
+import ForgotPasswordModal from "../components/ForgotPasswordModal";
 import "./LoginPage.css";
 
 export default function LoginPage() {
-  const [identifier, setIdentifier]       = useState("");
-  const [password, setPassword]           = useState("");
-  const [showPassword, setShowPassword]   = useState(false);
-  const [error, setError]                 = useState("");
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -95,11 +95,27 @@ export default function LoginPage() {
             </button>
           </form>
 
+          <div className="text-center mt-3">
+            <button
+              type="button"
+              className="btn btn-link text-decoration-none p-0"
+              onClick={() => setShowForgotPasswordModal(true)}
+              style={{ color: '#6c757d', fontSize: '0.9rem' }}
+            >
+              Forgot your password?
+            </button>
+          </div>
+
           <p className="signup-text">
             Don't have an account? <Link to="/register">Sign up</Link>
           </p>
         </div>
       </div>
+
+      <ForgotPasswordModal
+        isOpen={showForgotPasswordModal}
+        onClose={() => setShowForgotPasswordModal(false)}
+      />
     </div>
   );
 }

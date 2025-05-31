@@ -1,47 +1,28 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { MessageCircle } from 'lucide-react';
+import Chatbox from './Chatbox';
 
-import Header        from './MainComponent/Header';
-import PrivateRoute  from './MainComponent/PrivateRoute';
-import HomePage      from './pages/HomePage';
-import LoginPage     from './pages/LoginPage';
-import RegisterPage  from './pages/RegisterPage';
-import Dashboard     from './pages/Dashboard';
-import SettingsPage  from './pages/SettingsPage';
-import TeamsPage from "./pages/FriendConnections.jsx";
-import ProjectsPage from "./pages/ProjectsPage.jsx";
-import ProjectDetailPage from "./pages/ProjectDetailPage.jsx";
-import HelpPage from './pages/HelpPage.jsx';
-import AboutPage from './pages/AboutPage.jsx';
-import GlobalChatbox from './components/GlobalChatbox';
+export default function GlobalChatbox() {
+  const [showChat, setShowChat] = useState(false);
+  const toggleChat = () => setShowChat((prev) => !prev);
 
-export default function App() {
   return (
-    <BrowserRouter>
-      <Header />
-
-      <Routes>
-        {/* pubbliche */}
-        <Route path="/"         element={<HomePage />} />
-        <Route path="/login"    element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/help" element={<HelpPage />} />
-        <Route path="/about" element={<AboutPage />} />
-
-        {/* protette */}
-        <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/settings"  element={<SettingsPage />} />
-          <Route path="/teams" element={<TeamsPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/projects/:id" element={<ProjectDetailPage />} />
-        </Route>
-
-        {/* fallback */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+    <>
+      {/* Pulsante flottante globale per la chatbox */}
+      <button
+        onClick={toggleChat}
+        className="btn btn-dark position-fixed bottom-0 end-0 m-4 d-flex align-items-center justify-content-center border border-3 rounded-5"
+        style={{ zIndex: 1000 }}
+      >
+        <MessageCircle size={30} color="white" />
+      </button>
 
       {/* Chatbox globale */}
-      <GlobalChatbox />
-    </BrowserRouter>
+      {showChat && (
+        <div className="position-fixed bottom-0 end-0 me-5 mb-5" style={{ zIndex: 999 }}>
+          <Chatbox onClose={toggleChat} />
+        </div>
+      )}
+    </>
   );
 }
