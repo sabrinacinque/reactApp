@@ -128,7 +128,7 @@ export default function ProjectDetailPage() {
         <div>
           <h4 className="h5 h4-md mb-3">Project Tasks ({projectTasks?.length || 0})</h4>
           {projectTasks?.length === 0 ? (
-            <p className="text-muted">No tasks found for this project.</p>
+            <p className="text-white-50">No tasks found for this project.</p>
           ) : (
             <ul className="list-group">
               {projectTasks.map((task) => (
