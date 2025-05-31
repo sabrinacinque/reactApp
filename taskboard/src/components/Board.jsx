@@ -46,7 +46,7 @@ export default function Board({
   return (
     <>
 
-      <div className="row-cols-1 row-cols-s-2 row-cols-lg-4 d-flex flex-column flex-lg-row gap-1 vh-100">
+      <div className="row-cols-1 row-cols-sm-2 row-cols-lg-4 d-flex flex-column flex-sm-row gap-1">
         {STATES.map(state => (
           <Column
             key={state}

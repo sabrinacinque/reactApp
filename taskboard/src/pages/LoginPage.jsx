@@ -5,6 +5,7 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Sidebar from "../MainComponent/Sidebar";
 import ForgotPasswordModal from "../components/ForgotPasswordModal";
+import WelcomeModal from "../components/WelcomeModal";
 import "./LoginPage.css";
 
 export default function LoginPage() {
@@ -13,6 +14,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -43,8 +45,14 @@ export default function LoginPage() {
           color: "#fff"
         });
 
-        // Redirect in dashboard
-        navigate("/dashboard");
+        // Check if we should show the welcome modal
+        const hideWelcomeModal = localStorage.getItem('hideWelcomeModal');
+        if (!hideWelcomeModal) {
+          setShowWelcomeModal(true);
+        } else {
+          // If modal is hidden, go directly to dashboard
+          navigate("/dashboard");
+        }
       } else {
         setError(body.message || "Login failed");
       }
@@ -52,6 +60,11 @@ export default function LoginPage() {
       console.error(err);
       setError("Errore di rete");
     }
+  };
+
+  const handleWelcomeModalClose = () => {
+    setShowWelcomeModal(false);
+    navigate("/dashboard");
   };
 
   return (
@@ -115,6 +128,12 @@ export default function LoginPage() {
       <ForgotPasswordModal
         isOpen={showForgotPasswordModal}
         onClose={() => setShowForgotPasswordModal(false)}
+      />
+
+      <WelcomeModal
+        isOpen={showWelcomeModal}
+        onClose={handleWelcomeModalClose}
+        username={identifier}
       />
     </div>
   );

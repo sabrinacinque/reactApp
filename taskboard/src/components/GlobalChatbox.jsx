@@ -11,6 +11,7 @@ export default function GlobalChatbox() {
       {/* Pulsante flottante globale per la chatbox */}
       <button
         onClick={toggleChat}
+        data-chat-button
         className="btn btn-dark position-fixed bottom-0 end-0 m-4 d-flex align-items-center justify-content-center border border-3 rounded-5"
         style={{ zIndex: 1000 }}
       >
