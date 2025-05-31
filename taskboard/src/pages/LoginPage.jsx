@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import Sidebar from "../MainComponent/Sidebar";
 import ForgotPasswordModal from "../components/ForgotPasswordModal";
 import WelcomeModal from "../components/WelcomeModal";
 import "./LoginPage.css";
@@ -68,60 +67,66 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="page-layout d-flex">
-      <Sidebar />
+    <div className="hero-background d-flex justify-content-center align-items-center min-vh-100">
+      <div className="container-fluid px-3">
+        <div className="row justify-content-center">
+          <div className="col-11 col-sm-8 col-md-6 col-lg-4 col-xl-3">
+            <div className="login-card p-4 p-md-5">
+              <h2 className="text-white text-center mb-4 fs-3 fw-bold">Log in</h2>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <input
+                    type="text"
+                    className="form-control form-control-lg bg-dark text-white border-0 rounded-3"
+                    placeholder="Email or Username"
+                    value={identifier}
+                    onChange={(e) => setIdentifier(e.target.value)}
+                    required
+                    style={{ backgroundColor: '#0f1c25 !important' }}
+                  />
+                </div>
 
-      <div className="hero-background flex-grow-1 d-flex justify-content-center align-items-center">
-        <div className="login-card col-10 col-md-8 col-lg-4 p-5">
-          <h2 className="login-title">Log in</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <input
-                type="text"
-                placeholder="Email or Username"
-                value={identifier}
-                onChange={(e) => setIdentifier(e.target.value)}
-                required
-              />
+                <div className="mb-3 position-relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="form-control form-control-lg bg-dark text-white border-0 rounded-3 pe-5"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    style={{ backgroundColor: '#0f1c25 !important' }}
+                  />
+                  <span
+                    className="position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"
+                    style={{ cursor: 'pointer', zIndex: 10 }}
+                    onClick={() => setShowPassword((v) => !v)}
+                  >
+                    {showPassword ? <FiEyeOff /> : <FiEye />}
+                  </span>
+                </div>
+
+                {error && <div className="alert alert-danger text-center py-2 mb-3 small">{error}</div>}
+
+                <button type="submit" className="btn btn-primary w-100 btn-lg py-2 mb-3">
+                  Log in
+                </button>
+              </form>
+
+              <div className="text-center mb-3">
+                <button
+                  type="button"
+                  className="btn btn-link text-decoration-none p-0 text-white small"
+                  onClick={() => setShowForgotPasswordModal(true)}
+                >
+                  Forgot your password?
+                </button>
+              </div>
+
+              <p className="text-center text-white mb-0">
+                Don't have an account? <Link to="/register" className="text-primary text-decoration-none">Sign up</Link>
+              </p>
             </div>
-
-            <div className="form-group password-group">
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <span
-                className="password-toggle"
-                onClick={() => setShowPassword((v) => !v)}
-              >
-                {showPassword ? <FiEyeOff /> : <FiEye />}
-              </span>
-            </div>
-
-            {error && <div className="error-text">{error}</div>}
-
-            <button type="submit" className="btn btn-primary w-100 fs-5 py-2">
-              Log in
-            </button>
-          </form>
-
-          <div className="text-center mt-3">
-            <button
-              type="button"
-              className="btn btn-link text-decoration-none p-0"
-              onClick={() => setShowForgotPasswordModal(true)}
-              style={{ color: '#6c757d', fontSize: '0.9rem' }}
-            >
-              Forgot your password?
-            </button>
           </div>
-
-          <p className="signup-text">
-            Don't have an account? <Link to="/register">Sign up</Link>
-          </p>
         </div>
       </div>
 

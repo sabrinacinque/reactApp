@@ -71,7 +71,7 @@ export default function Sidebar() {
 
   return (
     <aside className="sidebar vh-100 d-flex flex-column py-5">
-      <nav className="nav flex-column px-3 fs-5">
+      <nav className="nav flex-column px-3 fs-5 vh-100">
         <NavLink end to="/" className="nav-link d-flex align-items-center mb-2">
           <FiHome className="me-2" /> Home
         </NavLink>
@@ -102,7 +102,7 @@ export default function Sidebar() {
 
       {isLoggedIn && (
         <>
-          <div className="user-section mt-auto px-3 pb-3 d-flex align-items-center">
+          <div className="user-section mt-auto  mx-auto pb-4 d-flex align-items-center">
             <div
               className="user-avatar d-flex justify-content-center align-items-center me-2"
               style={{
@@ -122,7 +122,7 @@ export default function Sidebar() {
             </div>
           </div>
 
-          <div className="logout-section px-3 pb-4">
+          <div className="logout-section mx-auto pb-4">
             <button
               onClick={handleLogout}
               className="logout-btn d-flex align-items-center fs-5"
