@@ -15,31 +15,28 @@ import {
 } from "react-icons/fi";
 import "./Sidebar.css";
 
-// mappa delle chiavi avatar → componente
 const AVATAR_MAP = {
-  user: FiUser,
+  user:  FiUser,
   users: FiUsers,
   smile: FiSmile,
-  star: FiStar,
+  star:  FiStar,
 };
 
 export default function Sidebar() {
   const isLoggedIn = !!localStorage.getItem("token");
-  const username = localStorage.getItem("username");
-  const avatarKey = localStorage.getItem("avatar"); // recupera la chiave
-  const navigate = useNavigate();
-
-  // trova il componente, altrimenti di default FiUser
+  const username   = localStorage.getItem("username");
+  const avatarKey  = localStorage.getItem("avatar");
   const AvatarIcon = AVATAR_MAP[avatarKey] || FiUser;
+  const navigate   = useNavigate();
 
   const handleLogout = async () => {
     const result = await Swal.fire({
-      title: "Are you sure you want to logout?",
+      title: "Vuoi davvero uscire?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, logout",
+      confirmButtonText: "Sì, esci",
     });
     if (!result.isConfirmed) return;
 
@@ -58,8 +55,7 @@ export default function Sidebar() {
       localStorage.removeItem("avatar");
 
       await Swal.fire({
-        title: "Logged out!",
-        text: "You have been successfully logged out.",
+        title: "Logout effettuato",
         icon: "success",
         timer: 1500,
         showConfirmButton: false,
@@ -69,12 +65,12 @@ export default function Sidebar() {
       window.location.reload();
     } catch (err) {
       console.error(err);
-      Swal.fire("Error", "Could not log you out. Please try again.", "error");
+      Swal.fire("Errore", "Impossibile effettuare il logout.", "error");
     }
   };
 
   return (
-    <aside className="sidebar pt-5 d-flex flex-column">
+    <aside className="sidebar h-100 d-flex flex-column">
       <nav className="nav flex-column px-3 fs-5">
         <NavLink end to="/" className="nav-link d-flex align-items-center mb-2">
           <FiHome className="me-2" /> Home
@@ -106,7 +102,6 @@ export default function Sidebar() {
 
       {isLoggedIn && (
         <>
-          {/* Avatar + saluto */}
           <div className="user-section mt-auto px-3 pb-3 d-flex align-items-center">
             <div
               className="user-avatar d-flex justify-content-center align-items-center me-2"
@@ -127,7 +122,6 @@ export default function Sidebar() {
             </div>
           </div>
 
-          {/* Logout */}
           <div className="logout-section px-3 pb-4">
             <button
               onClick={handleLogout}

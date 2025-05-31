@@ -67,17 +67,17 @@ export default function FriendConnections() {
     <div className="page-layout d-flex vh-100">
       <Sidebar />
 
-      <div className="flex-grow-1 p-4 background text-white pt-5">
+      <div className="row flex-grow-1 p-4 background text-white pt-5">
         <h2>Find & Connect</h2>
-        <div className="input-group mb-4 w-25 my-5">
+        <div className="col d-flex flex-column flex-md-row input-group mb-4 my-5 ">
           <input
             type="email"
-            className="form-control rounded-2"
+            className="form-control rounded-2 mb-2 py-0"
             placeholder="User email"
             value={emailToSearch}
             onChange={e => setEmail(e.target.value)}
           />
-          <button className="btn btn-success ms-2" onClick={handleSearch}>
+          <button className="btn btn-success " onClick={handleSearch}>
             Search
           </button>
         </div>

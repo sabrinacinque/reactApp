@@ -6,11 +6,10 @@ import "./SidebarDX.css";
 
 export default function SidebarDX({ tasks }) {
   return (
-    <aside className="sidebar-dx p-3 vh-100">
+    <aside className="sidebar-dx h-100 d-flex flex-column">
       <RecentSessions />
       <h6 className="mt-4 text-secondary">Quick Stats</h6>
       <StatsPanel tasks={tasks} />
-      {/* …altre sezioni se serve */}
     </aside>
   );
 }

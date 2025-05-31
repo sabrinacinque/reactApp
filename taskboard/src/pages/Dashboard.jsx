@@ -1,53 +1,89 @@
+// src/pages/Dashboard.jsx
 import React, { useEffect } from "react";
-import Sidebar from "../MainComponent/Sidebar";
-import Board from "../components/Board";
+import Sidebar   from "../MainComponent/Sidebar";
+import Board     from "../components/Board";
 import SidebarDX from "../components/SidebarDX";
-import { useTasks } from "../hooks/useTasks";
+import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
+import { useTasks }            from "../hooks/useTasks";
 import { useTaskNotifications } from "../hooks/useTaskNotifications";
 import "./Dashboard.css";
 
 export default function Dashboard() {
-  // unico hook per tutti i task
   const { tasks, fetchAll, addTask, deleteTask, updateTask } = useTasks();
-  
-  // Hook per le notifiche dei nuovi task (solo per avviare il sistema)
   useTaskNotifications(tasks);
 
-  // carico all'avvio
   useEffect(() => {
     fetchAll();
   }, [fetchAll]);
 
-  // Polling ogni 30 secondi per controllare nuovi task
   useEffect(() => {
-    const interval = setInterval(() => {
-      console.log("🔄 Polling for new tasks...");
-      fetchAll();
-    }, 30000); // 30 secondi
-
+    const interval = setInterval(() => fetchAll(), 30000);
     return () => clearInterval(interval);
   }, [fetchAll]);
 
-  // Verifica se l'utente è ancora autenticato DOPO aver chiamato tutti gli hooks
-  const token = localStorage.getItem("token");
+  const token  = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
-  
-  // Se non c'è token o userId, non mostrare nulla
-  if (!token || !userId) {
-    return null;
-  }
+  if (!token || !userId) return null;
 
-  // Ordina i task dal più recente al meno recente
-  const sortedTasks = [...tasks].sort((a, b) => {
-    return new Date(b.insertDate) - new Date(a.insertDate);
-  });
+  const sortedTasks = [...tasks].sort(
+    (a, b) => new Date(b.insertDate) - new Date(a.insertDate)
+  );
 
   return (
-    <div className="d-flex vh-100">
-      <Sidebar />
+    <div className="dashboard-wrapper">
+      {/* ─────────────────────────── */}
+      {/* Sidebar sinistra fissa su ≥ lg */}
+      {/* Collapse su < lg (id="collapseSidebar") */}
+      {/* ─────────────────────────── */}
+      <div className="d-lg-none">
+        {/* Bottone fluttuante per aprire/chiudere la Collapse della Sidebar */}
+        <button
+          className="sidebar-toggle-btn toggle-left"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseSidebar"
+          aria-expanded="false"
+          aria-controls="collapseSidebar"
+        >
+          <FiChevronRight size={40} />
+        </button>
 
-      <div className="row d-flex justify-content-between flex-grow-1 vh-100">
-        <div className="col-10 px-0 vh-100 dashboard-background">
+        {/* Collapse che contiene la Sidebar (visibile solo su < lg) */}
+        <div className="collapse d-lg-none" id="collapseSidebar">
+          <Sidebar />
+        </div>
+      </div>
+
+      {/* Sidebar sinistra fissa (solo su ≥ lg) */}
+      <div className="d-none d-lg-block sidebar-static">
+        <Sidebar />
+      </div>
+
+      {/* ──────────────────────────────────────────── */}
+      {/* Contenuto principale + Sidebar destra         */}
+      {/* ──────────────────────────────────────────── */}
+      <div className="main-area">
+        <div className="d-lg-none">
+          {/* Bottone fluttuante per aprire/chiudere la Collapse di SidebarDX */}
+          <button
+            className="sidebar-toggle-btn toggle-right"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseSidebarDX"
+            aria-expanded="false"
+            aria-controls="collapseSidebarDX"
+          >
+            <FiChevronLeft size={40} />
+          </button>
+
+          {/* Collapse per SidebarDX su < lg */}
+          <div className="collapse d-lg-none" id="collapseSidebarDX">
+            <SidebarDX tasks={sortedTasks} />
+          </div>
+        </div>
+
+        {/* Contenuto centrale: Board (sempre visibile) */}
+        <div className="board-area">
           <Board
             tasks={sortedTasks}
             addTask={addTask}
@@ -56,9 +92,11 @@ export default function Dashboard() {
             refreshTasks={fetchAll}
           />
         </div>
-        <div className="col-2 overflow-auto px-0 vh-100">
-          <SidebarDX tasks={sortedTasks} />
-        </div>
+      </div>
+
+      {/* SidebarDX fissa (solo su ≥ lg) */}
+      <div className="d-none d-lg-block sideright-static">
+        <SidebarDX tasks={sortedTasks} />
       </div>
     </div>
   );

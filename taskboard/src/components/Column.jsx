@@ -15,7 +15,7 @@ export default function Column({
     : null;
 
   return (
-    <div className="col flex-shrink-0 bg-dark bg-opacity-50 rounded mx-2 vh-100 d-flex flex-column">
+    <div className="col bg-dark bg-opacity-50 rounded d-flex flex-column mt-2">
       <div className="column-header p-3">
         <h5 className="text-light text-capitalize text-center">{title}</h5>
 

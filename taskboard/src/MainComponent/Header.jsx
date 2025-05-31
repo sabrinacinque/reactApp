@@ -10,12 +10,12 @@ export default function Header() {
   return (
     <nav className="app-header navbar navbar-expand-lg ">
       <div className="container-fluid">
-         <NavLink to="/" className="navbar-brand d-flex align-items-center fs-2 ">
-         <FiMenu className="me-2"  /> TaskBoard
+         <NavLink to="/" className="navbar-brand d-flex align-items-center fs-2  ">
+         TaskBoard
         </NavLink>
 
         <button
-          className="navbar-toggler"
+          className="navbar-toggler bg-light "
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
