@@ -4,7 +4,6 @@ import AddTaskModal from "./AddTaskModal";
 import EditTaskModal from "./EditTaskModal";
 import Swal from "sweetalert2";
 
-
 const STATES = ["urgent", "this week", "incoming", "done"];
 
 export default function Board({
@@ -22,7 +21,7 @@ export default function Board({
   const handleAction = async (task, action) => {
     if (action === "delete") {
       const result = await Swal.fire({
-        title: `Delete “${task.title}”?`,
+        title: `Delete "${task.title}"?`,
         text: "This action cannot be undone.",
         icon: "warning",
         showCancelButton: true,
@@ -45,17 +44,21 @@ export default function Board({
 
   return (
     <>
-
-      <div className="row-cols-1 row-cols-sm-2 row-cols-lg-4 d-flex flex-column flex-sm-row gap-1">
-        {STATES.map(state => (
-          <Column
-            key={state}
-            title={state}
-            tasks={byState(state)}
-            onAdd={() => setAddState(state)}
-            onAction={handleAction}
-          />
-        ))}
+      {/* Grid responsive: 2x2 su mobile/tablet, 1x4 su desktop */}
+      <div className="container-fluid vh-100 p-2">
+        <div className="row g-2">
+          {STATES.map(state => (
+            <div key={state} className="col-12 col-sm-6 col-lg-3 d-flex flex-column">
+              <Column
+                title={state}
+                tasks={byState(state)}
+                onAdd={() => setAddState(state)}
+                onAction={handleAction}
+                isCollapsible={true}
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       {addState && (
