@@ -1,6 +1,4 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useState } from 'react';
-import { MessageCircle } from 'lucide-react';
 
 import Header        from './MainComponent/Header';
 import PrivateRoute  from './MainComponent/PrivateRoute';
@@ -14,12 +12,9 @@ import ProjectsPage from "./pages/ProjectsPage.jsx";
 import ProjectDetailPage from "./pages/ProjectDetailPage.jsx";
 import HelpPage from './pages/HelpPage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
-import Chatbox from './components/Chatbox';
+import GlobalChatbox from './components/GlobalChatbox';
 
 export default function App() {
-  const [showChat, setShowChat] = useState(false);
-  const toggleChat = () => setShowChat((prev) => !prev);
-
   return (
     <BrowserRouter>
       <Header />
@@ -45,21 +40,8 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
-      {/* Pulsante flottante globale per la chatbox */}
-      <button
-        onClick={toggleChat}
-        className="btn btn-dark position-fixed bottom-0 end-0 m-4 d-flex align-items-center justify-content-center border border-3 rounded-5"
-        style={{ zIndex: 1000 }}
-      >
-        <MessageCircle size={30} color="white" />
-      </button>
-
       {/* Chatbox globale */}
-      {showChat && (
-        <div className="position-fixed bottom-0 end-0 me-5 mb-5" style={{ zIndex: 999 }}>
-          <Chatbox onClose={toggleChat} />
-        </div>
-      )}
+      <GlobalChatbox />
     </BrowserRouter>
   );
 }

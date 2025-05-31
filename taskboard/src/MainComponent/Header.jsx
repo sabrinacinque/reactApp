@@ -1,21 +1,23 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { FiMenu } from 'react-icons/fi';
-import { useAuth } from '../hooks/useAuth';
-import './Header.css';
+// src/components/Header.jsx
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import "./Header.css";
 
 export default function Header() {
   const { isLoggedIn } = useAuth();
 
   return (
-    <nav className="app-header navbar navbar-expand-lg ">
+    <nav className="app-header navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-         <NavLink to="/" className="navbar-brand d-flex align-items-center fs-2  ">
-         TaskBoard
+        {/* Brand a sinistra */}
+        <NavLink to="/" className="navbar-brand d-flex align-items-center fs-2">
+          TaskBoard
         </NavLink>
 
+        {/* Hamburger per mobile */}
         <button
-          className="navbar-toggler bg-light "
+          className="navbar-toggler border-0"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -27,27 +29,44 @@ export default function Header() {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarNav">
-          
           <ul className="navbar-nav ms-auto">
-            {/* voglio dire che se sono loggato , posso vedere anche la dashboard, altrimenti solo help e about us */}
             {isLoggedIn && (
-              <li className="nav-item ">
-                <NavLink to="/dashboard" className="btn btn-outline-light btn-sm ">Dashboard</NavLink>
+              <li className="nav-item">
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) =>
+                    "nav-link" + (isActive ? " active" : "")
+                  }
+                >
+                  Dashboard
+                </NavLink>
               </li>
-            )} : {(
-              
-              <>
-                <li className="nav-item mx-4">
-                  <NavLink to="/help" className="btn btn-outline-light btn-sm">Help</NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to="/about" className="btn btn-outline-light btn-sm">About us</NavLink>
-                </li>
-              </>
             )}
+
+            {/* Questi due link escono sempre, sia loggato sia non loggato */}
+            <li className="nav-item">
+              <NavLink
+                to="/help"
+                className={({ isActive }) =>
+                  "nav-link" + (isActive ? " active" : "")
+                }
+              >
+                Help
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
+                  "nav-link" + (isActive ? " active" : "")
+                }
+              >
+                About us
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
-);
+  );
 }
