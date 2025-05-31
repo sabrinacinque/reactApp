@@ -31,7 +31,7 @@ export default function Sidebar() {
 
   const handleLogout = async () => {
     const result = await Swal.fire({
-      title: "Vuoi davvero uscire?",
+      title: "Do you really want to logout?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -55,7 +55,7 @@ export default function Sidebar() {
       localStorage.removeItem("avatar");
 
       await Swal.fire({
-        title: "Logout effettuato",
+        title: "Logout successfully",
         icon: "success",
         timer: 1500,
         showConfirmButton: false,
@@ -65,7 +65,7 @@ export default function Sidebar() {
       window.location.reload();
     } catch (err) {
       console.error(err);
-      Swal.fire("Errore", "Impossibile effettuare il logout.", "error");
+      Swal.fire("Errore", "Impossible to logout.", "error");
     }
   };
 

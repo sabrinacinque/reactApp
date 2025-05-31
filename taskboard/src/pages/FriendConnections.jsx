@@ -1,3 +1,4 @@
+// src/components/FriendConnections.jsx
 import React, { useState } from "react";
 import { useFriends } from "../hooks/useFriends";
 import { useTasks } from "../hooks/useTasks";
@@ -9,12 +10,13 @@ export default function FriendConnections() {
   const {
     incoming,
     outgoing,
-    connections,
+    connections,       // qui ogni elemento ha anche `friendRequestId`
     foundUser,
     searchError,
     searchByEmail,
     sendRequest,
-    respond
+    respond,
+    handleRemoveFriend // prende la funzione dallo hook
   } = useFriends();
 
   const { addTask, fetchAll: refreshTasks } = useTasks();
@@ -31,11 +33,48 @@ export default function FriendConnections() {
     await sendRequest(foundUser.id);
     await Swal.fire({
       title: "Request sent!",
-      text: `You sent a task to ${foundUser.username}.`,
+      text: `You sent a request to ${foundUser.username}.`,
       icon: "success",
       timer: 1500,
       showConfirmButton: false
     });
+  };
+
+  // Questa funzione mostra il popup di conferma e poi chiama handleRemoveFriend
+  const confirmRemoveFriend = async (conn) => {
+    // conn è un oggetto { id, username, email, friendRequestId }
+    const result = await Swal.fire({
+      title: "Remove Friend?",
+      text: `Are you sure you want to remove ${conn.username} from your connections?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, remove",
+      cancelButtonText: "Cancel"
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      // chiamo la funzione dallo hook passando friendRequestId
+      await handleRemoveFriend(conn.friendRequestId);
+
+      await Swal.fire({
+        title: "Removed!",
+        text: `${conn.username} has been removed from your connections.`,
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false
+      });
+    } catch (err) {
+      console.error("Remove friend failed:", err);
+      await Swal.fire({
+        title: "Error",
+        text: "Failed to remove friend. Please try again.",
+        icon: "error"
+      });
+    }
   };
 
   const relationStatus = () => {
@@ -48,7 +87,6 @@ export default function FriendConnections() {
 
   const openSendTaskModal = user => setSendTo(user);
 
-  // Riceve dal modal un oggetto { title, description, state, insertDate, previousEndDate, recipientId }
   const handleSendTask = async payload => {
     try {
       await addTask(payload);
@@ -64,7 +102,8 @@ export default function FriendConnections() {
     <div className="container-fluid background text-white vh-100 p-3 p-md-4 overflow-y-scroll">
       <div className="pt-3 pt-md-5">
         <h2 className="mb-4">Find & Connect</h2>
-        
+
+        {/* -- Ricerca utente -- */}
         <div className="row mb-4">
           <div className="col-12 col-md-8 col-lg-6">
             <div className="input-group">
@@ -84,6 +123,7 @@ export default function FriendConnections() {
 
         {searchError && <div className="alert alert-danger">{searchError}</div>}
 
+        {/* -- Utente trovato -- */}
         {foundUser && (
           <div className="card mb-4 bg-dark text-white border-secondary" style={{ maxWidth: '400px' }}>
             <div className="card-body">
@@ -112,6 +152,7 @@ export default function FriendConnections() {
           </div>
         )}
 
+        {/* -- Incoming Requests -- */}
         <h2 className="my-4">Incoming Requests</h2>
         {incoming.length === 0 ? (
           <p className="pb-4">No pending requests.</p>
@@ -146,25 +187,34 @@ export default function FriendConnections() {
 
         <hr className="my-4" />
 
+        {/* -- Lista Connessioni (amici) -- */}
         <h2 className="my-4">Your Connections</h2>
         {connections.length === 0 ? (
           <p>You have no connections yet.</p>
         ) : (
           <ul className="list-group">
-            {connections.map(user => (
+            {connections.map(conn => (
               <li
-                key={user.id}
+                key={conn.id}
                 className="list-group-item bg-dark bg-opacity-25 text-white border-0 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center"
               >
                 <span className="mb-2 mb-sm-0">
-                  {user.username} ({user.email})
+                  {conn.username} ({conn.email})
                 </span>
-                <button
-                  className="btn btn-sm btn-outline-primary"
-                  onClick={() => openSendTaskModal(user)}
-                >
-                  Send Task
-                </button>
+                <div className="d-flex gap-2">
+                  <button
+                    className="btn btn-sm btn-outline-primary"
+                    onClick={() => openSendTaskModal(conn)}
+                  >
+                    Send Task
+                  </button>
+                  <button
+                    className="btn btn-sm btn-outline-danger"
+                    onClick={() => confirmRemoveFriend(conn)}
+                  >
+                    Remove
+                  </button>
+                </div>
               </li>
             ))}
           </ul>

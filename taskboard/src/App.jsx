@@ -48,14 +48,14 @@ export default function App() {
 
               {/* fallback */}
               <Route path="*" element={<Navigate to="/" replace />} />
+              
             </Routes>
+             {/* Chatbox globale */}
+             <GlobalChatbox /> 
           </main>
         </div>
 
         <Footer />
-
-        {/* Chatbox globale */}
-        <GlobalChatbox />
       </div>
     </BrowserRouter>
   );

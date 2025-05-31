@@ -4,9 +4,10 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 export function useFriends() {
   const [incoming, setIncoming]       = useState([]); // richieste in arrivo
   const [outgoing, setOutgoing]       = useState([]); // richieste inviate
-  const [connections, setConnections] = useState([]);
+  const [connections, setConnections] = useState([]); // array di { id, username, email, friendRequestId }
   const [foundUser, setFoundUser]     = useState(null);
   const [searchError, setSearchError] = useState("");
+
   const token = localStorage.getItem("token");
   const meId  = Number(localStorage.getItem("userId"));
 
@@ -15,34 +16,59 @@ export function useFriends() {
     "Content-Type":  "application/json"
   }), [token]);
 
-  // 1) fetch incoming
+  // 1) fetch incoming (richieste in arrivo)
   const fetchIncoming = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/v1/friends/pending", { headers: authHeaders });
-      if (res.ok) setIncoming(await res.json());
+      const res = await fetch("http://localhost:8080/api/v1/friends/pending", {
+        headers: authHeaders
+      });
+      if (res.ok) {
+        setIncoming(await res.json());
+      }
     } catch (err) {
       console.error("fetchIncoming failed:", err);
     }
   }, [authHeaders]);
 
-  // 2) fetch outgoing
+  // 2) fetch outgoing (richieste inviate)
   const fetchOutgoing = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/v1/friends/outgoing", { headers: authHeaders });
-      if (res.ok) setOutgoing(await res.json());
+      const res = await fetch("http://localhost:8080/api/v1/friends/outgoing", {
+        headers: authHeaders
+      });
+      if (res.ok) {
+        setOutgoing(await res.json());
+      }
     } catch (err) {
       console.error("fetchOutgoing failed:", err);
     }
   }, [authHeaders]);
 
-  // 3) fetch connections
+  // 3) fetch connections (amicizie accettate)
   const fetchConnections = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/v1/friends/connections", { headers: authHeaders });
+      const res = await fetch("http://localhost:8080/api/v1/friends/connections", {
+        headers: authHeaders
+      });
       if (!res.ok) return;
-      const frs = await res.json();
-      const peers = frs.map(fr => fr.requester.id === meId ? fr.target : fr.requester);
-      const unique = peers.filter((u, i) => peers.findIndex(p => p.id === u.id) === i);
+      const frs = await res.json(); // array di FriendRequest
+
+      // 3.a) mappo ciascuna FriendRequest in { user: {...}, friendRequestId: fr.id }
+      const peersWithRequestId = frs.map(fr => {
+        const peer = fr.requester.id === meId ? fr.target : fr.requester;
+        return {
+          id: peer.id,
+          username: peer.username,
+          email: peer.email,
+          friendRequestId: fr.id
+        };
+      });
+
+      // 3.b) deduplica per user.id
+      const unique = peersWithRequestId.filter((u, i) =>
+        peersWithRequestId.findIndex(p => p.id === u.id) === i
+      );
+
       setConnections(unique);
     } catch (err) {
       console.error("fetchConnections failed:", err);
@@ -88,7 +114,7 @@ export function useFriends() {
     }
   }, [authHeaders, fetchOutgoing]);
 
-  // 6) respond
+  // 6) respond to incoming request
   const respond = useCallback(async (requestId, accept) => {
     await fetch(
       `http://localhost:8080/api/v1/friends/${requestId}/respond?accept=${accept}`,
@@ -98,7 +124,25 @@ export function useFriends() {
     await fetchConnections();
   }, [authHeaders, fetchIncoming, fetchConnections]);
 
-  // inizializza
+  // 7) remove friend (DELETE di una FriendRequest già accettata)
+  const handleRemoveFriend = useCallback(async requestId => {
+    try {
+      const res = await fetch(`http://localhost:8080/api/v1/friends/${requestId}`, {
+        method: "DELETE",
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      if (res.ok) {
+        // dopo aver eliminato, ricarica le connessioni
+        await fetchConnections();
+      } else {
+        console.error("removeFriend API returned", res.status);
+      }
+    } catch (err) {
+      console.error("removeFriend failed:", err);
+    }
+  }, [token, fetchConnections]);
+
+  // inizializza i tre fetch all’avvio
   useEffect(() => {
     fetchIncoming();
     fetchOutgoing();
@@ -108,11 +152,12 @@ export function useFriends() {
   return {
     incoming,
     outgoing,
-    connections,
+    connections,      // qui ora ogni elemento è { id, username, email, friendRequestId }
     foundUser,
     searchError,
     searchByEmail,
     sendRequest,
-    respond
+    respond,
+    handleRemoveFriend
   };
 }
