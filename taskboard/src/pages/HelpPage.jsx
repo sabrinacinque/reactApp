@@ -4,10 +4,10 @@ import Sidebar from '../MainComponent/Sidebar';
 
 export default function HelpPage() {
   return (
-    <div className="d-flex background">
-        <Sidebar />
+    <div className="d-flex background vh-100">
+  
       
-      <div className="container py-5">
+      <div className="container py-5 overflow-y-scroll">
         <div className="row justify-content-center">
           <div className="col-lg-8">
             <div className="text-center mb-5">

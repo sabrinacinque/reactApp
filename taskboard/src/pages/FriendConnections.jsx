@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import Sidebar from "../MainComponent/Sidebar";
 import { useFriends } from "../hooks/useFriends";
-import { useTasks }   from "../hooks/useTasks";
-import AddTaskModal   from "../components/AddTaskModal";
-import Swal           from "sweetalert2";
+import { useTasks } from "../hooks/useTasks";
+import AddTaskModal from "../components/AddTaskModal";
+import Swal from "sweetalert2";
 import "./FriendConnections.css";
 
 export default function FriendConnections() {
@@ -21,7 +20,7 @@ export default function FriendConnections() {
   const { addTask, fetchAll: refreshTasks } = useTasks();
 
   const [emailToSearch, setEmail] = useState("");
-  const [sendTo,       setSendTo] = useState(null);
+  const [sendTo, setSendTo] = useState(null);
 
   const handleSearch = () => {
     if (!emailToSearch) return;
@@ -53,10 +52,8 @@ export default function FriendConnections() {
   const handleSendTask = async payload => {
     try {
       await addTask(payload);
-
     } catch (err) {
       console.error("addTask failed:", err);
-
     } finally {
       setSendTo(null);
       refreshTasks();
@@ -64,53 +61,58 @@ export default function FriendConnections() {
   };
 
   return (
-    <div className="page-layout d-flex vh-100">
-      <Sidebar />
-
-      <div className="row flex-grow-1 p-4 background text-white pt-5">
-        <h2>Find & Connect</h2>
-        <div className="col d-flex flex-column flex-md-row input-group mb-4 my-5 ">
-          <input
-            type="email"
-            className="form-control rounded-2 mb-2 py-0"
-            placeholder="User email"
-            value={emailToSearch}
-            onChange={e => setEmail(e.target.value)}
-          />
-          <button className="btn btn-success " onClick={handleSearch}>
-            Search
-          </button>
+    <div className="container-fluid background text-white vh-100 p-3 p-md-4 overflow-y-scroll">
+      <div className="pt-3 pt-md-5">
+        <h2 className="mb-4">Find & Connect</h2>
+        
+        <div className="row mb-4">
+          <div className="col-12 col-md-8 col-lg-6">
+            <div className="input-group">
+              <input
+                type="email"
+                className="form-control"
+                placeholder="User email"
+                value={emailToSearch}
+                onChange={e => setEmail(e.target.value)}
+              />
+              <button className="btn btn-success" onClick={handleSearch}>
+                Search
+              </button>
+            </div>
+          </div>
         </div>
 
-        {searchError && <div className="text-danger mb-3">{searchError}</div>}
+        {searchError && <div className="alert alert-danger">{searchError}</div>}
 
         {foundUser && (
-          <div className="card mb-4 p-3 w-25 bg-dark text-white">
-            <h5 className="card-title">User Found</h5>
-            <p>
-              <strong>{foundUser.username}</strong> ({foundUser.email})
-            </p>
+          <div className="card mb-4 bg-dark text-white border-secondary" style={{ maxWidth: '400px' }}>
+            <div className="card-body">
+              <h5 className="card-title">User Found</h5>
+              <p className="card-text">
+                <strong>{foundUser.username}</strong> ({foundUser.email})
+              </p>
 
-            {relationStatus() === "none" && (
-              <button className="btn btn-success" onClick={handleSendRequest}>
-                Send Connection Request
-              </button>
-            )}
-            {relationStatus() === "pending_out" && (
-              <button className="btn btn-warning" disabled>
-                Request pending
-              </button>
-            )}
-            {relationStatus() === "pending_in" && (
-              <span className="text-info">They asked to connect</span>
-            )}
-            {relationStatus() === "connected" && (
-              <span className="text-success">You are connected</span>
-            )}
+              {relationStatus() === "none" && (
+                <button className="btn btn-success" onClick={handleSendRequest}>
+                  Send Connection Request
+                </button>
+              )}
+              {relationStatus() === "pending_out" && (
+                <button className="btn btn-warning" disabled>
+                  Request pending
+                </button>
+              )}
+              {relationStatus() === "pending_in" && (
+                <span className="text-info">They asked to connect</span>
+              )}
+              {relationStatus() === "connected" && (
+                <span className="text-success">You are connected</span>
+              )}
+            </div>
           </div>
         )}
 
-        <h2 className="my-5">Incoming Requests</h2>
+        <h2 className="my-4">Incoming Requests</h2>
         {incoming.length === 0 ? (
           <p className="pb-4">No pending requests.</p>
         ) : (
@@ -118,20 +120,20 @@ export default function FriendConnections() {
             {incoming.map(req => (
               <li
                 key={req.id}
-                className="list-group-item d-flex justify-content-between align-items-center bg-dark bg-opacity-25 text-white fs-5 py-3 border-0 border-bottom"
+                className="list-group-item d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center bg-dark bg-opacity-25 text-white border-0 border-bottom py-3"
               >
-                <span>
+                <span className="mb-2 mb-sm-0">
                   <strong>{req.requester.username}</strong> wants to connect
                 </span>
-                <div>
+                <div className="d-flex gap-2">
                   <button
-                    className="btn btn-sm btn-outline-success fs-4 fw-bold me-2"
+                    className="btn btn-sm btn-outline-success"
                     onClick={() => respond(req.id, true)}
                   >
                     Accept
                   </button>
                   <button
-                    className="btn btn-sm btn-outline-danger fs-4 fw-bold"
+                    className="btn btn-sm btn-outline-danger"
                     onClick={() => respond(req.id, false)}
                   >
                     Reject
@@ -142,9 +144,9 @@ export default function FriendConnections() {
           </ul>
         )}
 
-        <hr />
+        <hr className="my-4" />
 
-        <h2 className="my-5">Your Connections</h2>
+        <h2 className="my-4">Your Connections</h2>
         {connections.length === 0 ? (
           <p>You have no connections yet.</p>
         ) : (
@@ -152,9 +154,9 @@ export default function FriendConnections() {
             {connections.map(user => (
               <li
                 key={user.id}
-                className="list-group-item bg-dark bg-opacity-25 text-white border-0 d-flex justify-content-between align-items-center"
+                className="list-group-item bg-dark bg-opacity-25 text-white border-0 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center"
               >
-                <span>
+                <span className="mb-2 mb-sm-0">
                   {user.username} ({user.email})
                 </span>
                 <button
@@ -173,7 +175,7 @@ export default function FriendConnections() {
         <AddTaskModal
           show
           state="incoming"
-          recipientId={sendTo.id}       
+          recipientId={sendTo.id}
           onClose={() => setSendTo(null)}
           onSave={handleSendTask}
         />

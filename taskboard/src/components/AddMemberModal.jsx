@@ -26,8 +26,8 @@ export default function AddMemberModal({
     const dup = selectedIds.filter(id => existingMembers.includes(id));
     if (dup.length > 0) {
       await Swal.fire(
-        "Attenzione",
-        "Alcuni membri selezionati sono già nel progetto",
+        "Attention please",
+        "Member could be already in the project",
         "warning"
       );
       return;
@@ -63,7 +63,7 @@ export default function AddMemberModal({
                       >
                         <span>
                           {u.username} ({u.email}){" "}
-                          {already && <em>(già aggiunto)</em>}
+                          {already && <em>(added already)</em>}
                         </span>
                         <input
                           type="checkbox"

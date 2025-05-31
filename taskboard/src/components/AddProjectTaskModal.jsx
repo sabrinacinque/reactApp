@@ -33,17 +33,17 @@ export default function AddProjectTaskModal({
       if (editingTask) {
         // Modalità editing - passa l'ID del task
         await onSave({ id: editingTask.id, description, recipientId });
-        await Swal.fire("Updated!", "Task aggiornato con successo.", "success");
+        await Swal.fire("Updated!", "Task updated successfully.", "success");
       } else {
         // Modalità creazione
         await onSave({ description, recipientId });
-        await Swal.fire("Added!", "Task creato con successo.", "success");
+        await Swal.fire("Added!", "Task created successfully.", "success");
       }
       setDescription("");
       onClose();
     } catch (err) {
-      console.error("Errore in AddProjectTaskModal:", err);
-      await Swal.fire("Error", `Impossibile ${editingTask ? 'aggiornare' : 'aggiungere'} il task.`, "error");
+      console.error("Error in AddProjectTaskModal:", err);
+      await Swal.fire("Error", `Impossible ${editingTask ? 'update' : 'add'} task.`, "error");
     }
   };
 

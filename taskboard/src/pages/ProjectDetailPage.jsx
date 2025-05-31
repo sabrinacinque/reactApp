@@ -5,7 +5,7 @@ import { useTasks } from "../hooks/useTasks";
 import { useFriends } from "../hooks/useFriends";
 import AddMemberModal from "../components/AddMemberModal";
 import AddProjectTaskModal from "../components/AddProjectTaskModal";
-import Sidebar from "../MainComponent/Sidebar";
+
 
 export default function ProjectDetailPage() {
   const { id } = useParams();
@@ -26,9 +26,13 @@ export default function ProjectDetailPage() {
   useEffect(() => {
     console.log("🔄 Refreshing tasks for project:", id);
     refreshTasks();
-  }, [refreshTasks,id]);
+  }, [refreshTasks, id]);
 
-  if (!project) return <p>Loading…</p>;
+  if (!project) return (
+    <div className="d-flex justify-content-center align-items-center min-vh-100">
+      <p className="text-white">Loading…</p>
+    </div>
+  );
 
   const isAdmin = project.members.some(
     (m) => m.user.id === currentUserId && m.role === "ADMIN"
@@ -56,97 +60,102 @@ export default function ProjectDetailPage() {
   };
 
   return (
-    <div className="page-layout d-flex vh-100">
-      <Sidebar />
-
-      <div className="flex-grow-1 p-4 background text-white pt-5">
-        <h1>Title : {project.name}</h1>
-        <p>
-          Date creating project : {new Date(project.startDate).toLocaleString()}
-          <br />
-          Date ending project : {new Date(project.endDate).toLocaleString()}
-        </p>
+    <div className="container-fluid background text-white min-vh-100 p-3 p-md-4">
+      <div className="pt-3 pt-md-5">
+        <h1 className="h2 h1-md mb-3">Title: {project.name}</h1>
+        <div className="mb-4">
+          <p className="mb-2">
+            <strong>Date creating project:</strong> {new Date(project.startDate).toLocaleString()}
+          </p>
+          <p className="mb-2">
+            <strong>Date ending project:</strong> {new Date(project.endDate).toLocaleString()}
+          </p>
+        </div>
         
-        <h3>Description : {project.description}</h3>
+        <h3 className="h4 h3-md mb-4">Description: {project.description}</h3>
 
-        <h4>Members</h4>
-        {isAdmin && (
-          <button
-            className="btn btn-sm btn-primary mb-3 me-2"
-            onClick={() => setAddingMember(true)}
-          >
-            + Add Member
-          </button>
-        )}
-        {isAdmin && (
-          <button
-            className="btn btn-sm btn-success mb-3"
-            onClick={() => setAddingTask(true)}
-          >
-            + Add Task
-          </button>
-        )}
-        <ul className="list-group mb-4">
-          {project.members.map((m) => {
-            const isSelf = m.user.id === currentUserId;
-            return (
-              <li
-                key={m.id}
-                className="list-group-item d-flex justify-content-between align-items-center bg-dark bg-opacity-25 text-white"
+        <div className="mb-4">
+          <h4 className="h5 h4-md mb-3">Members</h4>
+          {isAdmin && (
+            <div className="mb-3 d-flex flex-column flex-sm-row gap-2">
+              <button
+                className="btn btn-sm btn-primary"
+                onClick={() => setAddingMember(true)}
               >
-                <span>
-                  {m.user.username} ({m.user.email}) —{" "}
-                  {m.role === "ADMIN" ? (
-                    <em className="text-warning">Admin</em>
-                  ) : (
-                    <em className="text-secondary">Member</em>
+                + Add Member
+              </button>
+              <button
+                className="btn btn-sm btn-success"
+                onClick={() => setAddingTask(true)}
+              >
+                + Add Task
+              </button>
+            </div>
+          )}
+          <ul className="list-group mb-4">
+            {project.members.map((m) => {
+              const isSelf = m.user.id === currentUserId;
+              return (
+                <li
+                  key={m.id}
+                  className="list-group-item d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center bg-dark bg-opacity-25 text-white"
+                >
+                  <span className="mb-2 mb-sm-0">
+                    {m.user.username} ({m.user.email}) —{" "}
+                    {m.role === "ADMIN" ? (
+                      <em className="text-warning">Admin</em>
+                    ) : (
+                      <em className="text-secondary">Member</em>
+                    )}
+                  </span>
+                  {isAdmin && !isSelf && (
+                    <button
+                      className="btn btn-sm btn-danger"
+                      onClick={async () => {
+                        await removeMember(m.user.id);
+                        refresh();
+                      }}
+                    >
+                      Remove
+                    </button>
                   )}
-                </span>
-                {isAdmin && !isSelf && (
-                  <button
-                    className="btn btn-sm btn-danger"
-                    onClick={async () => {
-                      await removeMember(m.user.id);
-                      refresh();
-                    }}
-                  >
-                    Remove
-                  </button>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-
-        <h4>Project Tasks ({projectTasks?.length || 0})</h4>
-        {projectTasks?.length === 0 ? (
-          <p className="text-muted">No tasks found for this project.</p>
-        ) : (
-          <ul className="list-group">
-            {projectTasks.map((task) => (
-              <li
-                key={task.id}
-                className="list-group-item d-flex align-items-center bg-dark bg-opacity-25 text-white"
-              >
-                <span className="flex-grow-1 fs-4">
-                  {task.description} 
-                  <small className="d-block text-white">
-                    State: {task.state} | Assigned to: <span class="text-success">{task.recipientUsername || task.user?.username || 'Unassigned'}</span>
-                  </small>
-                </span>
-                {isAdmin && (
-                  <button
-                    className="btn btn-sm btn-outline-light ms-2"
-                    onClick={() => setEditingTask(task)}
-                    title="Edit task"
-                  >
-                    ✏️
-                  </button>
-                )}
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
-        )}
+        </div>
+
+        <div>
+          <h4 className="h5 h4-md mb-3">Project Tasks ({projectTasks?.length || 0})</h4>
+          {projectTasks?.length === 0 ? (
+            <p className="text-muted">No tasks found for this project.</p>
+          ) : (
+            <ul className="list-group">
+              {projectTasks.map((task) => (
+                <li
+                  key={task.id}
+                  className="list-group-item d-flex flex-column flex-sm-row align-items-start align-items-sm-center bg-dark bg-opacity-25 text-white"
+                >
+                  <span className="flex-grow-1 mb-2 mb-sm-0">
+                    <div className="fs-5 fs-md-4">{task.description}</div>
+                    <small className="d-block text-white">
+                      State: {task.state} | Assigned to: <span className="text-success">{task.recipientUsername || task.user?.username || 'Unassigned'}</span>
+                    </small>
+                  </span>
+                  {isAdmin && (
+                    <button
+                      className="btn btn-sm btn-outline-light ms-sm-2"
+                      onClick={() => setEditingTask(task)}
+                      title="Edit task"
+                    >
+                      ✏️
+                    </button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
 
       {isAdmin && addingMember && (
@@ -174,6 +183,7 @@ export default function ProjectDetailPage() {
           onSave={handleTaskSave}
         />
       )}
+
     </div>
   );
 }

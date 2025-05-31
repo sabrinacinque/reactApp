@@ -5,7 +5,7 @@ import Sidebar from "../MainComponent/Sidebar";
 export default function AboutPage() {
   return (
     <div className="d-flex background vh-100">
-      <Sidebar />
+     
 
       <div className="container overflow-scroll mt-4 ">
         <div className="row justify-content-center">
