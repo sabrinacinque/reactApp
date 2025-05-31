@@ -70,7 +70,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="sidebar h-100 d-flex flex-column">
+    <aside className="sidebar vh-100 d-flex flex-column py-5">
       <nav className="nav flex-column px-3 fs-5">
         <NavLink end to="/" className="nav-link d-flex align-items-center mb-2">
           <FiHome className="me-2" /> Home
