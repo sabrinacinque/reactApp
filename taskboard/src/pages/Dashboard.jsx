@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import Sidebar   from "../MainComponent/Sidebar";
 import Board     from "../components/Board";
 import SidebarDX from "../components/SidebarDX";
-import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
+import { FiChevronsRight, FiChevronsLeft } from "react-icons/fi";
 import { useTasks }            from "../hooks/useTasks";
 import { useTaskNotifications } from "../hooks/useTaskNotifications";
 import "./Dashboard.css";
@@ -45,7 +45,7 @@ export default function Dashboard() {
           aria-expanded="false"
           aria-controls="collapseSidebar"
         >
-          <FiChevronRight size={40} />
+          <FiChevronsRight size={40} />
         </button>
 
         {/* Collapse che contiene la Sidebar (visibile solo su < lg) */}
@@ -73,7 +73,7 @@ export default function Dashboard() {
             aria-expanded="false"
             aria-controls="collapseSidebarDX"
           >
-            <FiChevronLeft size={40} />
+            <FiChevronsLeft size={40} />
           </button>
 
           {/* Collapse per SidebarDX su < lg */}
