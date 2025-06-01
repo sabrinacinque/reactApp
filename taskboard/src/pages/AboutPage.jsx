@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Sidebar from "../MainComponent/Sidebar";
 
 export default function AboutPage() {
   return (

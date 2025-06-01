@@ -15,6 +15,7 @@ import AboutPage from './pages/AboutPage.jsx';
 import GlobalChatbox from './components/GlobalChatbox';
 import Footer from './MainComponent/Footer';
 import SidebarWrapper from './MainComponent/SidebarWrapper.jsx';
+import ContactPage from './pages/ContactPage.jsx';
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
               <Route path="/reset-password" element={<ResetPasswordPage />} />
               <Route path="/help" element={<HelpPage />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
 
               {/* protette */}
               <Route element={<PrivateRoute />}>

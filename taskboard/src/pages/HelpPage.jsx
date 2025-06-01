@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../MainComponent/Header';
-import Sidebar from '../MainComponent/Sidebar';
+import { Link } from 'react-router-dom';
+
 
 export default function HelpPage() {
   return (
@@ -68,7 +68,10 @@ export default function HelpPage() {
                   <p className="card-text mb-3">
                     Can't find what you're looking for? Contact our support team for personalized assistance.
                   </p>
-                  <button className="btn btn-success">Contact Support</button>
+                   <Link to="/contact" className="btn btn-success me-3">
+                      Contact Support
+                   </Link>
+
                 </div>
               </div>
             </div>
