@@ -83,7 +83,7 @@ export default function ResetPasswordPage() {
 
   return (
     <div className="page-layout d-flex">
-      <Sidebar />
+ 
 
       <div className="hero-background flex-grow-1 d-flex justify-content-center align-items-center">
         <div className="login-card col-10 col-md-8 col-lg-4 p-5">

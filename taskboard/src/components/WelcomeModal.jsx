@@ -4,6 +4,7 @@ import { MessageCircle } from "lucide-react";
 
 export default function WelcomeModal({ isOpen, onClose, username }) {
   const [dontShowAgain, setDontShowAgain] = useState(false);
+  const logoDino = "../../public/images/robot.png";
 
   const handleClose = () => {
     if (dontShowAgain) {
@@ -52,9 +53,10 @@ export default function WelcomeModal({ isOpen, onClose, username }) {
           <div className="mb-4">
             <div
               className="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle bg-primary"
-              style={{ width: "80px", height: "80px" }}
+              style={{ width: "100px", height: "100px" }}
+              
             >
-              <MessageCircle size={40} color="white" />
+              <img src={logoDino} alt="logo robot dino" style={{ width: "80px", height: "80px" }}/>
             </div>
             <h3 className="text-primary mb-2">Hi {username}! 👋</h3>
             <h4 className="h5 text-light">I'm Dino, your AI assistant!</h4>

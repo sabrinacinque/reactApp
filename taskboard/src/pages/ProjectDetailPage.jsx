@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useProject } from "../hooks/useProjects";
 import { useTasks } from "../hooks/useTasks";
 import { useFriends } from "../hooks/useFriends";
@@ -62,6 +62,10 @@ export default function ProjectDetailPage() {
   return (
     <div className="container-fluid background text-white min-vh-100 p-3 p-md-4">
       <div className="pt-3 pt-md-5">
+        <div className="mb-5 text-center">
+             <Link to="/projects" >&larr; Back to Projects List</Link>
+        </div>
+        
         <h1 className="h2 h1-md mb-3">Title: {project.name}</h1>
         <div className="mb-4">
           <p className="mb-2">
@@ -183,6 +187,8 @@ export default function ProjectDetailPage() {
           onSave={handleTaskSave}
         />
       )}
+
+      
 
     </div>
   );
