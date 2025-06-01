@@ -17,14 +17,17 @@ export default function ChangeAvatarModal({ show, onClose, onUpdated }) {
 
   useEffect(() => {
     if (!show) return;
-    fetch(`http://localhost:8080/api/v1/users/${userId}/avatar`)
-      .then(r => r.ok ? r.json() : null)
+    // Legge l’avatar corrente dal backend, se esiste
+    fetch(`http://localhost:8080/api/v1/users/${userId}/avatar`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(r => (r.ok ? r.json() : null))
       .then(data => {
         if (data?.avatarUrl) {
           setChoice(data.avatarUrl);
         }
       });
-  }, [show, userId]);
+  }, [show, userId, token]);
 
   if (!show) return null;
 
@@ -41,13 +44,19 @@ export default function ChangeAvatarModal({ show, onClose, onUpdated }) {
       }
     );
     if (res.ok) {
-      Swal.fire("Success", "Avatar updated", "success");
+      Swal.fire("Successo", "Avatar aggiornato", "success");
+      // 1) Aggiorna il localStorage
       localStorage.setItem("avatar", choice);
+      // 2) Chiudi il modal
       onClose();
-      onUpdated(choice);
-      
+      // 3) Notifica chi ascolta che l’avatar è cambiato
+      window.dispatchEvent(new Event("avatarChanged"));
+      // 4) Avvisa il genitore (SettingsPage) se serve
+      if (typeof onUpdated === "function") {
+        onUpdated(choice);
+      }
     } else {
-      Swal.fire("Error", "Could not update avatar", "error");
+      Swal.fire("Errore", "Impossibile aggiornare avatar", "error");
     }
   };
 
@@ -57,7 +66,7 @@ export default function ChangeAvatarModal({ show, onClose, onUpdated }) {
       <div className="modal fade show" style={{ display: "block" }} tabIndex="-1">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content bg-dark text-white p-4 border">
-            <h5 className="mb-3">Choose your avatar</h5>
+            <h5 className="mb-3">Scegli il tuo avatar</h5>
             <div className="d-flex flex-wrap gap-4">
               {AVATAR_OPTIONS.map(option => {
                 const { key, Icon } = option;
@@ -85,10 +94,10 @@ export default function ChangeAvatarModal({ show, onClose, onUpdated }) {
             </div>
             <div className="mt-4 text-end">
               <button className="btn btn-secondary me-2" onClick={onClose}>
-                Cancel
+                Annulla
               </button>
               <button className="btn btn-primary" onClick={handleSave}>
-                Save
+                Salva
               </button>
             </div>
           </div>

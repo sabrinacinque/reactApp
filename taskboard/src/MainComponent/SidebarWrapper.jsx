@@ -1,18 +1,41 @@
-import React, { useState } from 'react';
-import { ChevronsRight, ChevronsLeft } from 'lucide-react';
-import Sidebar from './Sidebar.jsx';
+// src/MainComponent/SidebarWrapper.jsx
+import React, { useState, useEffect } from "react";
+import { ChevronsRight, ChevronsLeft } from "lucide-react";
+import Sidebar from "./Sidebar.jsx";
 
 export default function SidebarWrapper() {
+  // 1) avatarKey forzerà il remount di <Sidebar> quando cambia
+  const [avatarKey, setAvatarKey] = useState(
+    localStorage.getItem("avatar") || ""
+  );
+
+  // 2) stato per mostrare/nascondere la sidebar su mobile
   const [leftSidebarOpen, setLeftSidebarOpen] = useState(false);
 
+  // 3) toggle per aprire/chiudere sidebar su mobile
   const toggleLeftSidebar = () => {
     setLeftSidebarOpen(!leftSidebarOpen);
   };
 
+  // 4) ascolta l’evento “avatarChanged” per riallineare avatarKey
+  useEffect(() => {
+    const onAvatarChanged = () => {
+      const newKey = localStorage.getItem("avatar") || "";
+      setAvatarKey(newKey);
+    };
+    window.addEventListener("avatarChanged", onAvatarChanged);
+    return () => {
+      window.removeEventListener("avatarChanged", onAvatarChanged);
+    };
+  }, []);
+
   return (
     <>
-      {/* Toggle button per mobile/tablet */}
+      {/* ─────────────────────────── */}
+      {/* Mobile / Tablet View: toggleable sidebar */}
+      {/* ─────────────────────────── */}
       <div className="d-lg-none">
+        {/* Bottone fluttuante per aprire/chiudere */}
         <button
           className="btn btn-outline-secondary position-fixed top-50 start-0 translate-middle-y ms-2 bg-dark border border-3 rounded-5"
           type="button"
@@ -26,33 +49,39 @@ export default function SidebarWrapper() {
           )}
         </button>
 
-        {/* Sidebar collassabile su mobile/tablet */}
-        <div 
-          className={`position-fixed top-0 h-100 bg-white shadow ${leftSidebarOpen ? 'start-0' : ''}`}
+        
+        <div
+          className="position-fixed top-0 h-100 bg-white shadow"
           style={{
-            left: leftSidebarOpen ? 0 : '-300px',
-            width: '300px',
+            left: leftSidebarOpen ? 0 : "-300px",
+            width: "300px",
             zIndex: 1040,
-            transition: 'left 0.3s ease-in-out',
-            marginTop: '60px' // per non sovrapporsi all'header
+            transition: "left 0.3s ease-in-out",
+            marginTop: "60px" // lascia spazio al header
           }}
         >
-          <Sidebar />
+          <div key={avatarKey} className="h-100">
+            <Sidebar />
+          </div>
         </div>
 
-        {/* Overlay per chiudere sidebar su mobile */}
+        {/* Overlay che copre il resto e chiude la sidebar quando cliccato */}
         {leftSidebarOpen && (
-          <div 
+          <div
             className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50"
-            style={{ zIndex: 1035, marginTop: '60px' }}
+            style={{ zIndex: 1035, marginTop: "60px" }}
             onClick={toggleLeftSidebar}
           ></div>
         )}
       </div>
 
-      {/* Sidebar fissa su desktop */}
-      <div className="d-none d-lg-block vh-100" style={{ width: '300px' }}>
-        <Sidebar />
+      {/* ─────────────────────────── */}
+      {/* Desktop View: sidebar sempre visibile */}
+      {/* ─────────────────────────── */}
+      <div className="d-none d-lg-block vh-100" style={{ width: "300px" }}>
+        <div key={avatarKey} className="h-100">
+          <Sidebar />
+        </div>
       </div>
     </>
   );
