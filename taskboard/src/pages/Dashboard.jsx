@@ -53,7 +53,7 @@ export default function Dashboard() {
       </div>
 
       {/* Sidebar destra - solo su mobile/tablet ha il toggle */}
-      <div className="d-lg-none">
+      <div className="d-xl-none">
         <button
           className="btn btn-outline-secondary position-fixed top-50 end-0 translate-middle-y me-2 bg-dark border border-3 rounded-5 me-3 "
           type="button"
@@ -92,7 +92,7 @@ export default function Dashboard() {
       </div>
 
       {/* Sidebar destra fissa su desktop */}
-      <div className="d-none d-lg-block" style={{ width: '300px' }}>
+      <div className="d-none d-xl-block" style={{ width: '300px' }}>
         <SidebarDX tasks={sortedTasks} />
       </div>
     </div>

@@ -36,7 +36,7 @@ export default function Sidebar() {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Sì, esci",
+      confirmButtonText: "Yes",
     });
     if (!result.isConfirmed) return;
 

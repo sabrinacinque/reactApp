@@ -1,5 +1,7 @@
 // src/components/FriendConnections.jsx
 import React, { useState } from "react";
+import { FiTrash2, FiPhone } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 import { useFriends } from "../hooks/useFriends";
 import { useTasks } from "../hooks/useTasks";
 import AddTaskModal from "../components/AddTaskModal";
@@ -10,13 +12,13 @@ export default function FriendConnections() {
   const {
     incoming,
     outgoing,
-    connections,       // qui ogni elemento ha anche `friendRequestId`
+    connections,       // qui ogni elemento deve avere `friendRequestId` e `number`
     foundUser,
     searchError,
     searchByEmail,
     sendRequest,
     respond,
-    handleRemoveFriend // prende la funzione dallo hook
+    handleRemoveFriend // funzione fornita dallo hook
   } = useFriends();
 
   const { addTask, fetchAll: refreshTasks } = useTasks();
@@ -42,7 +44,7 @@ export default function FriendConnections() {
 
   // Questa funzione mostra il popup di conferma e poi chiama handleRemoveFriend
   const confirmRemoveFriend = async (conn) => {
-    // conn è un oggetto { id, username, email, friendRequestId }
+    // `conn` è un oggetto { id, username, email, number, friendRequestId }
     const result = await Swal.fire({
       title: "Remove Friend?",
       text: `Are you sure you want to remove ${conn.username} from your connections?`,
@@ -193,30 +195,61 @@ export default function FriendConnections() {
           <p>You have no connections yet.</p>
         ) : (
           <ul className="list-group">
-            {connections.map(conn => (
-              <li
-                key={conn.id}
-                className="list-group-item bg-dark bg-opacity-25 text-white border-0 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center"
-              >
-                <span className="mb-2 mb-sm-0">
-                  {conn.username} ({conn.email})
-                </span>
-                <div className="d-flex gap-2">
-                  <button
-                    className="btn btn-sm btn-outline-primary"
-                    onClick={() => openSendTaskModal(conn)}
-                  >
-                    Send Task
-                  </button>
-                  <button
-                    className="btn btn-sm btn-outline-danger"
-                    onClick={() => confirmRemoveFriend(conn)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              </li>
-            ))}
+            {connections.map(conn => {
+              // conn.number contiene il numero di telefono come "+39..."
+              const phoneNumber = conn.number || "";
+              const plainNumber  = phoneNumber.replace(/\D/g, "");
+
+              return (
+                <li
+                  key={conn.id}
+                  className="list-group-item bg-dark bg-opacity-25 text-white border-0 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center"
+                >
+                  <div className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center w-100">
+                    <span className="me-3 mb-2 mb-sm-0">
+                      {conn.username} ({conn.email})
+                    </span>
+
+                    {/* Se esiste un numero di telefono, mostro le icone */}
+                    {phoneNumber && (
+                      <div className="d-flex gap-2 mb-2 mb-sm-0">
+                        <a
+                          href={`tel:${phoneNumber}`}
+                          className="text-decoration-none text-danger"
+                          title={`Call ${conn.username}`}
+                        >
+                          <FiPhone size={20} />
+                        </a>
+                        <a
+                          href={`https://wa.me/${plainNumber}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-decoration-none text-success"
+                          title={`WhatsApp ${conn.username}`}
+                        >
+                          <FaWhatsapp size={20} />
+                        </a>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="d-flex gap-2">
+                    <button
+                      className="btn btn-sm btn-outline-primary"
+                      onClick={() => openSendTaskModal(conn)}
+                    >
+                      Send Task
+                    </button>
+                    <button
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={() => confirmRemoveFriend(conn)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>

@@ -60,6 +60,7 @@ export function useFriends() {
           id: peer.id,
           username: peer.username,
           email: peer.email,
+          number:peer.number,
           friendRequestId: fr.id
         };
       });

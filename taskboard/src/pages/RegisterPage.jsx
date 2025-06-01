@@ -3,10 +3,10 @@ import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export default function RegisterPage() {
-  const [type, setType] = useState("STANDARD");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [number, setNumber] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export default function RegisterPage() {
       const res = await fetch("http://localhost:8080/api/v1/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type, username, email, password, active: true }),
+        body: JSON.stringify({ username, email, password, active: true ,number}),
       });
       const body = await res.json();
 
@@ -56,19 +56,6 @@ export default function RegisterPage() {
               <h2 className="text-white text-center mb-4 fs-3 fw-bold">Sign up</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <select
-                    className="form-select form-select-lg bg-dark text-white border-0 rounded-3"
-                    value={type}
-                    onChange={(e) => setType(e.target.value)}
-                    required
-                    style={{ backgroundColor: '#0f1c25 !important' }}
-                  >
-                    <option value="STANDARD">Standard</option>
-                    <option value="ADMIN">Admin</option>
-                  </select>
-                </div>
-
-                <div className="mb-3">
                   <input
                     type="text"
                     className="form-control form-control-lg bg-dark text-white border-0 rounded-3"
@@ -87,6 +74,17 @@ export default function RegisterPage() {
                     placeholder="Email address"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
+                    style={{ backgroundColor: '#0f1c25 !important' }}
+                  />
+                </div>
+                                <div className="mb-3">
+                  <input
+                    type="text"
+                    className="form-control form-control-lg bg-dark text-white border-0 rounded-3"
+                    placeholder="Phone Number"
+                    value={number}
+                    onChange={(e) => setNumber(e.target.value)}
                     required
                     style={{ backgroundColor: '#0f1c25 !important' }}
                   />
