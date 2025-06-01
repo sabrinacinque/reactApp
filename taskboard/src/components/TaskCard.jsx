@@ -12,10 +12,11 @@ const STATE_COLORS = {
 };
 
 export default function TaskCard({ task, onAction, isNewest = false }) {
-  // Se c'è un numero di telefono nel DTO, lo prendo
-  const phoneNumber = task.creatorNumber || "";
-  // Rimuovo tutti i caratteri non numerici per il link whatsapp
-  const plainNumber = phoneNumber.replace(/\D/g, "");
+  const raw = task.creatorNumber || "";            // e.g. "3311234567"
+const withPrefix = raw.startsWith("+") 
+  ? raw 
+  : "+39" + raw.replace(/\D/g, "");               // ottieni "+393311234567"
+const plainNumber = withPrefix.replace(/\D/g, ""); // ottieni "393311234567"
 
   return (
     <div
@@ -45,11 +46,11 @@ export default function TaskCard({ task, onAction, isNewest = false }) {
             <span className="me-2 small text-danger fw-bold">
               From: <strong>{task.creatorUsername}</strong>
             </span>
-            {phoneNumber && (
+            {plainNumber && (
               <div className="d-flex gap-3">
                 {/* Icona Telefono */}
                 <a
-                  href={`tel:${phoneNumber}`}
+                  href={`tel:${plainNumber}`}
                   className="text-decoration-none text-danger"
                   title={`Call ${task.creatorUsername}`}
                 >

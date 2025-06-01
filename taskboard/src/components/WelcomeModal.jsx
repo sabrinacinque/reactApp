@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { MessageCircle, X, ArrowDown, ArrowRight } from 'lucide-react';
+// src/components/WelcomeModal.jsx
+import React, { useState } from "react";
+import { MessageCircle } from "lucide-react";
 
 export default function WelcomeModal({ isOpen, onClose, username }) {
   const [dontShowAgain, setDontShowAgain] = useState(false);
 
   const handleClose = () => {
     if (dontShowAgain) {
-      localStorage.setItem('hideWelcomeModal', 'true');
+      localStorage.setItem("hideWelcomeModal", "true");
     }
     onClose();
   };
@@ -14,23 +15,44 @@ export default function WelcomeModal({ isOpen, onClose, username }) {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay d-flex justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100" style={{ zIndex: 1060, backgroundColor: 'rgba(0,0,0,0.8)' }}>
-      <div className="modal-content bg-dark text-white rounded-4 shadow-lg position-relative" style={{ maxWidth: '500px', width: '90%', maxHeight: '90vh', overflow: 'auto' }}>
-        {/* Close button */}
+    <div
+      className="modal-overlay d-flex justify-content-center align-items-center"
+      // l’overlay deve occupare l’intera finestra:
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "rgba(0,0,0,0.8)",
+        zIndex: 1060
+      }}
+    >
+      <div
+        className="modal-content bg-dark text-white rounded-4 shadow-lg position-relative"
+        style={{
+          maxWidth: "500px",
+          width: "90%",
+          maxHeight: "90vh",
+          overflowY: "auto",
+          zIndex: 1061
+        }}
+      >
+        {/* Bottone di chiusura (X) */}
         <button
           type="button"
           className="btn-close btn-close-white position-absolute top-0 end-0 m-3"
           onClick={handleClose}
-          style={{ zIndex: 1061 }}
+          style={{ zIndex: 1062 }}
         ></button>
 
-        {/* Modal content */}
+        {/*  Contenuto interno del modal */}
         <div className="p-4 text-center">
-          {/* Robot Avatar */}
+          {/* Avatar “robot” */}
           <div className="mb-4">
-            <div 
+            <div
               className="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle bg-primary"
-              style={{ width: '80px', height: '80px' }}
+              style={{ width: "80px", height: "80px" }}
             >
               <MessageCircle size={40} color="white" />
             </div>
@@ -38,12 +60,13 @@ export default function WelcomeModal({ isOpen, onClose, username }) {
             <h4 className="h5 text-light">I'm Dino, your AI assistant!</h4>
           </div>
 
-          {/* Welcome message */}
+          {/* Testo di benvenuto */}
           <div className="mb-4">
             <p className="text-light mb-3">
-              Welcome to your Task Dashboard! I'm here to help you manage your projects and answer any questions you might have.
+              Welcome to your Task Dashboard! I'm here to help you manage your
+              projects and answer any questions you might have.
             </p>
-            
+
             <div className="bg-secondary rounded-3 p-3 mb-3">
               <p className="mb-2 text-light">
                 <strong>Here's what I can help you with:</strong>
@@ -56,23 +79,22 @@ export default function WelcomeModal({ isOpen, onClose, username }) {
               </ul>
             </div>
 
-            {/* Chatbox indicator with arrow */}
+            {/* Indicazione per la chatbox */}
             <div className="d-flex align-items-center justify-content-center mb-3">
-              <p className="mb-0 me-2 text-light">
-                You can find me in the chatbox
-              </p>
-              <ArrowDown className="text-primary" size={24} />
-              <ArrowRight className="text-primary ms-1" size={24} />
+              <p className="mb-0 me-2 text-light">You can find me in the chatbox</p>
+              <span className="text-primary fs-4">⌄</span>
             </div>
 
             <div className="d-flex align-items-center justify-content-center">
               <MessageCircle size={24} className="text-primary me-2" />
-              <small className="text-muted">Click the chat button in the bottom right corner</small>
+              <small className="text-muted">
+                Click the chat button in the bottom right corner
+              </small>
             </div>
           </div>
 
-          {/* Don't show again checkbox */}
-          <div className="form-check mb-4">
+          {/* Checkbox “Don't show again” */}
+          <div className="form-check mb-4 text-start px-3">
             <input
               className="form-check-input"
               type="checkbox"
@@ -85,8 +107,8 @@ export default function WelcomeModal({ isOpen, onClose, username }) {
             </label>
           </div>
 
-          {/* Action buttons */}
-          <div className="d-flex gap-2 justify-content-center">
+          {/* Pulsanti di azione */}
+          <div className="d-flex gap-2 justify-content-center pb-4">
             <button
               type="button"
               className="btn btn-outline-light"
@@ -99,9 +121,9 @@ export default function WelcomeModal({ isOpen, onClose, username }) {
               className="btn btn-primary"
               onClick={() => {
                 handleClose();
-                // Simulate opening chatbox after a short delay
+                // Simula l’apertura della chatbox dopo mezzo secondo
                 setTimeout(() => {
-                  const chatButton = document.querySelector('[data-chat-button]');
+                  const chatButton = document.querySelector("[data-chat-button]");
                   if (chatButton) {
                     chatButton.click();
                   }

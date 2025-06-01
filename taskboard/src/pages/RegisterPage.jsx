@@ -1,6 +1,8 @@
+// src/pages/RegisterPage.jsx
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import "./RegisterPage.css"; // <-- Assicurati che questo import punti al file qui sotto
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
@@ -25,7 +27,13 @@ export default function RegisterPage() {
       const res = await fetch("http://localhost:8080/api/v1/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password, active: true ,number}),
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+          active: true,
+          number,
+        }),
       });
       const body = await res.json();
 
@@ -52,10 +60,11 @@ export default function RegisterPage() {
       <div className="container-fluid px-3">
         <div className="row justify-content-center">
           <div className="col-12 col-md-6 col-xxl-4">
-            <div className="bg-dark bg-opacity-75 rounded-3 p-4 p-md-5 shadow">
-              <h2 className="text-white text-center mb-4 fs-3 fw-bold">Sign up</h2>
+            <div className="register-card bg-dark bg-opacity-75 p-4 p-md-5">
+              <h2 className="card-title">Sign up</h2>
               <form onSubmit={handleSubmit}>
-                <div className="mb-3">
+                {/* Username */}
+                <div className="form-group mb-3">
                   <input
                     type="text"
                     className="form-control form-control-lg bg-dark text-white border-0 rounded-3"
@@ -63,11 +72,11 @@ export default function RegisterPage() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
-                    style={{ backgroundColor: '#0f1c25 !important' }}
                   />
                 </div>
 
-                <div className="mb-3">
+                {/* Email */}
+                <div className="form-group mb-3">
                   <input
                     type="email"
                     className="form-control form-control-lg bg-dark text-white border-0 rounded-3"
@@ -75,22 +84,25 @@ export default function RegisterPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    style={{ backgroundColor: '#0f1c25 !important' }}
                   />
                 </div>
-                                <div className="mb-3">
+
+                {/* Phone Number */}
+                <div className="form-group mb-3">
                   <input
                     type="text"
                     className="form-control form-control-lg bg-dark text-white border-0 rounded-3"
                     placeholder="Phone Number"
                     value={number}
-                    onChange={(e) => setNumber(e.target.value)}
+                    onChange={(e) =>
+                      setNumber(e.target.value.replace(/\D/g, ""))
+                    }
                     required
-                    style={{ backgroundColor: '#0f1c25 !important' }}
                   />
                 </div>
 
-                <div className="mb-3">
+                {/* Password */}
+                <div className="form-group mb-3">
                   <input
                     type="password"
                     className="form-control form-control-lg bg-dark text-white border-0 rounded-3"
@@ -98,11 +110,11 @@ export default function RegisterPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    style={{ backgroundColor: '#0f1c25 !important' }}
                   />
                 </div>
 
-                <div className="mb-3">
+                {/* Confirm Password */}
+                <div className="form-group mb-3">
                   <input
                     type="password"
                     className="form-control form-control-lg bg-dark text-white border-0 rounded-3"
@@ -110,19 +122,28 @@ export default function RegisterPage() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
-                    style={{ backgroundColor: '#0f1c25 !important' }}
                   />
                 </div>
 
-                {error && <div className="alert alert-danger text-center py-2 mb-3 small">{error}</div>}
+                {error && (
+                  <div className="error-text alert alert-danger text-center py-2 mb-3 small">
+                    {error}
+                  </div>
+                )}
 
-                <button type="submit" className="btn btn-primary w-100 btn-lg py-2 mb-3">
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100 btn-lg py-2 mb-3"
+                >
                   Sign up
                 </button>
               </form>
 
-              <p className="text-center text-white mb-0">
-                Already have an account? <Link to="/login" className="text-primary text-decoration-none">Log in</Link>
+              <p className="alt-text text-center mb-0 text-white">
+                Already have an account?{" "}
+                <Link to="/login" className="text-primary text-decoration-none">
+                  Login
+                </Link>
               </p>
             </div>
           </div>
